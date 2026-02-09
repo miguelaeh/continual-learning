@@ -85,8 +85,9 @@ def train_step(
     """Single training step. Returns the loss."""
     input_ids = batch["input_ids"].to(device)
     labels = batch["labels"].to(device)
+    token_type_ids = torch.zeros_like(input_ids)
 
-    outputs = model(input_ids=input_ids, labels=labels)
+    outputs = model(input_ids=input_ids, labels=labels, token_type_ids=token_type_ids)
     return outputs.loss
 
 

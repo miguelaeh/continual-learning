@@ -79,9 +79,10 @@ def continual_learning_step(
 
     input_ids = batch["input_ids"].to(device)
     labels = batch["labels"].to(device)
+    token_type_ids = torch.zeros_like(input_ids)
 
     # Forward pass
-    outputs = model(input_ids=input_ids, labels=labels)
+    outputs = model(input_ids=input_ids, labels=labels, token_type_ids=token_type_ids)
     loss = outputs.loss
 
     # Collect access counts from all memory layers

@@ -77,9 +77,10 @@ class IDFCollector:
 
             input_ids = batch["input_ids"].to(self.device)
             attention_mask = torch.ones_like(input_ids)
+            token_type_ids = torch.zeros_like(input_ids)
 
             # Forward pass to trigger memory access
-            self.model(input_ids=input_ids, attention_mask=attention_mask)
+            self.model(input_ids=input_ids, attention_mask=attention_mask, token_type_ids=token_type_ids)
 
             # Collect accessed indices from all memory layers
             all_indices = []

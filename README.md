@@ -387,7 +387,13 @@ Converts a list of text passages into a `torch.utils.data.Dataset` for training.
 ## Installation
 
 ```bash
-pip install -r requirements.txt
+pip install -e .
+```
+
+This installs the project in editable mode so that `src` is importable from anywhere. If you skip this step and just run `pip install -r requirements.txt`, you'll get:
+
+```
+ModuleNotFoundError: No module named 'src'
 ```
 
 **Requirements:**
