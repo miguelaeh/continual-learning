@@ -69,6 +69,29 @@ class SharedMemoryStore(nn.Module):
             mean=0,
             std=1.0 / math.sqrt(self.v_dim),
         )
+        # EmbeddingBag per_sample_weights backward is not implemented for bf16
+        # on CUDA, so values must stay in float32
+        self.values.weight.data = self.values.weight.data.float()
+
+    def _apply(self, fn, recurse=True):
+        """Override _apply to keep EmbeddingBag values in float32.
+
+        When model.to(dtype=bfloat16) is called, this prevents the values
+        from being cast away from float32 (required for backward on CUDA).
+        Device changes are still applied normally.
+        """
+        # Apply to all sub-modules except values
+        for module in self.children():
+            if module is not self.values:
+                module._apply(fn, recurse)
+
+        # For the values module: apply the function but force weight back to float32
+        self.values._apply(fn, recurse)
+        if self.values.weight.dtype != torch.float32:
+            self.values.weight.data = self.values.weight.data.float()
+
+        # Apply to own parameters (non-recursive) - there are none besides children
+        return self
 
     def lookup(
         self, query: torch.Tensor
@@ -99,11 +122,14 @@ class SharedMemoryStore(nn.Module):
             output: (batch, v_dim) - weighted sum of retrieved values
         """
         B, HK = indices.shape
+        input_dtype = scores.dtype
 
         # EmbeddingBag expects: indices (total,), per_sample_weights (total,),
         # offsets marking sample boundaries
         flat_indices = indices.reshape(-1)  # (B * HK,)
-        flat_weights = scores.reshape(-1).to(self.values.weight.dtype)  # (B * HK,)
+        # EmbeddingBag per_sample_weights backward is not implemented for bf16
+        # on CUDA, so always compute in float32
+        flat_weights = scores.reshape(-1).float()  # (B * HK,)
 
         offsets = torch.arange(
             0, B * HK, HK, device=indices.device, dtype=torch.long
@@ -112,5 +138,5 @@ class SharedMemoryStore(nn.Module):
         output = self.values(
             flat_indices, per_sample_weights=flat_weights, offsets=offsets
         )
-        # output: (B, v_dim)
-        return output
+        # output: (B, v_dim) in float32, cast back to model dtype
+        return output.to(input_dtype)
