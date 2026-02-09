@@ -1,0 +1,27 @@
+memory:
+  num_heads: 4
+  top_k: 32
+  n_keys: 1024
+  k_dim_per_head: 512
+  v_dim: 1024
+  memory_layers: [9, 17, 25]
+  use_silu_gating: true
+
+continual:
+  base_model: "google/gemma-3-4b-it"
+  memory_checkpoint: "checkpoints/pretrain/memory_layers.pt"
+  idf_statistics_path: "checkpoints/idf_statistics.pt"
+  top_t: 500
+  optimizer: "sgd"
+  learning_rate: 2.0
+  momentum: 0.0
+  batch_size: 64
+  seq_length: 512
+  dtype: "bfloat16"
+  dataset: ""  # set to your continual learning task dataset
+  checkpoint_dir: "checkpoints/continual"
+  save_every_steps: 500
+  log_every_steps: 10
+  eval_every_steps: 100
+  total_steps: 5000
+  seed: 42

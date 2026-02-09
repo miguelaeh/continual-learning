@@ -1,0 +1,22 @@
+# Mac-friendly config for IDF collection
+
+memory:
+  num_heads: 4
+  top_k: 32
+  n_keys: 256
+  k_dim_per_head: 512
+  v_dim: 1024
+  memory_layers: [9, 17, 25]
+  use_silu_gating: true
+
+collection:
+  base_model: "google/gemma-3-4b-it"
+  memory_checkpoint: "checkpoints/pretrain/memory_layers.pt"
+  num_background_batches: 10     # fewer batches for speed - use 200
+  batch_size: 1
+  seq_length: 1024
+  dtype: "float32"
+  dataset: "HuggingFaceFW/fineweb-edu"
+  dataset_subset: "default"
+  output_path: "checkpoints/idf_statistics.pt"
+  seed: 42

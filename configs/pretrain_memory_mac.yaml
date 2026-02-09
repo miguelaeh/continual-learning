@@ -1,0 +1,32 @@
+# Mac-friendly config (24GB unified memory)
+# Uses n_keys=256 (65K entries instead of 1M) to fit in memory.
+# Good for validating the full pipeline. Scale up to n_keys=1024
+# on a cloud GPU for production quality.
+
+memory:
+  num_heads: 4
+  top_k: 32
+  n_keys: 256              # 256^2 = 65,536 entries (vs 1M in full config)
+  k_dim_per_head: 512
+  v_dim: 1024
+  memory_layers: [9, 17, 25]
+  use_silu_gating: true
+
+pretrain:
+  base_model: "google/gemma-3-4b-it"
+  learning_rate: 1.0e-4
+  value_learning_rate: 1.0e-3
+  warmup_steps: 500
+  total_steps: 1         # shorter for local dev
+  batch_size: 1             # minimal batch size
+  gradient_accumulation_steps: 8
+  seq_length: 1024          # shorter sequences
+  weight_decay: 0.1
+  gradient_clip: 1.0
+  dtype: "float32"          # MPS works best with float32
+  dataset: "HuggingFaceFW/fineweb-edu"
+  dataset_subset: "default"
+  checkpoint_dir: "checkpoints/pretrain"
+  save_every_steps: 1000
+  log_every_steps: 10
+  seed: 42

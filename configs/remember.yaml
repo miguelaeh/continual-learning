@@ -1,0 +1,30 @@
+memory:
+  num_heads: 4
+  top_k: 32
+  n_keys: 1024
+  k_dim_per_head: 512
+  v_dim: 1024
+  memory_layers: [9, 17, 25]
+  use_silu_gating: true
+
+remember:
+  base_model: "google/gemma-3-4b-it"
+  memory_checkpoint: "checkpoints/pretrain/memory_layers.pt"
+  idf_statistics_path: "checkpoints/idf_statistics.pt"
+
+  # Fact extraction
+  extraction_backend: "api"  # "local" or "api"
+  api_base: "http://localhost:11434/v1"  # Ollama default
+  api_model: "gemma3:4b"
+  api_key: "ollama"
+  expand_facts: true  # expand facts into natural passages
+
+  # Sparse finetuning
+  top_t: 500
+  learning_rate: 2.0
+  momentum: 0.0
+  seq_length: 512
+  repeat_factor: 8  # repeat facts to get more gradient signal
+  finetuning_steps: 100  # steps per remember session
+  dtype: "bfloat16"
+  checkpoint_dir: "checkpoints/remembered"

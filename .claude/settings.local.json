@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:grok.com)",
+      "WebFetch(domain:jessylin.com)",
+      "WebFetch(domain:arxiv.org)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:ai.google.dev)",
+      "WebFetch(domain:dev.to)",
+      "WebFetch(domain:learnopencv.com)",
+      "WebFetch(domain:aiwithmike.substack.com)",
+      "WebFetch(domain:openreview.net)",
+      "WebFetch(domain:www.pragmatic.ml)",
+      "WebFetch(domain:www.emergentmind.com)",
+      "Bash(python3:*)",
+      "WebFetch(domain:apxml.com)",
+      "WebFetch(domain:namangoyal.com)",
+      "Bash(python -m pytest:*)",
+      "Bash(pip install:*)",
+      "Bash(python:*)"
+    ]
+  }
+}

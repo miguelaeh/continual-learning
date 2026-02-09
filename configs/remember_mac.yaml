@@ -1,0 +1,32 @@
+# Mac-friendly config for remember pipeline
+
+memory:
+  num_heads: 4
+  top_k: 32
+  n_keys: 256
+  k_dim_per_head: 512
+  v_dim: 1024
+  memory_layers: [9, 17, 25]
+  use_silu_gating: true
+
+remember:
+  base_model: "google/gemma-3-4b-it"
+  memory_checkpoint: "checkpoints/pretrain/memory_layers.pt"
+  idf_statistics_path: "checkpoints/idf_statistics.pt"
+
+  # Fact extraction via Ollama
+  extraction_backend: "api"
+  api_base: "http://localhost:11434/v1"
+  api_model: "gemma3:4b"
+  api_key: "ollama"
+  expand_facts: true
+
+  # Sparse finetuning
+  top_t: 200                # fewer slots (65K total vs 1M)
+  learning_rate: 2.0
+  momentum: 0.0
+  seq_length: 512
+  repeat_factor: 8
+  finetuning_steps: 1 # it can be set 100 for prod
+  dtype: "float32"
+  checkpoint_dir: "checkpoints/remembered"

@@ -1,0 +1,27 @@
+memory:
+  num_heads: 4
+  top_k: 32
+  n_keys: 1024
+  k_dim_per_head: 512
+  v_dim: 1024
+  memory_layers: [9, 17, 25]
+  use_silu_gating: true
+
+pretrain:
+  base_model: "google/gemma-3-4b-it"
+  learning_rate: 1.0e-4
+  value_learning_rate: 1.0e-3
+  warmup_steps: 4000
+  total_steps: 128000
+  batch_size: 8
+  gradient_accumulation_steps: 4
+  seq_length: 4096
+  weight_decay: 0.1
+  gradient_clip: 1.0
+  dtype: "bfloat16"
+  dataset: "HuggingFaceFW/fineweb-edu"
+  dataset_subset: "default"
+  checkpoint_dir: "checkpoints/pretrain"
+  save_every_steps: 5000
+  log_every_steps: 100
+  seed: 42
