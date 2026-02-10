@@ -63,6 +63,7 @@ def generate_response(
             temperature=temperature,
             do_sample=temperature > 0,
             top_p=0.9,
+            repetition_penalty=1.3,
             streamer=streamer,
         )
 
@@ -163,7 +164,7 @@ def main():
     )
     parser.add_argument(
         "--config",
-        default="configs/remember_mac.yaml",
+        default="configs/remember.yaml",
         help="Config file (for memory layer dimensions)",
     )
     parser.add_argument(

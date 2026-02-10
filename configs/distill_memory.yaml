@@ -7,12 +7,12 @@ memory:
   memory_layers: [9, 17, 25]
   use_silu_gating: true
 
-pretrain:
+distill:
   base_model: "google/gemma-3-4b-it"
-  learning_rate: 1.0e-4
-  value_learning_rate: 1.0e-3
-  warmup_steps: 200
-  total_steps: 2500
+  learning_rate: 1.0e-3       # 10x pretrain (direct MSE signal)
+  value_learning_rate: 1.0e-2  # 10x projection LR
+  warmup_steps: 100
+  total_steps: 2000           # ~64x shorter than pretrain
   batch_size: 2
   gradient_accumulation_steps: 16
   seq_length: 2048
@@ -21,7 +21,7 @@ pretrain:
   dtype: "bfloat16"
   dataset: "HuggingFaceFW/fineweb-edu"
   dataset_subset: "default"
-  checkpoint_dir: "checkpoints/pretrain"
+  checkpoint_dir: "checkpoints/distill"
   save_every_steps: 500
   log_every_steps: 50
   seed: 42

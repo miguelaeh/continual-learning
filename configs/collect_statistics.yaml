@@ -10,9 +10,9 @@ memory:
 collection:
   base_model: "google/gemma-3-4b-it"
   memory_checkpoint: "checkpoints/pretrain/memory_layers.pt"
-  num_background_batches: 1000
-  batch_size: 8
-  seq_length: 4096
+  num_background_batches: 100
+  batch_size: 2
+  seq_length: 2048
   dtype: "bfloat16"
   dataset: "HuggingFaceFW/fineweb-edu"
   dataset_subset: "default"

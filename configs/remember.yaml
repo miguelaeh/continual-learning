@@ -21,10 +21,10 @@ remember:
 
   # Sparse finetuning
   top_t: 500
-  learning_rate: 2.0
+  learning_rate: 0.5
   momentum: 0.0
   seq_length: 512
   repeat_factor: 8  # repeat facts to get more gradient signal
-  finetuning_steps: 100  # steps per remember session
+  finetuning_steps: 50  # steps per remember session
   dtype: "bfloat16"
   checkpoint_dir: "checkpoints/remembered"

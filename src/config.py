@@ -93,6 +93,29 @@ class ContinualLearningConfig:
     seed: int = 42
 
 
+@dataclass
+class DistillConfig:
+    """Configuration for distillation-based memory layer initialization."""
+
+    base_model: str = "google/gemma-3-4b-it"
+    learning_rate: float = 1e-3  # 10x pretrain (direct signal allows higher LR)
+    value_learning_rate: float = 1e-2  # 10x projection LR
+    warmup_steps: int = 100
+    total_steps: int = 2000  # ~64x shorter than pretrain
+    batch_size: int = 2
+    gradient_accumulation_steps: int = 16
+    seq_length: int = 2048
+    weight_decay: float = 0.1
+    gradient_clip: float = 1.0
+    dtype: str = "bfloat16"
+    dataset: str = "HuggingFaceFW/fineweb-edu"
+    dataset_subset: str = "default"
+    checkpoint_dir: str = "checkpoints/distill"
+    save_every_steps: int = 500
+    log_every_steps: int = 50
+    seed: int = 42
+
+
 def load_config(config_path: str) -> OmegaConf:
     """Load a YAML config file and return an OmegaConf DictConfig."""
     return OmegaConf.load(config_path)
@@ -128,3 +151,12 @@ def make_continual_config(
         **OmegaConf.to_container(cfg.continual, resolve=True)
     )
     return mem, cl
+
+
+def make_distill_config(
+    cfg: OmegaConf,
+) -> tuple[MemoryConfig, DistillConfig]:
+    """Extract MemoryConfig and DistillConfig from a loaded config."""
+    mem = make_memory_config(cfg)
+    distill = DistillConfig(**OmegaConf.to_container(cfg.distill, resolve=True))
+    return mem, distill
