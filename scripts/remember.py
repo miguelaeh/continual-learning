@@ -331,14 +331,8 @@ def main():
         rem_config.idf_statistics_path, map_location="cpu", weights_only=True
     )
 
-    # Freeze base model, keep all memory params trainable
-    # We use freeze_base_model (not freeze_for_continual_learning) because
-    # the remember step needs to update projections too — not just values.
-    # The paper's Phase 3 only unfreezes values because projections are
-    # well-trained after 128K pretrain steps. With distillation, projections
-    # learned to mimic the FFN but need adjustment to encode new facts.
-    from src.model.freeze_utils import freeze_base_model
-    freeze_base_model(model, memory_config)
+    # Freeze for continual learning
+    freeze_for_continual_learning(model, memory_config)
 
     steps = run_remember_finetuning(
         model=model,

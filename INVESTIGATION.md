@@ -1,7 +1,5 @@
 # Memory Layer Initialization Investigation
 
-> For better results, we can pre-train the memory layers instead of just distilling them, so the information is better organized and less compressed, enabling less forgetting and more sparsity. But we can do that only for models we know people want to use, given is reusable but expensive and very slow to train.
-
 ## Problem Statement
 
 The paper's Phase 1 pretrains memory layers by minimizing language modeling loss for 128,000 steps. The training signal is indirect: the memory layer output must propagate through multiple subsequent transformer layers and the LM head before producing a useful gradient.
@@ -145,48 +143,6 @@ The distilled checkpoint is directly compatible with Phase 2 (IDF collection) an
 | Text coherence | Degraded (repetition) | [TBD] | [TBD] |
 | Remember works? | No (collapses) | [TBD] | [TBD] |
 | Forgetting (NQ F1) | N/A | [TBD] | [TBD] |
-
-## Change: Unfreeze All Memory Params During Remember
-
-### Problem
-
-After distillation, the model generates coherent text (no repetition/garbage). However, the remember step fails to teach new facts — the model still says "I don't know your name" after training on "The user's name is Miguel".
-
-The paper's `freeze_for_continual_learning()` only unfreezes `shared_store.values.weight`:
-
-```python
-# freeze_utils.py — Phase 3 freezing
-shared_store.values.weight.requires_grad = True
-# Everything else frozen: query_proj, silu_proj, value_proj, keys
-```
-
-This makes sense for the paper's setup: after 128K pretrain steps, the projections are well-trained and know how to route information through the memory. Updating only the value embeddings (what's stored in each slot) is enough to encode new task knowledge.
-
-But with distillation, the projections learned to **mimic the original FFN**, not to **encode new information**. They reproduce the FFN's behavior faithfully, but they haven't developed the flexibility to route novel facts through the memory lookup and gating mechanism. Updating only the values doesn't help because the projections don't know how to read/write new knowledge to/from those slots.
-
-### Fix
-
-In `scripts/remember.py`, replaced `freeze_for_continual_learning()` with `freeze_base_model()`:
-
-```diff
--    # Freeze for continual learning
--    freeze_for_continual_learning(model, memory_config)
-+    # Freeze base model, keep all memory params trainable
-+    from src.model.freeze_utils import freeze_base_model
-+    freeze_base_model(model, memory_config)
-```
-
-This unfreezes all memory layer parameters during the remember step:
-- `query_proj`, `query_norm` — how the input is projected to key space
-- `silu_proj`, `value_proj` — the SiLU gating and output projection
-- `shared_store.keys` (K1, K2) — product key lookup parameters
-- `shared_store.values` — the actual memory slot values
-
-### Trade-off
-
-Unfreezing all memory params during remember means **more capacity to learn new facts**, but also **higher risk of forgetting** existing knowledge (since projections and keys can shift). For the paper's full continual learning benchmark (many sequential tasks), the values-only approach is safer. For our "remember a few facts" use case, the extra capacity is more important.
-
-If forgetting becomes a problem in practice, a middle ground would be to unfreeze values + value_proj only, keeping query routing (query_proj, keys) frozen.
 
 ## Conclusion
 
