@@ -1,5 +1,7 @@
 # Memory Layer Initialization Investigation
 
+> For better results, we can pre-train the memory layers instead of just distilling them, so the information is better organized and less compressed, enabling less forgetting and more sparsity. But we can do that only for models we know people want to use, given is reusable but expensive and very slow to train.
+
 ## Problem Statement
 
 The paper's Phase 1 pretrains memory layers by minimizing language modeling loss for 128,000 steps. The training signal is indirect: the memory layer output must propagate through multiple subsequent transformer layers and the LM head before producing a useful gradient.
