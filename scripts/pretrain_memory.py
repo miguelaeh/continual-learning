@@ -21,7 +21,12 @@ import torch
 from src.config import load_config, make_pretrain_config
 from src.data.datasets import create_pretrain_dataloader
 from src.model.freeze_utils import freeze_base_model
-from src.model.memory_gemma import inject_memory_layers, load_base_model, load_tokenizer
+from src.model.memory_gemma import (
+    inject_memory_layers,
+    load_base_model,
+    load_memory_checkpoint,
+    load_tokenizer,
+)
 from src.training.pretrain_trainer import pretrain_memory_layers
 from src.utils import get_device
 
@@ -40,6 +45,12 @@ def main():
         type=str,
         default="configs/pretrain_memory.yaml",
         help="Path to config file",
+    )
+    parser.add_argument(
+        "--memory-checkpoint",
+        type=str,
+        default=None,
+        help="Path to a distilled/previous memory checkpoint for warm-starting",
     )
     args = parser.parse_args()
 
@@ -69,6 +80,13 @@ def main():
 
     # Inject memory layers (automatically placed on same device/dtype as base model)
     model, shared_store = inject_memory_layers(model, memory_config)
+
+    # Warm-start: load distilled/previous checkpoint if specified
+    checkpoint_path = args.memory_checkpoint or train_config.memory_checkpoint
+    if checkpoint_path:
+        logger.info(f"Warm-starting from checkpoint: {checkpoint_path}")
+        step = load_memory_checkpoint(model, shared_store, memory_config, checkpoint_path)
+        logger.info(f"Loaded checkpoint (trained to step {step})")
 
     # Freeze base model, keep memory layers trainable
     freeze_base_model(model, memory_config)

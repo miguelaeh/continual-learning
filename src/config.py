@@ -52,6 +52,7 @@ class PretrainConfig:
     save_every_steps: int = 5000
     log_every_steps: int = 100
     seed: int = 42
+    memory_checkpoint: Optional[str] = None  # warm-start from distilled/previous checkpoint
 
 
 @dataclass
