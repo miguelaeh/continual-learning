@@ -255,10 +255,11 @@ def pretrain_memory_layers(
 
             # Logging
             if global_step % train_config.log_every_steps == 0:
+                avg_loss = accum_loss / train_config.log_every_steps
                 lr = scheduler.get_last_lr()[0]
                 logger.info(
                     f"Step {global_step}/{train_config.total_steps} | "
-                    f"Loss: {accum_loss:.4f} | LR: {lr:.2e}"
+                    f"Loss: {avg_loss:.4f} | LR: {lr:.2e}"
                 )
                 accum_loss = 0.0
 
