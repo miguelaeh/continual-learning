@@ -191,6 +191,12 @@ def main():
         default=None,
         help="Resume a specific stage from a training checkpoint (optimizer/scheduler restored)",
     )
+    parser.add_argument(
+        "--memory-checkpoint",
+        type=str,
+        default=None,
+        help="Warm-start the starting stage from a memory checkpoint (fresh optimizer/scheduler)",
+    )
     args = parser.parse_args()
 
     cfg = load_config(args.config)
@@ -205,16 +211,17 @@ def main():
     logger.info(f"Training stages: {stages}")
 
     # Run stages
-    prev_checkpoint = None
+    prev_checkpoint = args.memory_checkpoint
 
     for i, stage_layers in enumerate(stages):
         stage_num = i + 1
 
         if stage_num < args.start_stage:
             # Skip but set prev_checkpoint for the next stage
-            prev_checkpoint = (
-                f"{train_cfg['checkpoint_dir']}/stage{stage_num}/memory_layers.pt"
-            )
+            if not prev_checkpoint:
+                prev_checkpoint = (
+                    f"{train_cfg['checkpoint_dir']}/stage{stage_num}/memory_layers.pt"
+                )
             logger.info(f"Skipping stage {stage_num} (start-stage={args.start_stage})")
             continue
 
