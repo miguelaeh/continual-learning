@@ -3,7 +3,11 @@
 First try: small pre-training from scratch using dataset fineweb-edu. The model produces crap at the end of the outputs and does not learn after phase-3 (remember)
 Second try: tried doing distilation of the model instead of pre-training from scratch, and while the model ended up working well at the end, the memory layers were not learning properly. Most likely the issue was that the distillation didn't learn a proper distribution on the initially trained memory layers to effectively find the slots from the query projections. The loss funciton when training the memory never went below 13, which is crap.
 Third try: pre-train the memory layers starting from the distilled checkpoint. Within 500 steps it reaches a loss of around 4.13 which is more in the lines of something more or less ok. After collection and, running the remember script also seems to have a flat loss. It starts on 4.0016 and after 300 steps only reaches 3.99 so it is not learning during the remember phase. The issue is probably the same, we started from a distillation.
-Fourth try: pre-training the memory layers again from scratch but this time using the dclm-baseline dataset and training for 5000 steps (first try was 2500)
+Fourth try: pre-training the memory layers again from scratch but this time using the dclm-baseline dataset and training for 5000 steps (first try was 2500). It was looking good, but reached a plateau in a loss of 4.3 after 1400 steps.
+Fitgh try: using staged training of the layers. Injecting first the middle one, then the first and finally the last, to avoid the gradients to be noisy.
+
+what to try next:
+- Inject one learning layer at a time during training. From left to right, so that we avoid cascading gradient issue.
 
 
 > For better results, we can pre-train the memory layers instead of just distilling them, so the information is better organized and less compressed, enabling less forgetting and more sparsity. But we can do that only for models we know people want to use, given is reusable but expensive and very slow to train.

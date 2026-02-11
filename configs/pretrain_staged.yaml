@@ -1,0 +1,32 @@
+# Staged pretraining: train memory layers one at a time.
+# Stage 1: layer 17 only (middle, clean inputs from both sides)
+# Stage 2: layers 9 + 17 (layer 9 gets clean input from base, layer 17 already trained)
+# Stage 3: layers 9 + 17 + 25 (all trained, layer 25 gets good inputs)
+
+memory:
+  num_heads: 4
+  top_k: 32
+  n_keys: 1024
+  k_dim_per_head: 512
+  v_dim: 1024
+  memory_layers: [9, 17, 25]
+  use_silu_gating: true
+
+staged_pretrain:
+  base_model: "google/gemma-3-4b-it"
+  steps_per_stage: 1000
+  learning_rate: 1.0e-4
+  value_learning_rate: 1.0e-3
+  warmup_steps: 100
+  batch_size: 2
+  gradient_accumulation_steps: 8
+  seq_length: 2048
+  weight_decay: 0.1
+  gradient_clip: 1.0
+  dtype: "bfloat16"
+  dataset: "mlfoundations/dclm-baseline-1.0"
+  dataset_subset: "default"
+  checkpoint_dir: "checkpoints/pretrain_staged"
+  save_every_steps: 250
+  log_every_steps: 10
+  seed: 42
