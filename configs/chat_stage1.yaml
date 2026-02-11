@@ -1,0 +1,8 @@
+memory:
+  num_heads: 4
+  top_k: 32
+  n_keys: 1024
+  k_dim_per_head: 512
+  v_dim: 1024
+  memory_layers: [17]
+  use_silu_gating: true

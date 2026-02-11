@@ -14,10 +14,10 @@ memory:
 
 staged_pretrain:
   base_model: "google/gemma-3-4b-it"
-  steps_per_stage: 1000
+  steps_per_stage: 20000
   learning_rate: 1.0e-4
   value_learning_rate: 1.0e-3
-  warmup_steps: 100
+  warmup_steps: 500
   batch_size: 2
   gradient_accumulation_steps: 8
   seq_length: 2048

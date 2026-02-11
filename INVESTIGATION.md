@@ -1,10 +1,21 @@
 # Memory Layer Initialization Investigation
 
-First try: small pre-training from scratch using dataset fineweb-edu. The model produces crap at the end of the outputs and does not learn after phase-3 (remember)
-Second try: tried doing distilation of the model instead of pre-training from scratch, and while the model ended up working well at the end, the memory layers were not learning properly. Most likely the issue was that the distillation didn't learn a proper distribution on the initially trained memory layers to effectively find the slots from the query projections. The loss funciton when training the memory never went below 13, which is crap.
-Third try: pre-train the memory layers starting from the distilled checkpoint. Within 500 steps it reaches a loss of around 4.13 which is more in the lines of something more or less ok. After collection and, running the remember script also seems to have a flat loss. It starts on 4.0016 and after 300 steps only reaches 3.99 so it is not learning during the remember phase. The issue is probably the same, we started from a distillation.
-Fourth try: pre-training the memory layers again from scratch but this time using the dclm-baseline dataset and training for 5000 steps (first try was 2500). It was looking good, but reached a plateau in a loss of 4.3 after 1400 steps.
-Fitgh try: using staged training of the layers. Injecting first the middle one, then the first and finally the last, to avoid the gradients to be noisy.
+**First try**: small pre-training from scratch using dataset fineweb-edu. The model produces crap at the end of the outputs and does not learn after phase-3 (remember)
+**Second try**: tried doing distilation of the model instead of pre-training from scratch, and while the model ended up working well at the end, the memory layers were not learning properly. Most likely the issue was that the distillation didn't learn a proper distribution on the initially trained memory layers to effectively find the slots from the query projections. The loss funciton when training the memory never went below 13, which is crap.
+**Third try**: pre-train the memory layers starting from the distilled checkpoint. Within 500 steps it reaches a loss of around 4.13 which is more in the lines of something more or less ok. After collection and, running the remember script also seems to have a flat loss. It starts on 4.0016 and after 300 steps only reaches 3.99 so it is not learning during the remember phase. The issue is probably the same, we started from a distillation.
+**Fourth try**: pre-training the memory layers again from scratch but this time using the dclm-baseline dataset and training for 5000 steps (first try was 2500). It was looking good, but reached a plateau in a loss of 4.3 after 1400 steps.
+**Fitgh try**: using staged training of the layers. Injecting first the middle one, then the first and finally the last, to avoid the gradients to be noisy. I am also using DCLM dataset and the gemma 1b model instead of 4b to make it faster. It happens that we still reach the plateu of training at around 4,7-5 which produces very bad results. 
+**Sixth try**: same setup as before, but reducing the n_keys to 256 so that instead of 1M total possible slots (1024x1024) we have 65k (256x256). With this change, I expect the slots to be accessed much more than previously, getting more gradient updates, to see if we reach better loss.  - 2 sequences × 2048 tokens = 4096 tokens
+  - Each token accesses top_k=32 slots
+  - Total slot accesses per batch: 4096 × 32 = ~131K
+
+  But there are 1M slots total. So on average, each
+  slot is accessed 131K / 1M = 0.13 times per batch.
+   Most slots get zero gradient in any given step.
+
+  With 65K slots: 131K / 65K = ~2 accesses per slot
+  per batch. Every slot gets meaningful gradient
+  every step.
 
 what to try next:
 - Inject one learning layer at a time during training. From left to right, so that we avoid cascading gradient issue.
