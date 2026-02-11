@@ -1,0 +1,30 @@
+# Overnight from-scratch pretrain on A100 80GB (~10 hours)
+# Key change: accum=8 instead of 16 → double the optimization steps for same compute.
+
+memory:
+  num_heads: 4
+  top_k: 32
+  n_keys: 1024
+  k_dim_per_head: 512
+  v_dim: 1024
+  memory_layers: [9, 17, 25]
+  use_silu_gating: true
+
+pretrain:
+  base_model: "google/gemma-3-4b-it"
+  learning_rate: 1.0e-4
+  value_learning_rate: 1.0e-3
+  warmup_steps: 300
+  total_steps: 5000
+  batch_size: 2
+  gradient_accumulation_steps: 8    # halved → 2x more updates, same tokens
+  seq_length: 2048
+  weight_decay: 0.1
+  gradient_clip: 1.0
+  dtype: "bfloat16"
+  dataset: "mlfoundations/dclm-baseline-1.0"
+  dataset_subset: "default"
+  checkpoint_dir: "checkpoints/pretrain_scratch"
+  save_every_steps: 500
+  log_every_steps: 10
+  seed: 42

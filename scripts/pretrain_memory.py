@@ -52,6 +52,12 @@ def main():
         default=None,
         help="Path to a distilled/previous memory checkpoint for warm-starting",
     )
+    parser.add_argument(
+        "--resume",
+        type=str,
+        default=None,
+        help="Path to a training checkpoint to resume from (restores optimizer/scheduler/step)",
+    )
     args = parser.parse_args()
 
     # Load config
@@ -81,12 +87,13 @@ def main():
     # Inject memory layers (automatically placed on same device/dtype as base model)
     model, shared_store = inject_memory_layers(model, memory_config)
 
-    # Warm-start: load distilled/previous checkpoint if specified
-    checkpoint_path = args.memory_checkpoint or train_config.memory_checkpoint
-    if checkpoint_path:
-        logger.info(f"Warm-starting from checkpoint: {checkpoint_path}")
-        step = load_memory_checkpoint(model, shared_store, memory_config, checkpoint_path)
-        logger.info(f"Loaded checkpoint (trained to step {step})")
+    # Warm-start: load distilled/previous checkpoint if specified (not for resume)
+    if not args.resume:
+        checkpoint_path = args.memory_checkpoint or train_config.memory_checkpoint
+        if checkpoint_path:
+            logger.info(f"Warm-starting from checkpoint: {checkpoint_path}")
+            step = load_memory_checkpoint(model, shared_store, memory_config, checkpoint_path)
+            logger.info(f"Loaded checkpoint (trained to step {step})")
 
     # Freeze base model, keep memory layers trainable
     freeze_base_model(model, memory_config)
@@ -109,6 +116,7 @@ def main():
         train_config=train_config,
         dataloader=dataloader,
         device=device,
+        resume_path=args.resume,
     )
 
     logger.info("Phase 1 complete!")

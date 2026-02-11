@@ -20,6 +20,91 @@ from src.model.memory_gemma import save_memory_checkpoint
 logger = logging.getLogger(__name__)
 
 
+def save_training_checkpoint(
+    model: nn.Module,
+    shared_store: SharedMemoryStore,
+    memory_config: MemoryConfig,
+    optimizer: torch.optim.Optimizer,
+    scheduler: torch.optim.lr_scheduler.LambdaLR,
+    global_step: int,
+    micro_step: int,
+    save_path: str,
+):
+    """Save full training state for resuming."""
+    from src.model.memory_gemma import get_decoder_layers
+
+    checkpoint = {
+        "shared_store": shared_store.state_dict(),
+        "memory_config": {
+            "num_heads": memory_config.num_heads,
+            "top_k": memory_config.top_k,
+            "n_keys": memory_config.n_keys,
+            "k_dim_per_head": memory_config.k_dim_per_head,
+            "v_dim": memory_config.v_dim,
+            "memory_layers": memory_config.memory_layers,
+            "use_silu_gating": memory_config.use_silu_gating,
+        },
+        "per_layer_states": {},
+        "optimizer": optimizer.state_dict(),
+        "scheduler": scheduler.state_dict(),
+        "global_step": global_step,
+        "micro_step": micro_step,
+        "step": global_step,
+    }
+
+    layers = get_decoder_layers(model)
+    for layer_idx in memory_config.memory_layers:
+        mem_layer = layers[layer_idx].mlp
+        per_layer_state = {}
+        for name, param in mem_layer.named_parameters():
+            if not name.startswith("shared_store."):
+                per_layer_state[name] = param.data
+        checkpoint["per_layer_states"][layer_idx] = per_layer_state
+
+    save_dir = Path(save_path).parent
+    save_dir.mkdir(parents=True, exist_ok=True)
+    torch.save(checkpoint, save_path)
+    logger.info(f"Saved training checkpoint to {save_path} (step {global_step})")
+
+
+def load_training_checkpoint(
+    model: nn.Module,
+    shared_store: SharedMemoryStore,
+    memory_config: MemoryConfig,
+    optimizer: torch.optim.Optimizer,
+    scheduler: torch.optim.lr_scheduler.LambdaLR,
+    load_path: str,
+) -> tuple[int, int]:
+    """Load full training state for resuming.
+
+    Returns:
+        Tuple of (global_step, micro_step).
+    """
+    from src.model.memory_gemma import get_decoder_layers
+
+    checkpoint = torch.load(load_path, map_location="cpu", weights_only=False)
+
+    # Restore memory weights
+    shared_store.load_state_dict(checkpoint["shared_store"])
+    layers = get_decoder_layers(model)
+    for layer_idx, per_layer_state in checkpoint["per_layer_states"].items():
+        layer_idx = int(layer_idx)
+        mem_layer = layers[layer_idx].mlp
+        for name, param_data in per_layer_state.items():
+            param = dict(mem_layer.named_parameters())[name]
+            param.data.copy_(param_data)
+
+    # Restore optimizer and scheduler
+    optimizer.load_state_dict(checkpoint["optimizer"])
+    scheduler.load_state_dict(checkpoint["scheduler"])
+
+    global_step = checkpoint["global_step"]
+    micro_step = checkpoint.get("micro_step", global_step * 8)
+
+    logger.info(f"Resumed from checkpoint at step {global_step}")
+    return global_step, micro_step
+
+
 def create_optimizer(
     model: nn.Module,
     shared_store: SharedMemoryStore,
@@ -98,6 +183,7 @@ def pretrain_memory_layers(
     train_config: PretrainConfig,
     dataloader: DataLoader,
     device: torch.device | str = "cuda",
+    resume_path: str | None = None,
 ):
     """Main Phase 1 training loop.
 
@@ -108,6 +194,7 @@ def pretrain_memory_layers(
         train_config: Training configuration.
         dataloader: FineWeb-Edu streaming dataloader.
         device: Training device.
+        resume_path: Path to a training checkpoint to resume from.
     """
     model.train()
 
@@ -121,14 +208,32 @@ def pretrain_memory_layers(
     global_step = 0
     micro_step = 0
 
+    # Resume from checkpoint
+    if resume_path:
+        global_step, micro_step = load_training_checkpoint(
+            model, shared_store, memory_config, optimizer, scheduler, resume_path
+        )
+
     logger.info(
         f"Starting Phase 1 pretraining for {train_config.total_steps} steps "
-        f"(batch_size={train_config.batch_size}, accum={accum_steps})"
+        f"(batch_size={train_config.batch_size}, accum={accum_steps}, "
+        f"resuming from step {global_step})"
     )
+
+    # Skip batches already consumed before the checkpoint
+    batches_to_skip = micro_step
+    skipped = 0
 
     for batch in dataloader:
         if global_step >= train_config.total_steps:
             break
+
+        # Fast-forward past already-consumed batches
+        if skipped < batches_to_skip:
+            skipped += 1
+            if skipped % 1000 == 0:
+                logger.info(f"  Skipping batch {skipped}/{batches_to_skip}...")
+            continue
 
         loss = train_step(model, batch, device)
         loss = loss / accum_steps
@@ -157,16 +262,17 @@ def pretrain_memory_layers(
                 )
                 accum_loss = 0.0
 
-            # Checkpointing
+            # Checkpointing — save full training state for resume
             if global_step % train_config.save_every_steps == 0:
                 save_path = str(
                     Path(train_config.checkpoint_dir) / f"memory_step_{global_step}.pt"
                 )
-                save_memory_checkpoint(
-                    model, shared_store, memory_config, save_path, step=global_step
+                save_training_checkpoint(
+                    model, shared_store, memory_config,
+                    optimizer, scheduler, global_step, micro_step, save_path,
                 )
 
-    # Final checkpoint
+    # Final checkpoint (memory-only, compatible with Phase 2/3)
     save_path = str(Path(train_config.checkpoint_dir) / "memory_layers.pt")
     save_memory_checkpoint(
         model, shared_store, memory_config, save_path, step=global_step
