@@ -110,11 +110,11 @@ def create_optimizer(
     shared_store: SharedMemoryStore,
     config: PretrainConfig,
 ) -> torch.optim.Optimizer:
-    """Create AdamW optimizer with separate LR for value embeddings.
+    """Create optimizer with separate LR for value embeddings.
 
-    The value embeddings (EmbeddingBag) use a fixed higher learning rate
-    (1e-3) as recommended in "Memory Layers at Scale", while other memory
-    parameters use the standard learning rate.
+    Supports AdamW (default) and SGD. The paper notes that SGD with high LR
+    works better for sparse memory — AdamW's adaptive step sizes and momentum
+    can interact with sparsity in unexpected ways.
     """
     value_params = []
     other_params = []
@@ -129,20 +129,37 @@ def create_optimizer(
         else:
             other_params.append(param)
 
-    param_groups = [
-        {
-            "params": other_params,
-            "lr": config.learning_rate,
-            "weight_decay": config.weight_decay,
-        },
-        {
-            "params": value_params,
-            "lr": config.value_learning_rate,
-            "weight_decay": 0.0,  # no weight decay on embeddings
-        },
-    ]
+    optimizer_type = getattr(config, "optimizer", "adamw").lower()
 
-    return torch.optim.AdamW(param_groups)
+    if optimizer_type == "sgd":
+        param_groups = [
+            {
+                "params": other_params,
+                "lr": config.learning_rate,
+            },
+            {
+                "params": value_params,
+                "lr": config.value_learning_rate,
+            },
+        ]
+        momentum = getattr(config, "momentum", 0.0)
+        logger.info(f"Using SGD optimizer (lr={config.learning_rate}, "
+                    f"value_lr={config.value_learning_rate}, momentum={momentum})")
+        return torch.optim.SGD(param_groups, momentum=momentum)
+    else:
+        param_groups = [
+            {
+                "params": other_params,
+                "lr": config.learning_rate,
+                "weight_decay": config.weight_decay,
+            },
+            {
+                "params": value_params,
+                "lr": config.value_learning_rate,
+                "weight_decay": 0.0,
+            },
+        ]
+        return torch.optim.AdamW(param_groups)
 
 
 def get_lr_scheduler(

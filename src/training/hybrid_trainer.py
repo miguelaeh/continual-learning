@@ -216,7 +216,9 @@ def hybrid_pretrain(
     distill_helper = FFNDistillationHelper(model, memory_config, original_ffns)
 
     accum_steps = config["gradient_accumulation_steps"]
-    mse_alpha = config.get("mse_alpha", 1.0)
+    mse_alpha_start = config.get("mse_alpha_start", config.get("mse_alpha", 1.0))
+    mse_alpha_end = config.get("mse_alpha_end", 0.0)
+    mse_warmup_steps = config.get("mse_warmup_steps", 0)
     total_steps = config["total_steps"]
     log_every = config["log_every_steps"]
     save_every = config["save_every_steps"]
@@ -237,7 +239,8 @@ def hybrid_pretrain(
     logger.info(
         f"Starting hybrid pretraining for {total_steps} steps "
         f"(batch={config['batch_size']}, accum={accum_steps}, "
-        f"mse_alpha={mse_alpha}, resuming from step {global_step})"
+        f"mse_alpha={mse_alpha_start}->{mse_alpha_end} over {mse_warmup_steps} warmup, "
+        f"resuming from step {global_step})"
     )
 
     batches_to_skip = micro_step
@@ -252,6 +255,20 @@ def hybrid_pretrain(
             if skipped % 1000 == 0:
                 logger.info(f"  Skipping batch {skipped}/{batches_to_skip}...")
             continue
+
+        # Compute annealed alpha
+        if global_step < mse_warmup_steps:
+            # Constant high alpha during warmup (bootstrap phase)
+            mse_alpha = mse_alpha_start
+        elif mse_alpha_end == mse_alpha_start:
+            mse_alpha = mse_alpha_start
+        else:
+            # Linear decay from alpha_start to alpha_end after warmup
+            anneal_progress = (global_step - mse_warmup_steps) / max(
+                1, total_steps - mse_warmup_steps
+            )
+            anneal_progress = min(1.0, anneal_progress)
+            mse_alpha = mse_alpha_start + (mse_alpha_end - mse_alpha_start) * anneal_progress
 
         # Forward pass
         input_ids = batch["input_ids"].to(device)
@@ -294,7 +311,7 @@ def hybrid_pretrain(
                 logger.info(
                     f"Step {global_step}/{total_steps} | "
                     f"LM: {avg_lm:.4f} | MSE: {avg_mse:.4f} | "
-                    f"Total: {avg_total:.4f} | LR: {lr:.2e}"
+                    f"Total: {avg_total:.4f} | α: {mse_alpha:.1f} | LR: {lr:.2e}"
                 )
                 accum_lm_loss = 0.0
                 accum_mse_loss = 0.0

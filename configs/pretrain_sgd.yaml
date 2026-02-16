@@ -1,0 +1,33 @@
+# Single memory layer pretrain with SGD.
+# Paper insight: SGD with high LR works better for sparse memory —
+# AdamW's adaptive step sizes and momentum fight sparsity.
+
+memory:
+  num_heads: 4
+  top_k: 32
+  n_keys: 64                # 4K entries
+  k_dim_per_head: 512
+  v_dim: 1024
+  memory_layers: [13]       # Single layer, middle of 26 (1B model)
+  use_silu_gating: true
+
+staged_pretrain:
+  base_model: "google/gemma-3-1b-it"
+  steps_per_stage: 20000
+  optimizer: "sgd"
+  learning_rate: 2.0         # High LR as paper recommends for SGD
+  value_learning_rate: 2.0   # Same high LR for values
+  momentum: 0.0              # No momentum
+  warmup_steps: 500
+  batch_size: 4
+  gradient_accumulation_steps: 4
+  seq_length: 2048
+  weight_decay: 0.0          # No weight decay with SGD
+  gradient_clip: 1.0
+  dtype: "bfloat16"
+  dataset: "mlfoundations/dclm-baseline-1.0"
+  dataset_subset: "default"
+  checkpoint_dir: "checkpoints/pretrain_sgd"
+  save_every_steps: 250
+  log_every_steps: 10
+  seed: 42

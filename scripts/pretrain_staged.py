@@ -98,14 +98,16 @@ def run_stage(
     # Create PretrainConfig for this stage
     stage_train_config = PretrainConfig(
         base_model=train_cfg["base_model"],
+        optimizer=train_cfg.get("optimizer", "adamw"),
         learning_rate=train_cfg["learning_rate"],
         value_learning_rate=train_cfg["value_learning_rate"],
+        momentum=train_cfg.get("momentum", 0.0),
         warmup_steps=train_cfg["warmup_steps"],
         total_steps=train_cfg["steps_per_stage"],
         batch_size=train_cfg["batch_size"],
         gradient_accumulation_steps=train_cfg["gradient_accumulation_steps"],
         seq_length=train_cfg["seq_length"],
-        weight_decay=train_cfg["weight_decay"],
+        weight_decay=train_cfg.get("weight_decay", 0.1),
         gradient_clip=train_cfg["gradient_clip"],
         dtype=train_cfg["dtype"],
         dataset=train_cfg["dataset"],

@@ -4,7 +4,7 @@
 memory:
   num_heads: 4
   top_k: 32
-  n_keys: 256              # 65K entries — more gradient per slot
+  n_keys: 64               # 4K entries — many more gradient hits per slot
   k_dim_per_head: 512
   v_dim: 1024
   memory_layers: [13]       # Single layer, middle of 26 (1B model)
@@ -16,8 +16,8 @@ hybrid_pretrain:
   value_learning_rate: 5.0e-3
   warmup_steps: 200
   total_steps: 10000
-  batch_size: 8               # Bigger batch — 1B model fits easily
-  gradient_accumulation_steps: 2
+  batch_size: 4
+  gradient_accumulation_steps: 4
   seq_length: 2048
   weight_decay: 0.1
   gradient_clip: 1.0
@@ -28,4 +28,6 @@ hybrid_pretrain:
   save_every_steps: 1000
   log_every_steps: 10
   seed: 42
-  mse_alpha: 1.0              # Weight for MSE loss (LM + alpha * MSE)
+  mse_alpha_start: 100.0       # Balance MSE and LM gradients
+  mse_alpha_end: 0.0           # Decay to 0 (pure LM loss for slot structure)
+  mse_warmup_steps: 2000       # Bootstrap phase before annealing

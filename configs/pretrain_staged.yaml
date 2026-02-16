@@ -6,20 +6,20 @@
 memory:
   num_heads: 4
   top_k: 32
-  n_keys: 1024
+  n_keys: 64                # 4K entries — each slot gets ~64 gradient hits per batch
   k_dim_per_head: 512
   v_dim: 1024
-  memory_layers: [9, 17, 25]
+  memory_layers: [5, 13, 21] # For 1B model (26 layers)
   use_silu_gating: true
 
 staged_pretrain:
-  base_model: "google/gemma-3-4b-it"
+  base_model: "google/gemma-3-1b-it"
   steps_per_stage: 20000
-  learning_rate: 1.0e-4
-  value_learning_rate: 1.0e-3
+  learning_rate: 5.0e-5
+  value_learning_rate: 2.0e-4
   warmup_steps: 500
-  batch_size: 2
-  gradient_accumulation_steps: 8
+  batch_size: 4
+  gradient_accumulation_steps: 4
   seq_length: 2048
   weight_decay: 0.1
   gradient_clip: 1.0

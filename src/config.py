@@ -36,8 +36,10 @@ class PretrainConfig:
     """Configuration for Phase 1: memory layer pretraining."""
 
     base_model: str = "google/gemma-3-4b-it"
+    optimizer: str = "adamw"  # "adamw" or "sgd"
     learning_rate: float = 1e-4
     value_learning_rate: float = 1e-3
+    momentum: float = 0.0  # only used with SGD
     warmup_steps: int = 4000
     total_steps: int = 128000
     batch_size: int = 8
