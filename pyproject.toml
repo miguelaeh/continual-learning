@@ -27,7 +27,7 @@ dev = [
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["src*"]
+include = ["src*", "additive_memory*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

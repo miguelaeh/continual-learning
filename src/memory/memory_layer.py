@@ -127,36 +127,29 @@ class MemoryPlusLayer(nn.Module):
         if self._track_indices:
             self._last_indices = indices.detach()
 
-        # 3. Flatten across heads for EmbeddingBag retrieval
-        flat_indices = indices.reshape(-1, self.num_heads * self.top_k)
-        flat_scores = scores.reshape(-1, self.num_heads * self.top_k)
-
-        # 4. Retrieve values
-        mem_output = self.shared_store.retrieve_values(flat_indices, flat_scores)
-        # mem_output: (B*T, v_dim)
-
-        # 5. Apply gradient masking if set (for continual learning)
-        if self._trainable_mask is not None:
-            mem_output = _apply_gradient_mask(
-                mem_output, flat_indices, self._trainable_mask
-            )
-
-        # 6. Memory+ gating or direct projection
-        if self.use_silu_gating:
-            # Expand mem_output if multi-head: tile v_dim across heads
-            if self.num_heads > 1:
-                # mem_output is (B*T, v_dim) from EmbeddingBag sum across heads
-                # We need (B*T, v_dim * num_heads) for gating
-                # Retrieve per-head values separately
-                mem_expanded = self._retrieve_per_head(indices, scores)
-                # mem_expanded: (B*T, v_dim * num_heads)
-            else:
-                mem_expanded = mem_output
-
-            gate = F.silu(self.silu_proj(x_flat))  # (B*T, gate_dim)
-            output = self.value_proj(mem_expanded * gate)  # (B*T, d_model)
+        # 3. Retrieve values
+        if self.use_silu_gating and self.num_heads > 1:
+            # Multi-head gating: retrieve per head and concatenate
+            mem = self._retrieve_per_head(indices, scores)
+            # mem: (B*T, v_dim * num_heads)
         else:
-            output = self.value_proj(mem_output)  # (B*T, d_model)
+            # Single head or no gating: flatten across heads for EmbeddingBag
+            flat_indices = indices.reshape(-1, self.num_heads * self.top_k)
+            flat_scores = scores.reshape(-1, self.num_heads * self.top_k)
+            mem = self.shared_store.retrieve_values(flat_indices, flat_scores)
+            # mem: (B*T, v_dim)
+
+        # 4. Apply gradient masking if set (for continual learning)
+        if self._trainable_mask is not None:
+            flat_idx = indices.reshape(-1, self.num_heads * self.top_k)
+            mem = _apply_gradient_mask(mem, flat_idx, self._trainable_mask)
+
+        # 5. Memory+ gating or direct projection
+        if self.use_silu_gating:
+            gate = F.silu(self.silu_proj(x_flat))  # (B*T, gate_dim)
+            output = self.value_proj(mem * gate)  # (B*T, d_model)
+        else:
+            output = self.value_proj(mem)  # (B*T, d_model)
 
         return output.view(batch, seq_len, d_model)
 

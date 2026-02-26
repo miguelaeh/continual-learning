@@ -17,8 +17,8 @@
   per batch. Every slot gets meaningful gradient
   every step.
 
-what to try next:
-- Inject one learning layer at a time during training. From left to right, so that we avoid cascading gradient issue.
+**7th try**: staged training.- Inject one learning layer at a time during training. From left to right, so that we avoid cascading gradient issue.
+**88th try using SGD optimizer** - same problem. Loss not going under 5
 
 
 > For better results, we can pre-train the memory layers instead of just distilling them, so the information is better organized and less compressed, enabling less forgetting and more sparsity. But we can do that only for models we know people want to use, given is reusable but expensive and very slow to train.
