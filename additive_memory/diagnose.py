@@ -126,7 +126,6 @@ def main():
     parser.add_argument("--n-keys", type=int, default=1024)
     parser.add_argument("--num-heads", type=int, default=4)
     parser.add_argument("--top-k", type=int, default=32)
-    parser.add_argument("--v-dim", type=int, default=1024)
     parser.add_argument("--k-dim-per-head", type=int, default=512)
     args = parser.parse_args()
 
@@ -137,7 +136,7 @@ def main():
         num_heads=args.num_heads,
         n_keys=args.n_keys,
         k_dim_per_head=args.k_dim_per_head,
-        v_dim=args.v_dim,
+        v_dim=None,
         top_k=args.top_k,
     )
 

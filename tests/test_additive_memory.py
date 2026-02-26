@@ -8,12 +8,12 @@ from src.memory.shared_memory_store import SharedMemoryStore
 from additive_memory.layer import AdditiveMemoryLayer, FFNWithMemory
 
 
-# Test dimensions
+# Test dimensions — v_dim = d_model // num_heads for direct output
 D_MODEL = 128
 NUM_HEADS = 2
 N_KEYS = 16
 K_DIM_PER_HEAD = 64
-V_DIM = 64
+V_DIM = D_MODEL // NUM_HEADS  # 64
 TOP_K = 4
 BATCH = 2
 SEQ_LEN = 8
@@ -40,7 +40,6 @@ def memory_layer(shared_store):
         shared_store=shared_store,
         num_heads=NUM_HEADS,
         k_dim_per_head=K_DIM_PER_HEAD,
-        v_dim=V_DIM,
         top_k=TOP_K,
     )
 

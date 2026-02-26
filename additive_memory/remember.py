@@ -73,19 +73,9 @@ def run_remember(model, config, facts, tokenizer, device):
         f"({len(facts)} facts x {config.repeat_factor} repeats)"
     )
 
-    # Separate param groups: higher LR for output_proj so it learns
-    # the right amplification scale faster than the values
-    from additive_memory.model import get_memory_layers
-
-    memory_layers = get_memory_layers(model, config)
-    value_params = [memory_layers[0].shared_store.values.weight]
-    proj_params = [p for ml in memory_layers for p in ml.output_proj.parameters()]
-
     optimizer = torch.optim.SGD(
-        [
-            {"params": value_params, "lr": config.learning_rate},
-            {"params": proj_params, "lr": config.learning_rate * 10},
-        ],
+        [p for p in model.parameters() if p.requires_grad],
+        lr=config.learning_rate,
         momentum=config.momentum,
     )
 
@@ -151,7 +141,6 @@ def main():
     parser.add_argument("--n-keys", type=int, default=1024, help="Sub-keys per half")
     parser.add_argument("--num-heads", type=int, default=4, help="Number of memory heads")
     parser.add_argument("--top-k", type=int, default=32, help="Top-k entries per head")
-    parser.add_argument("--v-dim", type=int, default=1024, help="Value dimension")
     parser.add_argument(
         "--k-dim-per-head", type=int, default=512, help="Key dimension per head"
     )
@@ -203,7 +192,7 @@ def main():
         num_heads=args.num_heads,
         n_keys=args.n_keys,
         k_dim_per_head=args.k_dim_per_head,
-        v_dim=args.v_dim,
+        v_dim=None,
         top_k=args.top_k,
         learning_rate=args.lr,
         momentum=args.momentum,

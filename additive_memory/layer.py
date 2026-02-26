@@ -24,16 +24,17 @@ class AdditiveMemoryLayer(nn.Module):
     Output starts at zero (zero-initialized memory values) and learns
     task-specific perturbations during sparse SGD finetuning.
 
-    The output path is a single trainable projection (no random gating) so that
-    the memory signal reaches the residual stream without distortion:
-        query → product key lookup → weighted sum of values → output_proj → add to residual
+    The output path is fully direct — no projections, no gating:
+        query → product key lookup → weighted sum of values → add to residual
+
+    Memory values ARE steering vectors in d_model space (v_dim = d_model // num_heads,
+    concatenated across heads). This eliminates all signal loss from random projections.
 
     Args:
         d_model: Model hidden dimension.
         shared_store: Shared key-value memory store (values must be zero-init).
         num_heads: Number of memory heads.
         k_dim_per_head: Key dimension per head.
-        v_dim: Value dimension per entry.
         top_k: Number of entries retrieved per head.
     """
 
@@ -43,7 +44,6 @@ class AdditiveMemoryLayer(nn.Module):
         shared_store: SharedMemoryStore,
         num_heads: int = 4,
         k_dim_per_head: int = 512,
-        v_dim: int = 1024,
         top_k: int = 32,
     ):
         super().__init__()
@@ -51,28 +51,19 @@ class AdditiveMemoryLayer(nn.Module):
         self.shared_store = shared_store
         self.num_heads = num_heads
         self.k_dim_per_head = k_dim_per_head
-        self.v_dim = v_dim
+        self.v_dim = shared_store.v_dim
         self.top_k = top_k
+
+        assert d_model == self.v_dim * num_heads, (
+            f"d_model ({d_model}) must equal v_dim * num_heads "
+            f"({self.v_dim} * {num_heads} = {self.v_dim * num_heads}) "
+            f"for direct output (no projection)"
+        )
 
         # Query projection: d_model -> num_heads * k_dim_per_head
         total_query_dim = num_heads * k_dim_per_head
         self.query_proj = nn.Linear(d_model, total_query_dim, bias=True)
         self.query_norm = nn.LayerNorm(total_query_dim)
-
-        # Output projection: direct path from retrieved values to residual stream.
-        # No SiLU gating — random gating distorts the signal across different inputs
-        # and makes the memory output input-dependent in an arbitrary way.
-        concat_dim = v_dim * num_heads if num_heads > 1 else v_dim
-        self.output_proj = nn.Linear(concat_dim, d_model, bias=False)
-
-        # Initialize output_proj with larger weights than default Xavier.
-        # Default Xavier gives std ≈ 1/sqrt(fan_in) ≈ 0.016 for (d_model, 4096),
-        # which crushes the memory signal ~1000x. With std=0.1, the gradient
-        # flow to values is ~6x stronger from the start, breaking the
-        # chicken-and-egg bootstrap problem (values need large proj to get
-        # gradients, proj needs large values to get gradients).
-        # Safe because values are zero-init, so initial output is still zero.
-        nn.init.normal_(self.output_proj.weight, std=0.1)
 
         # Index tracking for diagnostics
         self._last_indices: torch.Tensor | None = None
@@ -119,8 +110,8 @@ class AdditiveMemoryLayer(nn.Module):
         mem = self._retrieve_per_head(indices, scores)
         # mem: (B*T, v_dim * num_heads)
 
-        # 4. Output projection (direct, no gating)
-        output = self.output_proj(mem)  # (B*T, d_model)
+        # 4. Direct output — mem is already (B*T, d_model)
+        output = mem
 
         return output.view(batch, seq_len, d_model)
 

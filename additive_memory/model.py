@@ -32,7 +32,7 @@ class AdditiveMemoryConfig:
     num_heads: int = 4
     n_keys: int = 1024
     k_dim_per_head: int = 512
-    v_dim: int = 1024
+    v_dim: int | None = None  # Auto-computed as d_model // num_heads
     top_k: int = 32
 
     # Remember training
@@ -75,14 +75,24 @@ def inject_additive_memory(
     target_device = sample_mlp.gate_proj.weight.device
     target_dtype = sample_mlp.gate_proj.weight.dtype
 
-    logger.info(f"Detected d_model={d_model}, device={target_device}, dtype={target_dtype}")
+    # Compute v_dim = d_model // num_heads for direct output (no projection)
+    v_dim = d_model // config.num_heads
+    if d_model % config.num_heads != 0:
+        raise ValueError(
+            f"d_model ({d_model}) must be divisible by num_heads ({config.num_heads})"
+        )
+    config.v_dim = v_dim
+    logger.info(
+        f"Detected d_model={d_model}, v_dim={v_dim} (d_model // {config.num_heads}), "
+        f"device={target_device}, dtype={target_dtype}"
+    )
 
     # Create shared memory store
     shared_store = SharedMemoryStore(
         num_heads=config.num_heads,
         n_keys=config.n_keys,
         k_dim_per_head=config.k_dim_per_head,
-        v_dim=config.v_dim,
+        v_dim=v_dim,
         top_k=config.top_k,
     )
 
@@ -106,7 +116,6 @@ def inject_additive_memory(
             shared_store=shared_store,
             num_heads=config.num_heads,
             k_dim_per_head=config.k_dim_per_head,
-            v_dim=config.v_dim,
             top_k=config.top_k,
         )
         memory = memory.to(device=target_device, dtype=target_dtype)
@@ -147,16 +156,10 @@ def freeze_for_remember(model: nn.Module, config: AdditiveMemoryConfig):
 
     layers = get_decoder_layers(model)
 
-    # Unfreeze shared memory values
+    # Unfreeze shared memory values — the ONLY trainable parameters.
+    # No projection to train: values ARE steering vectors in d_model space.
     wrapper = layers[config.memory_layers[0]].mlp
     wrapper.memory.shared_store.values.weight.requires_grad = True
-
-    # Unfreeze output_proj in each memory layer so the optimizer can
-    # learn to amplify the memory signal to a useful magnitude
-    for layer_idx in config.memory_layers:
-        mem_layer = layers[layer_idx].mlp.memory
-        for p in mem_layer.output_proj.parameters():
-            p.requires_grad = True
 
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     total = sum(p.numel() for p in model.parameters())
