@@ -65,6 +65,15 @@ class AdditiveMemoryLayer(nn.Module):
         concat_dim = v_dim * num_heads if num_heads > 1 else v_dim
         self.output_proj = nn.Linear(concat_dim, d_model, bias=False)
 
+        # Initialize output_proj with larger weights than default Xavier.
+        # Default Xavier gives std ≈ 1/sqrt(fan_in) ≈ 0.016 for (d_model, 4096),
+        # which crushes the memory signal ~1000x. With std=0.1, the gradient
+        # flow to values is ~6x stronger from the start, breaking the
+        # chicken-and-egg bootstrap problem (values need large proj to get
+        # gradients, proj needs large values to get gradients).
+        # Safe because values are zero-init, so initial output is still zero.
+        nn.init.normal_(self.output_proj.weight, std=0.1)
+
         # Index tracking for diagnostics
         self._last_indices: torch.Tensor | None = None
         self._track_indices = False

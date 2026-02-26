@@ -73,9 +73,19 @@ def run_remember(model, config, facts, tokenizer, device):
         f"({len(facts)} facts x {config.repeat_factor} repeats)"
     )
 
+    # Separate param groups: higher LR for output_proj so it learns
+    # the right amplification scale faster than the values
+    from additive_memory.model import get_memory_layers
+
+    memory_layers = get_memory_layers(model, config)
+    value_params = [memory_layers[0].shared_store.values.weight]
+    proj_params = [p for ml in memory_layers for p in ml.output_proj.parameters()]
+
     optimizer = torch.optim.SGD(
-        [p for p in model.parameters() if p.requires_grad],
-        lr=config.learning_rate,
+        [
+            {"params": value_params, "lr": config.learning_rate},
+            {"params": proj_params, "lr": config.learning_rate * 10},
+        ],
         momentum=config.momentum,
     )
 
