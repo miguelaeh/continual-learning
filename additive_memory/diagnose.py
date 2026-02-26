@@ -60,9 +60,10 @@ def get_memory_and_ffn_outputs(model, config, input_ids, device):
     ffn_outputs = {}
 
     from additive_memory.layer import FFNWithMemory
+    from src.model.memory_gemma import get_decoder_layers
 
     hooks = []
-    layers = model.model.layers
+    layers = get_decoder_layers(model)
 
     for layer_idx in config.memory_layers:
         wrapper = layers[layer_idx].mlp
