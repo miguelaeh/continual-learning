@@ -24,6 +24,10 @@ class AdditiveMemoryLayer(nn.Module):
     Output starts at zero (zero-initialized memory values) and learns
     task-specific perturbations during sparse SGD finetuning.
 
+    The output path is a single trainable projection (no random gating) so that
+    the memory signal reaches the residual stream without distortion:
+        query → product key lookup → weighted sum of values → output_proj → add to residual
+
     Args:
         d_model: Model hidden dimension.
         shared_store: Shared key-value memory store (values must be zero-init).
@@ -55,10 +59,11 @@ class AdditiveMemoryLayer(nn.Module):
         self.query_proj = nn.Linear(d_model, total_query_dim, bias=True)
         self.query_norm = nn.LayerNorm(total_query_dim)
 
-        # SiLU gating (Memory+ variant): output = value_proj(mem * SiLU(silu_proj(x)))
-        gate_dim = v_dim * num_heads if num_heads > 1 else v_dim
-        self.silu_proj = nn.Linear(d_model, gate_dim, bias=False)
-        self.value_proj = nn.Linear(gate_dim, d_model, bias=False)
+        # Output projection: direct path from retrieved values to residual stream.
+        # No SiLU gating — random gating distorts the signal across different inputs
+        # and makes the memory output input-dependent in an arbitrary way.
+        concat_dim = v_dim * num_heads if num_heads > 1 else v_dim
+        self.output_proj = nn.Linear(concat_dim, d_model, bias=False)
 
         # Index tracking for diagnostics
         self._last_indices: torch.Tensor | None = None
@@ -105,9 +110,8 @@ class AdditiveMemoryLayer(nn.Module):
         mem = self._retrieve_per_head(indices, scores)
         # mem: (B*T, v_dim * num_heads)
 
-        # 4. SiLU gating + output projection
-        gate = F.silu(self.silu_proj(x_flat))  # (B*T, gate_dim)
-        output = self.value_proj(mem * gate)  # (B*T, d_model)
+        # 4. Output projection (direct, no gating)
+        output = self.output_proj(mem)  # (B*T, d_model)
 
         return output.view(batch, seq_len, d_model)
 

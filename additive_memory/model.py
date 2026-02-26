@@ -145,10 +145,18 @@ def freeze_for_remember(model: nn.Module, config: AdditiveMemoryConfig):
     for param in model.parameters():
         param.requires_grad = False
 
-    # Unfreeze shared memory values
     layers = get_decoder_layers(model)
+
+    # Unfreeze shared memory values
     wrapper = layers[config.memory_layers[0]].mlp
     wrapper.memory.shared_store.values.weight.requires_grad = True
+
+    # Unfreeze output_proj in each memory layer so the optimizer can
+    # learn to amplify the memory signal to a useful magnitude
+    for layer_idx in config.memory_layers:
+        mem_layer = layers[layer_idx].mlp.memory
+        for p in mem_layer.output_proj.parameters():
+            p.requires_grad = True
 
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     total = sum(p.numel() for p in model.parameters())
