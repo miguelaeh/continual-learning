@@ -65,6 +65,10 @@ class AdditiveMemoryLayer(nn.Module):
         self.query_proj = nn.Linear(d_model, total_query_dim, bias=True)
         self.query_norm = nn.LayerNorm(total_query_dim)
 
+        # Learnable scaling factor — starts at 1.0, trained alongside values
+        # to amplify memory output to be comparable with FFN output magnitude.
+        self.log_scale = nn.Parameter(torch.zeros(1))  # exp(0) = 1.0
+
         # Index tracking for diagnostics
         self._last_indices: torch.Tensor | None = None
         self._track_indices = False
@@ -110,8 +114,9 @@ class AdditiveMemoryLayer(nn.Module):
         mem = self._retrieve_per_head(indices, scores)
         # mem: (B*T, v_dim * num_heads)
 
-        # 4. Direct output — mem is already (B*T, d_model)
-        output = mem
+        # 4. Scale and output — mem is already (B*T, d_model)
+        scale = self.log_scale.exp()
+        output = mem * scale
 
         return output.view(batch, seq_len, d_model)
 

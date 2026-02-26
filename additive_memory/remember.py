@@ -73,9 +73,25 @@ def run_remember(model, config, facts, tokenizer, device):
         f"({len(facts)} facts x {config.repeat_factor} repeats)"
     )
 
+    # Separate param groups: values need high LR (sparse gradients diluted by
+    # softmax weights), log_scale needs normal LR (dense scalar gradient).
+    from additive_memory.layer import AdditiveMemoryLayer
+
+    value_params = []
+    scale_params = []
+    for name, p in model.named_parameters():
+        if not p.requires_grad:
+            continue
+        if "log_scale" in name:
+            scale_params.append(p)
+        else:
+            value_params.append(p)
+
     optimizer = torch.optim.SGD(
-        [p for p in model.parameters() if p.requires_grad],
-        lr=config.learning_rate,
+        [
+            {"params": value_params, "lr": config.learning_rate},
+            {"params": scale_params, "lr": 0.1},
+        ],
         momentum=config.momentum,
     )
 
@@ -107,7 +123,16 @@ def run_remember(model, config, facts, tokenizer, device):
 
             if step % 10 == 0:
                 avg = running_loss / 10
-                logger.info(f"  Step {step}/{config.finetuning_steps} | Loss: {avg:.4f}")
+                # Report learned scale factors
+                scale_info = ""
+                from additive_memory.model import get_memory_layers
+                mem_layers = get_memory_layers(model, config)
+                scales = [ml.log_scale.exp().item() for ml in mem_layers]
+                scale_info = f" | Scales: {[f'{s:.1f}' for s in scales]}"
+                logger.info(
+                    f"  Step {step}/{config.finetuning_steps} | "
+                    f"Loss: {avg:.4f}{scale_info}"
+                )
                 running_loss = 0.0
 
     return step
@@ -147,7 +172,7 @@ def main():
 
     # Training
     parser.add_argument("--steps", type=int, default=100, help="Finetuning steps")
-    parser.add_argument("--lr", type=float, default=2.0, help="Learning rate")
+    parser.add_argument("--lr", type=float, default=10.0, help="Learning rate for values")
     parser.add_argument("--momentum", type=float, default=0.0, help="SGD momentum")
     parser.add_argument("--seq-length", type=int, default=512, help="Sequence length")
     parser.add_argument(

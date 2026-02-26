@@ -229,6 +229,18 @@ def main():
         print(f"  Non-zero norm (mean): {nonzero_norms.mean().item():.6f}")
         print(f"  Non-zero norm (max):  {nonzero_norms.max().item():.6f}")
 
+    # 4. Per-layer scale factors
+    print(f"\n{'='*60}")
+    print("4. PER-LAYER SCALE FACTORS")
+    print(f"{'='*60}")
+
+    from additive_memory.model import get_memory_layers
+    memory_layers = get_memory_layers(model, config)
+    for layer_idx, mem_layer in zip(config.memory_layers, memory_layers):
+        scale = mem_layer.log_scale.exp().item()
+        log_val = mem_layer.log_scale.item()
+        print(f"  Layer {layer_idx}: scale = {scale:.4f} (log_scale = {log_val:.4f})")
+
     print(f"\n{'='*60}")
 
 

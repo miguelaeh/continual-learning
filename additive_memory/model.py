@@ -36,7 +36,7 @@ class AdditiveMemoryConfig:
     top_k: int = 32
 
     # Remember training
-    learning_rate: float = 2.0
+    learning_rate: float = 10.0
     momentum: float = 0.0
     finetuning_steps: int = 100
     seq_length: int = 512
@@ -142,11 +142,11 @@ def inject_additive_memory(
 
 
 def freeze_for_remember(model: nn.Module, config: AdditiveMemoryConfig):
-    """Freeze everything except shared memory values.
+    """Freeze everything except shared memory values and per-layer log_scale.
 
-    Only the EmbeddingBag values are trainable. All projections (query, gate,
-    value, keys) stay frozen at their random initialization. The original FFN
-    is also frozen.
+    Trainable parameters:
+    - EmbeddingBag values (shared): the steering vectors themselves
+    - log_scale (per memory layer): amplifies memory output to match FFN magnitude
 
     EmbeddingBag gradients are naturally sparse (only accessed rows get
     non-zero gradients), so no explicit gradient masking is needed.
@@ -156,10 +156,14 @@ def freeze_for_remember(model: nn.Module, config: AdditiveMemoryConfig):
 
     layers = get_decoder_layers(model)
 
-    # Unfreeze shared memory values — the ONLY trainable parameters.
-    # No projection to train: values ARE steering vectors in d_model space.
+    # Unfreeze shared memory values
     wrapper = layers[config.memory_layers[0]].mlp
     wrapper.memory.shared_store.values.weight.requires_grad = True
+
+    # Unfreeze per-layer log_scale parameters
+    for layer_idx in config.memory_layers:
+        memory_layer = layers[layer_idx].mlp.memory
+        memory_layer.log_scale.requires_grad = True
 
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     total = sum(p.numel() for p in model.parameters())
