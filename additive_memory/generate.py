@@ -46,12 +46,10 @@ def generate(model, tokenizer, prompt, device, max_new_tokens=256):
     )
     inputs = tokenizer(input_text, return_tensors="pt").to(device)
 
-    # Gemma 3 requires token_type_ids
-    inputs["token_type_ids"] = torch.zeros_like(inputs["input_ids"])
-
     with torch.no_grad():
         outputs = model.generate(
-            **inputs,
+            input_ids=inputs["input_ids"],
+            attention_mask=inputs["attention_mask"],
             max_new_tokens=max_new_tokens,
             do_sample=False,
         )
