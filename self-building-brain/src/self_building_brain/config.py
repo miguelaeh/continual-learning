@@ -45,6 +45,15 @@ class ModelConfig:
 
 
 @dataclass
+class GraphModelConfig:
+    hidden_dim: int = 96
+    node_dim: int = 64
+    num_nodes: int = 72
+    num_operators: int = 4
+    message_passing_steps: int = 1
+
+
+@dataclass
 class TrainingConfig:
     batch_size: int = 64
     steps: int = 200
@@ -55,6 +64,10 @@ class TrainingConfig:
     routing_loss_weight: float = 0.2
     query_slot_loss_weight: float = 0.2
     sparsity_loss_weight: float = 0.01
+    graph_node_loss_weight: float = 0.5
+    edge_loss_weight: float = 0.3
+    edge_sparsity_loss_weight: float = 0.01
+    node_sparsity_loss_weight: float = 0.01
     log_every: int = 20
 
 

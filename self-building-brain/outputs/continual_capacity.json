@@ -1,0 +1,223 @@
+{
+  "task_config": {
+    "num_entities": 12,
+    "num_attributes": 6,
+    "num_values": 18,
+    "num_read_steps": 4,
+    "pad_token_id": 0,
+    "read_token_id": 1,
+    "ask_token_id": 2,
+    "sep_token_id": 3
+  },
+  "model_config": {
+    "hidden_dim": 96,
+    "slot_dim": 64,
+    "num_slots": 72
+  },
+  "training_config": {
+    "batch_size": 64,
+    "steps": 60,
+    "learning_rate": 0.003,
+    "state_loss_weight": 0.5,
+    "trace_loss_weight": 0.5,
+    "read_value_loss_weight": 0.5,
+    "routing_loss_weight": 0.2,
+    "query_slot_loss_weight": 0.2,
+    "sparsity_loss_weight": 0.01,
+    "graph_node_loss_weight": 0.5,
+    "edge_loss_weight": 0.3,
+    "edge_sparsity_loss_weight": 0.01,
+    "node_sparsity_loss_weight": 0.01,
+    "log_every": 15
+  },
+  "train_lengths": [
+    4,
+    8,
+    12,
+    16
+  ],
+  "eval_lengths": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32
+  ],
+  "accuracy_threshold": 0.9,
+  "unique_keys": true,
+  "results": [
+    {
+      "stage_index": 1,
+      "train_length": 4,
+      "max_supported_length": 32,
+      "evaluation": {
+        "4": {
+          "loss": 1.50973679125309,
+          "answer_accuracy": 0.9375,
+          "routing_accuracy": 0.99365234375,
+          "query_slot_accuracy": 1.0
+        },
+        "8": {
+          "loss": 1.5392321795225143,
+          "answer_accuracy": 0.923828125,
+          "routing_accuracy": 0.99169921875,
+          "query_slot_accuracy": 1.0
+        },
+        "12": {
+          "loss": 1.5383618623018265,
+          "answer_accuracy": 0.947265625,
+          "routing_accuracy": 0.9916992112994194,
+          "query_slot_accuracy": 1.0
+        },
+        "16": {
+          "loss": 1.509154736995697,
+          "answer_accuracy": 0.9375,
+          "routing_accuracy": 0.99267578125,
+          "query_slot_accuracy": 1.0
+        },
+        "24": {
+          "loss": 1.5526473373174667,
+          "answer_accuracy": 0.916015625,
+          "routing_accuracy": 0.9928385466337204,
+          "query_slot_accuracy": 1.0
+        },
+        "32": {
+          "loss": 1.5464701652526855,
+          "answer_accuracy": 0.939453125,
+          "routing_accuracy": 0.99273681640625,
+          "query_slot_accuracy": 1.0
+        }
+      }
+    },
+    {
+      "stage_index": 2,
+      "train_length": 8,
+      "max_supported_length": 32,
+      "evaluation": {
+        "4": {
+          "loss": 0.16468924470245838,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        },
+        "8": {
+          "loss": 0.16803821176290512,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        },
+        "12": {
+          "loss": 0.17203477397561073,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        },
+        "16": {
+          "loss": 0.17573309876024723,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        },
+        "24": {
+          "loss": 0.18241577968001366,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        },
+        "32": {
+          "loss": 0.18953659012913704,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        }
+      }
+    },
+    {
+      "stage_index": 3,
+      "train_length": 12,
+      "max_supported_length": 32,
+      "evaluation": {
+        "4": {
+          "loss": 0.11480215471237898,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        },
+        "8": {
+          "loss": 0.11744994483888149,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        },
+        "12": {
+          "loss": 0.11996160168200731,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        },
+        "16": {
+          "loss": 0.12285808473825455,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        },
+        "24": {
+          "loss": 0.1285340804606676,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        },
+        "32": {
+          "loss": 0.13366994261741638,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        }
+      }
+    },
+    {
+      "stage_index": 4,
+      "train_length": 16,
+      "max_supported_length": 32,
+      "evaluation": {
+        "4": {
+          "loss": 0.08950585406273603,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        },
+        "8": {
+          "loss": 0.09192830137908459,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        },
+        "12": {
+          "loss": 0.09419123455882072,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        },
+        "16": {
+          "loss": 0.0965776676312089,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        },
+        "24": {
+          "loss": 0.10102756973356009,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        },
+        "32": {
+          "loss": 0.10547101218253374,
+          "answer_accuracy": 1.0,
+          "routing_accuracy": 1.0,
+          "query_slot_accuracy": 1.0
+        }
+      }
+    }
+  ]
+}

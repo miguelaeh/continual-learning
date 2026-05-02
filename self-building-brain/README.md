@@ -11,6 +11,7 @@ This repo includes both:
 
 - a synthetic teacher for fast local iteration
 - a real Hugging Face / Qwen trace teacher that distills hidden-state traces into the persistent brain state
+- a `v2` sparse operator-graph brain prototype for moving beyond pure vector memory
 
 ## Core Architecture
 
@@ -50,6 +51,14 @@ PYTHONPATH=src python3 scripts/train_synthetic.py --steps 200
 PYTHONPATH=src python3 scripts/train_qwen_distill.py --steps 20 --batch-size 4 --teacher-model Qwen/Qwen2.5-0.5B-Instruct
 ```
 
+```bash
+PYTHONPATH=src python3 scripts/eval_continual_capacity.py --train-lengths 4,8,12,16 --eval-lengths 4,8,12,16,24,32 --steps-per-stage 80 --unique-keys
+```
+
+```bash
+PYTHONPATH=src python3 scripts/train_graph_brain.py --steps 200 --batch-size 64 --num-read-steps 6 --unique-keys
+```
+
 The Qwen script assumes the model is already cached locally and uses `local_files_only=True`.
 
 To run a stored brain state model after training:
@@ -63,3 +72,8 @@ PYTHONPATH=src python3 scripts/demo_text_brain.py \
 ```
 
 More detail is in [docs/architecture.md](/Users/miguelaeh/projects/continual-learning-experiments/self-building-brain/docs/architecture.md).
+
+Additional investigation docs:
+
+- [docs/continual-capacity.md](/Users/miguelaeh/projects/continual-learning-experiments/self-building-brain/docs/continual-capacity.md)
+- [docs/operator-graph-brain.md](/Users/miguelaeh/projects/continual-learning-experiments/self-building-brain/docs/operator-graph-brain.md)

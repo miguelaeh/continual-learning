@@ -138,14 +138,25 @@ class TextFactDataset:
             raise ValueError("Not enough value words for configured task.")
         self.codec = TextFactCodec(config)
 
-    def sample_batch(self, batch_size: int, device: torch.device | str) -> TextFactBatch:
-        base = SyntheticFactDataset(self.config).sample_batch(batch_size=batch_size, device=device)
+    def sample_batch(
+        self,
+        batch_size: int,
+        device: torch.device | str,
+        num_read_steps: int | None = None,
+        unique_keys: bool = False,
+    ) -> TextFactBatch:
+        base = SyntheticFactDataset(self.config).sample_batch(
+            batch_size=batch_size,
+            device=device,
+            num_read_steps=num_read_steps,
+            unique_keys=unique_keys,
+        )
 
         read_texts: list[list[str]] = []
         query_texts: list[str] = []
         for batch_index in range(batch_size):
             episode_reads: list[str] = []
-            for step in range(self.config.num_read_steps):
+            for step in range(base.read_tokens.size(1)):
                 entity_id = int(base.read_tokens[batch_index, step, 1].item() - self.config.entity_offset)
                 attribute_id = int(base.read_tokens[batch_index, step, 2].item() - self.config.attribute_offset)
                 value_id = int(base.read_tokens[batch_index, step, 3].item() - self.config.value_offset)

@@ -23,13 +23,32 @@ class SyntheticFactDataset:
     def __init__(self, config: SyntheticTaskConfig):
         self.config = config
 
-    def sample_batch(self, batch_size: int, device: torch.device | str) -> SyntheticBatch:
+    def sample_batch(
+        self,
+        batch_size: int,
+        device: torch.device | str,
+        num_read_steps: int | None = None,
+        unique_keys: bool = False,
+    ) -> SyntheticBatch:
         cfg = self.config
-        entities = torch.randint(cfg.num_entities, (batch_size, cfg.num_read_steps), device=device)
-        attributes = torch.randint(cfg.num_attributes, (batch_size, cfg.num_read_steps), device=device)
-        values = torch.randint(cfg.num_values, (batch_size, cfg.num_read_steps), device=device)
+        steps = num_read_steps or cfg.num_read_steps
+        if unique_keys and steps > cfg.num_keys:
+            raise ValueError("Cannot sample more unique keys than the configured key space.")
 
-        read_tokens = torch.full((batch_size, cfg.num_read_steps, 5), cfg.pad_token_id, dtype=torch.long, device=device)
+        if unique_keys:
+            key_ids = torch.stack(
+                [torch.randperm(cfg.num_keys, device=device)[:steps] for _ in range(batch_size)],
+                dim=0,
+            )
+            entities = key_ids // cfg.num_attributes
+            attributes = key_ids % cfg.num_attributes
+        else:
+            entities = torch.randint(cfg.num_entities, (batch_size, steps), device=device)
+            attributes = torch.randint(cfg.num_attributes, (batch_size, steps), device=device)
+
+        values = torch.randint(cfg.num_values, (batch_size, steps), device=device)
+
+        read_tokens = torch.full((batch_size, steps, 5), cfg.pad_token_id, dtype=torch.long, device=device)
         read_tokens[:, :, 0] = cfg.read_token_id
         read_tokens[:, :, 1] = entities + cfg.entity_offset
         read_tokens[:, :, 2] = attributes + cfg.attribute_offset
@@ -38,7 +57,7 @@ class SyntheticFactDataset:
 
         read_key_ids = entities * cfg.num_attributes + attributes
 
-        query_step_ids = torch.randint(cfg.num_read_steps, (batch_size,), device=device)
+        query_step_ids = torch.randint(steps, (batch_size,), device=device)
         batch_ids = torch.arange(batch_size, device=device)
         query_entities = entities[batch_ids, query_step_ids]
         query_attributes = attributes[batch_ids, query_step_ids]
