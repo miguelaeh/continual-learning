@@ -73,3 +73,133 @@ def compute_graph_losses(
         "node_accuracy": node_accuracy,
         "query_node_accuracy": query_node_accuracy,
     }
+
+
+def compute_executable_graph_losses(
+    outputs: dict[str, torch.Tensor],
+    batch: SyntheticBatch,
+    config: TrainingConfig,
+) -> dict[str, torch.Tensor]:
+    answer_loss = F.cross_entropy(outputs["answer_logits"], batch.answer_ids)
+    target_node_loss = F.cross_entropy(
+        outputs["step_target_logits"].reshape(-1, outputs["step_target_logits"].size(-1)),
+        batch.read_key_ids.reshape(-1),
+    )
+    seed_loss = F.cross_entropy(outputs["seed_logits"], batch.query_key_ids)
+    read_value_loss = F.cross_entropy(
+        outputs["step_value_logits"].reshape(-1, outputs["step_value_logits"].size(-1)),
+        batch.read_value_ids.reshape(-1),
+    )
+
+    if batch.read_key_ids.size(1) > 1:
+        source_targets = batch.read_key_ids[:, :-1]
+        source_logits = outputs["step_source_logits"][:, 1:]
+        source_loss = F.cross_entropy(source_logits.reshape(-1, source_logits.size(-1)), source_targets.reshape(-1))
+    else:
+        source_loss = torch.zeros((), device=batch.read_key_ids.device)
+
+    transition_targets = build_transition_targets(batch.read_key_ids, num_nodes=outputs["final_edge_strengths"].size(-1))
+    edge_loss = F.binary_cross_entropy(outputs["final_edge_strengths"].clamp(1e-6, 1 - 1e-6), transition_targets)
+
+    active_fraction = outputs["final_node_active"].float().mean()
+    edge_sparsity_loss = outputs["final_edge_strengths"].mean()
+
+    total_loss = (
+        answer_loss
+        + config.graph_node_loss_weight * (target_node_loss + seed_loss + source_loss)
+        + config.read_value_loss_weight * read_value_loss
+        + config.edge_loss_weight * edge_loss
+        + config.node_sparsity_loss_weight * active_fraction
+        + config.edge_sparsity_loss_weight * edge_sparsity_loss
+    )
+
+    with torch.no_grad():
+        answer_accuracy = (outputs["answer_logits"].argmax(dim=-1) == batch.answer_ids).float().mean()
+        target_node_accuracy = (outputs["step_target_logits"].argmax(dim=-1) == batch.read_key_ids).float().mean()
+        query_node_accuracy = (outputs["seed_logits"].argmax(dim=-1) == batch.query_key_ids).float().mean()
+        if batch.read_key_ids.size(1) > 1:
+            source_node_accuracy = (outputs["step_source_logits"][:, 1:].argmax(dim=-1) == batch.read_key_ids[:, :-1]).float().mean()
+        else:
+            source_node_accuracy = torch.ones((), device=batch.read_key_ids.device)
+
+    return {
+        "loss": total_loss,
+        "answer_loss": answer_loss,
+        "target_node_loss": target_node_loss,
+        "source_node_loss": source_loss,
+        "query_node_loss": seed_loss,
+        "read_value_loss": read_value_loss,
+        "edge_loss": edge_loss,
+        "active_fraction_loss": active_fraction,
+        "edge_sparsity_loss": edge_sparsity_loss,
+        "answer_accuracy": answer_accuracy,
+        "target_node_accuracy": target_node_accuracy,
+        "source_node_accuracy": source_node_accuracy,
+        "query_node_accuracy": query_node_accuracy,
+    }
+
+
+def compute_program_graph_losses(
+    outputs: dict[str, torch.Tensor],
+    batch: SyntheticBatch,
+    config: TrainingConfig,
+) -> dict[str, torch.Tensor]:
+    answer_loss = F.nll_loss(outputs["answer_logits"], batch.answer_ids)
+    target_node_loss = F.cross_entropy(
+        outputs["step_target_logits"].reshape(-1, outputs["step_target_logits"].size(-1)),
+        batch.read_key_ids.reshape(-1),
+    )
+    key_loss = F.cross_entropy(
+        outputs["step_key_logits"].reshape(-1, outputs["step_key_logits"].size(-1)),
+        batch.read_key_ids.reshape(-1),
+    )
+    value_loss = F.cross_entropy(
+        outputs["step_value_logits"].reshape(-1, outputs["step_value_logits"].size(-1)),
+        batch.read_value_ids.reshape(-1),
+    )
+
+    if batch.read_key_ids.size(1) > 1:
+        source_loss = F.cross_entropy(
+            outputs["step_source_logits"][:, 1:].reshape(-1, outputs["step_source_logits"].size(-1)),
+            batch.read_key_ids[:, :-1].reshape(-1),
+        )
+    else:
+        source_loss = torch.zeros((), device=batch.read_key_ids.device)
+
+    transition_targets = build_transition_targets(batch.read_key_ids, num_nodes=outputs["final_edge_weights"].size(-1))
+    edge_loss = F.binary_cross_entropy(outputs["final_edge_weights"].clamp(1e-6, 1 - 1e-6), transition_targets)
+    active_fraction = outputs["final_node_active"].float().mean()
+
+    total_loss = (
+        answer_loss
+        + config.graph_node_loss_weight * (target_node_loss + source_loss + key_loss)
+        + config.read_value_loss_weight * value_loss
+        + config.edge_loss_weight * edge_loss
+        + config.node_sparsity_loss_weight * active_fraction
+    )
+
+    with torch.no_grad():
+        answer_accuracy = (outputs["answer_logits"].argmax(dim=-1) == batch.answer_ids).float().mean()
+        target_node_accuracy = (outputs["step_target_logits"].argmax(dim=-1) == batch.read_key_ids).float().mean()
+        key_accuracy = (outputs["step_key_logits"].argmax(dim=-1) == batch.read_key_ids).float().mean()
+        value_accuracy = (outputs["step_value_logits"].argmax(dim=-1) == batch.read_value_ids).float().mean()
+        if batch.read_key_ids.size(1) > 1:
+            source_node_accuracy = (outputs["step_source_logits"][:, 1:].argmax(dim=-1) == batch.read_key_ids[:, :-1]).float().mean()
+        else:
+            source_node_accuracy = torch.ones((), device=batch.read_key_ids.device)
+
+    return {
+        "loss": total_loss,
+        "answer_loss": answer_loss,
+        "target_node_loss": target_node_loss,
+        "source_node_loss": source_loss,
+        "key_loss": key_loss,
+        "value_loss": value_loss,
+        "edge_loss": edge_loss,
+        "active_fraction_loss": active_fraction,
+        "answer_accuracy": answer_accuracy,
+        "target_node_accuracy": target_node_accuracy,
+        "source_node_accuracy": source_node_accuracy,
+        "key_accuracy": key_accuracy,
+        "value_accuracy": value_accuracy,
+    }
