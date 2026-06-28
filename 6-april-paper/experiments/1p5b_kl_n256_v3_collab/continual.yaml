@@ -28,8 +28,8 @@ data:
   seed: 42
 
 recovery:
-  eval_data_path: "data/recovery_eval_sample.jsonl"
-  sanity_prompts_path: "data/recovery_prompts.json"
+  eval_data_path: "experiments/1p5b_kl_n256_v3_collab/data/recovery_eval_sample.jsonl"
+  sanity_prompts_path: "experiments/1p5b_kl_n256_v3_collab/data/recovery_prompts.json"
 
 continual:
   learning_rate: 1.0
@@ -45,7 +45,7 @@ continual:
   background_stats_path: "experiments/1p5b_kl_n256_v3_collab/checkpoints/background_stats.pt"
   recovery_checkpoint: "experiments/1p5b_kl_n256_v3_collab/checkpoints/recovery/memory.pt"
   require_recovery_pass: true
-  recovery_eval_data_path: "data/recovery_eval_sample.jsonl"
+  recovery_eval_data_path: "experiments/1p5b_kl_n256_v3_collab/data/recovery_eval_sample.jsonl"
   recovery_eval_max_batches: 10
   recovery_max_loss_delta_vs_base: 1.5
   recovery_max_loss_ratio_vs_base: 1.25
