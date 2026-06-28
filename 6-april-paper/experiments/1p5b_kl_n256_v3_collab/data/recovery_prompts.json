@@ -1,12 +1,14 @@
 [
   {
-    "prompt": "Introduce yourself briefly."
+    "prompt": "### User: What is the capital of France?\n### Assistant: The capital of France is",
+    "expected_any": ["Paris", "paris"]
   },
   {
-    "prompt": "What is 2 plus 2?",
+    "prompt": "### User: What is 2 plus 2?\n### Assistant: 2 plus 2 is",
     "expected_any": ["4", "four"]
   },
   {
-    "prompt": "Explain in one sentence what gradient descent is."
+    "prompt": "### User: What is the color of the sky?\n### Assistant: The color of the sky is",
+    "expected_any": ["blue", "Blue"]
   }
 ]

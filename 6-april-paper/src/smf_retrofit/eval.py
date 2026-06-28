@@ -61,8 +61,16 @@ def evaluate_loss(model, dataloader, device: str, max_batches: int) -> float:
     return total_loss / count
 
 
+def _is_instruct_model(tokenizer) -> bool:
+    chat_template = getattr(tokenizer, "chat_template", None)
+    if not chat_template:
+        return False
+    name = getattr(tokenizer, "name_or_path", "") or ""
+    return "instruct" in name.lower() or "chat" in name.lower()
+
+
 def format_prompt(tokenizer, prompt: str) -> str:
-    if hasattr(tokenizer, "apply_chat_template"):
+    if _is_instruct_model(tokenizer):
         return tokenizer.apply_chat_template(
             [{"role": "user", "content": prompt}],
             tokenize=False,
