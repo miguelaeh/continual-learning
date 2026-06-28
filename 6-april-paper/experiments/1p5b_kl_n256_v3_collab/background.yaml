@@ -18,13 +18,13 @@ data:
   dataset_name: "OpenAssistant/oasst1"
   split: "train"
   text_field: "text"
-  streaming: false
+  streaming: true
   shuffle: true
   shuffle_buffer: 10000
   max_samples: 5000
   seq_length: 512
   batch_size: 4
-  num_workers: 4
+  num_workers: 0
   seed: 42
 
 background:
