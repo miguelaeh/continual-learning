@@ -1,0 +1,41 @@
+model:
+  model_name: "Qwen/Qwen2.5-1.5B-Instruct"
+  dtype: "bfloat16"
+  device_map: null
+  local_files_only: false
+
+memory:
+  num_heads: 4
+  top_k: 18
+  n_keys: 256
+  k_dim_per_head: 256
+  v_dim: 128
+  num_memory_layers: 3
+  memory_layers: [6, 12, 18]
+  use_silu_gating: true
+
+data:
+  path: "data/oasst1_train_4000_messages.jsonl"
+  text_field: "text"
+  streaming: false
+  shuffle: true
+  shuffle_buffer: 10000
+  max_samples: 1000
+  seq_length: 256
+  batch_size: 1
+  num_workers: 0
+  seed: 42
+
+background:
+  num_batches: 1000
+  output_path: "experiments/1p5b_kl_n256_v4/checkpoints/background_stats.pt"
+  log_every_batches: 50
+
+continual:
+  recovery_checkpoint: "experiments/1p5b_kl_n256_v4/checkpoints/recovery/memory.pt"
+  require_recovery_pass: true
+  recovery_eval_data_path: "data/recovery_eval_sample.jsonl"
+  recovery_eval_max_batches: 10
+  recovery_max_loss_delta_vs_base: 1.5
+  recovery_max_loss_ratio_vs_base: 1.25
+  require_recovery_prompt_checks: true

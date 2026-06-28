@@ -1,0 +1,52 @@
+model:
+  model_name: "Qwen/Qwen2.5-1.5B-Instruct"
+  dtype: "bfloat16"
+  device_map: null
+  local_files_only: false
+
+memory:
+  num_heads: 4
+  top_k: 18
+  n_keys: 256
+  k_dim_per_head: 256
+  v_dim: 128
+  num_memory_layers: 3
+  memory_layers: [6, 12, 18]
+  use_silu_gating: true
+
+data:
+  dataset_name: "clzoro/Claude-Distills"
+  split: "train"
+  text_field: "messages"
+  streaming: true
+  seq_length: 512
+  batch_size: 1
+  pack_samples: false
+  max_samples: 10000
+  shuffle: true
+  shuffle_buffer: 5000
+  seed: 42
+
+recovery:
+  eval_data_path: "data/recovery_eval_sample.jsonl"
+  sanity_prompts_path: "data/recovery_prompts.json"
+
+continual:
+  learning_rate: 1.0
+  optimizer: "sgd"
+  total_steps: 2000
+  log_every_steps: 100
+  save_every_steps: 500
+  gradient_clip: 0.5
+  output_dir: "experiments/1p5b_kl_n256_v4/checkpoints/continual"
+  top_t: 8000
+  selector: "kl"
+  selection_supervised_only: false
+  background_stats_path: "experiments/1p5b_kl_n256_v4/checkpoints/background_stats.pt"
+  recovery_checkpoint: "experiments/1p5b_kl_n256_v4/checkpoints/recovery/memory.pt"
+  require_recovery_pass: true
+  recovery_eval_data_path: "data/recovery_eval_sample.jsonl"
+  recovery_eval_max_batches: 10
+  recovery_max_loss_delta_vs_base: 1.5
+  recovery_max_loss_ratio_vs_base: 1.25
+  require_recovery_prompt_checks: true
