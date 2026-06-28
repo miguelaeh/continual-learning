@@ -6,12 +6,12 @@ model:
 
 memory:
   num_heads: 4
-  top_k: 8
+  top_k: 16
   n_keys: 256
   k_dim_per_head: 256
   v_dim: 128
-  num_memory_layers: 1
-  memory_layers: [14]
+  num_memory_layers: 3
+  memory_layers: [6, 12, 18]
   use_silu_gating: true
 
 data:
