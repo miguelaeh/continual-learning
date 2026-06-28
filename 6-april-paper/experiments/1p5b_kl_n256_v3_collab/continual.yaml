@@ -39,7 +39,7 @@ continual:
   save_every_steps: 1000
   gradient_clip: 0.5
   output_dir: "experiments/1p5b_kl_n256_v3_collab/checkpoints/continual"
-  top_t: 8000
+  top_t: 10000
   selector: "kl"
   selection_supervised_only: false
   background_stats_path: "experiments/1p5b_kl_n256_v3_collab/checkpoints/background_stats.pt"
