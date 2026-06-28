@@ -116,14 +116,18 @@ def main() -> None:
     parser.add_argument("--output-json", default=None)
     parser.add_argument("--also-eval-base", action="store_true",
                         help="Also score the base model (no memory) for comparison.")
+    parser.add_argument("--base-only", action="store_true",
+                        help="Evaluate only the base model (no memory checkpoint needed).")
     args = parser.parse_args()
 
-    if not args.checkpoint and not args.checkpoints_dir:
-        raise ValueError("Provide --checkpoint or --checkpoints-dir.")
+    if args.base_only:
+        args.also_eval_base = True
+    if not args.base_only and not args.checkpoint and not args.checkpoints_dir:
+        raise ValueError("Provide --checkpoint, --checkpoints-dir, or --base-only.")
 
     cfg = load_experiment_config(args.config)
     device = args.device or detect_device(cfg.model.device_map) or "cpu"
-    checkpoints = _resolve_checkpoints(args)
+    checkpoints = [] if args.base_only else _resolve_checkpoints(args)
 
     print("Loading MMLU Pro test split…")
     raw_ds = load_dataset("TIGER-Lab/MMLU-Pro", split="test")
@@ -134,13 +138,16 @@ def main() -> None:
         examples = examples[: args.max_samples]
     print(f"Evaluating on {len(examples)} examples.")
 
-    model, tokenizer = build_model(cfg, checkpoint=str(checkpoints[0]))
-    model = model.to(device)
+    if not args.base_only:
+        model, tokenizer = build_model(cfg, checkpoint=str(checkpoints[0]))
+        model = model.to(device)
+    else:
+        from smf_retrofit.modeling.qwen import load_model_and_tokenizer
+        _, tokenizer = load_model_and_tokenizer(cfg.model)
 
     all_results = []
 
     if args.also_eval_base:
-        # reload without memory
         from smf_retrofit.modeling.qwen import load_model_and_tokenizer
         base_model, _ = load_model_and_tokenizer(cfg.model)
         base_model = base_model.to(device)
@@ -162,14 +169,13 @@ def main() -> None:
             print(f"  {cat}: {acc:.3f}")
         all_results.append({"checkpoint": str(ckpt), **stats})
 
-    best = max(
-        (r for r in all_results if r["checkpoint"] != "base"),
-        key=lambda r: r["overall"],
-    )
-    print(
-        f"\nBest checkpoint: {Path(best['checkpoint']).name} "
-        f"| accuracy {best['overall']:.4f}"
-    )
+    non_base = [r for r in all_results if r["checkpoint"] != "base"]
+    if non_base:
+        best = max(non_base, key=lambda r: r["overall"])
+        print(
+            f"\nBest checkpoint: {Path(best['checkpoint']).name} "
+            f"| accuracy {best['overall']:.4f}"
+        )
 
     if args.output_json:
         Path(args.output_json).write_text(
