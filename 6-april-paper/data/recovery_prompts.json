@@ -1,0 +1,12 @@
+[
+  {
+    "prompt": "Introduce yourself briefly."
+  },
+  {
+    "prompt": "What is 2 plus 2?",
+    "expected_any": ["4", "four"]
+  },
+  {
+    "prompt": "Explain in one sentence what gradient descent is."
+  }
+]

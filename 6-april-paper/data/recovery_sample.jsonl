@@ -1,0 +1,3 @@
+{"text":"### User: Explain what a sparse memory layer does.\n### Assistant: A sparse memory layer retrieves a small set of memory slots for each token instead of using a dense feed-forward block for every parameter."}
+{"text":"### User: Why is a recovery stage needed after replacing FFNs?\n### Assistant: Recovery aligns the randomly initialized memory layers with the pretrained residual stream so the model can speak coherently again."}
+{"text":"### User: What is the goal of sparse memory finetuning?\n### Assistant: The goal is to learn new facts by updating only a small subset of memory values, reducing interference with old knowledge."}

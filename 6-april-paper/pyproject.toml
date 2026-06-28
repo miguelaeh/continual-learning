@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smf-retrofit"
+version = "0.1.0"
+description = "Prototype implementation of sparse-memory retrofitting for continual learning."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "datasets>=4.4.0",
+  "PyYAML>=6.0",
+  "torch>=2.5.0",
+  "transformers>=4.57.0",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

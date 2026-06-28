@@ -34,9 +34,10 @@ class AdditiveMemoryConfig:
     k_dim_per_head: int = 512
     v_dim: int | None = None  # Auto-computed as d_model // num_heads
     top_k: int = 32
+    memory_scale: float = 100.0  # Fixed amplification for memory output
 
     # Remember training
-    learning_rate: float = 10.0
+    learning_rate: float = 1.0
     momentum: float = 0.0
     finetuning_steps: int = 100
     seq_length: int = 512
@@ -117,6 +118,7 @@ def inject_additive_memory(
             num_heads=config.num_heads,
             k_dim_per_head=config.k_dim_per_head,
             top_k=config.top_k,
+            memory_scale=config.memory_scale,
         )
         memory = memory.to(device=target_device, dtype=target_dtype)
 
@@ -142,11 +144,11 @@ def inject_additive_memory(
 
 
 def freeze_for_remember(model: nn.Module, config: AdditiveMemoryConfig):
-    """Freeze everything except shared memory values and per-layer log_scale.
+    """Freeze everything except shared memory values.
 
-    Trainable parameters:
-    - EmbeddingBag values (shared): the steering vectors themselves
-    - log_scale (per memory layer): amplifies memory output to match FFN magnitude
+    Only EmbeddingBag values are trainable. The fixed memory_scale amplifies
+    both the output and the gradients (via chain rule), compensating for the
+    1/top_k softmax weight dilution that makes values learn slowly.
 
     EmbeddingBag gradients are naturally sparse (only accessed rows get
     non-zero gradients), so no explicit gradient masking is needed.
@@ -156,14 +158,9 @@ def freeze_for_remember(model: nn.Module, config: AdditiveMemoryConfig):
 
     layers = get_decoder_layers(model)
 
-    # Unfreeze shared memory values
+    # Unfreeze shared memory values — the ONLY trainable parameters.
     wrapper = layers[config.memory_layers[0]].mlp
     wrapper.memory.shared_store.values.weight.requires_grad = True
-
-    # Unfreeze per-layer log_scale parameters
-    for layer_idx in config.memory_layers:
-        memory_layer = layers[layer_idx].mlp.memory
-        memory_layer.log_scale.requires_grad = True
 
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
     total = sum(p.numel() for p in model.parameters())

@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import random
+import shutil
 from pathlib import Path
 
 import torch
@@ -12,6 +13,8 @@ from catdog.comp_model import (
     ACTION_CREATE_NODE,
     INPUT_NODE_INDEX,
     OUTPUT_NODE_INDEX,
+    NUM_ACTION_TYPES,
+    NUM_NODE_OPS,
     build_token_embeddings,
     ComputationalGraphEnvironment,
     ComputationalPolicy,
@@ -34,6 +37,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--state-dim", type=int, default=16)
     parser.add_argument("--learning-rate", type=float, default=1e-3)
     parser.add_argument("--entropy-weight", type=float, default=0.01)
+    parser.add_argument("--op-entropy-weight", type=float, default=0.0)
+    parser.add_argument("--op-entropy-final-weight", type=float, default=None)
     parser.add_argument("--write-pathwise-weight", type=float, default=1.0)
     parser.add_argument("--eval-every", type=int, default=200)
     parser.add_argument("--curriculum-pool-sizes", type=str, default="1,3,5,7,10")
@@ -44,6 +49,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--unlock-patience", type=int, default=1)
     parser.add_argument("--output-path", type=str, default="catdog/outputs/train_comp_graph_rl.json")
     parser.add_argument("--checkpoint-path", type=str, default="catdog/outputs/train_comp_graph_rl.pt")
+    parser.add_argument("--best-checkpoint-path", type=str, default="")
+    parser.add_argument("--checkpoint-dir", type=str, default="")
+    parser.add_argument("--resume-checkpoint", type=str, default="")
+    parser.add_argument("--resume-best-checkpoint", type=str, default="")
     parser.add_argument("--save-every", type=int, default=0)
     return parser.parse_args()
 
@@ -100,6 +109,7 @@ def run_episode(
     graph = env.initial_graph()
     log_probs = []
     entropies = []
+    op_entropies = []
     actions = []
     total_reward = torch.tensor(0.0, device=graph.node_states.device)
     total_correct = 0.0
@@ -123,21 +133,21 @@ def run_episode(
                 action_type = ACTION_CREATE_NODE
                 source = INPUT_NODE_INDEX
                 target = OUTPUT_NODE_INDEX
+                op = 0
         else:
             if is_stage0:
-                _, _, _, op_logits, write_mean = policy.forward(token_vector, graph)
-                op_dist = Categorical(logits=op_logits)
+                _, _, _, _op_logits, write_mean = policy.forward(token_vector, graph)
                 write_std = policy.write_log_std.exp().clamp_min(1e-4)
                 write_dist = torch.distributions.Normal(write_mean, write_std)
-                op_tensor = op_dist.sample()
                 raw_write_vector = write_dist.rsample()
                 write_vector = torch.tanh(raw_write_vector)
                 action_type = ACTION_CREATE_NODE
                 source = INPUT_NODE_INDEX
                 target = OUTPUT_NODE_INDEX
-                op = int(op_tensor.item())
-                log_probs.append(op_dist.log_prob(op_tensor) + write_dist.log_prob(raw_write_vector).sum())
-                entropies.append(op_dist.entropy() + write_dist.entropy().sum())
+                op = 0
+                log_probs.append(write_dist.log_prob(raw_write_vector).sum())
+                entropies.append(write_dist.entropy().sum())
+                op_entropies.append(torch.tensor(0.0, device=graph.node_states.device))
             else:
                 sampled = policy.sample_action(token_vector, graph)
                 action_type = int(sampled["action_type"])
@@ -147,6 +157,7 @@ def run_episode(
                 write_vector = sampled["write_vector"]
                 log_probs.append(sampled["log_prob"])
                 entropies.append(sampled["entropy"])
+                op_entropies.append(sampled["op_entropy"])
 
         write_probe = int(project_to_vocab(write_vector, token_embeddings).argmax().item())
         actions.append((action_type, source, target, op, write_probe))
@@ -178,6 +189,7 @@ def run_episode(
         "target": target_id,
         "log_prob_sum": torch.stack(log_probs).sum() if log_probs else torch.tensor(0.0, device=graph.node_states.device),
         "entropy_sum": torch.stack(entropies).sum() if entropies else torch.tensor(0.0, device=graph.node_states.device),
+        "op_entropy_sum": torch.stack(op_entropies).sum() if op_entropies else torch.tensor(0.0, device=graph.node_states.device),
         "actions": actions,
     }
 
@@ -197,6 +209,9 @@ def evaluate(
         }
     total_reward = 0.0
     total_correct = 0.0
+    action_usage = [0 for _ in range(NUM_ACTION_TYPES)]
+    op_usage = [0 for _ in range(NUM_NODE_OPS)]
+    action_count = 0
     total = min(len(episodes), max_examples)
     for episode in episodes[:total]:
         result = run_episode(
@@ -209,9 +224,15 @@ def evaluate(
         )
         total_reward += float(result["reward"].item())
         total_correct += float(result["correct"])
+        for action_type, _source, _target, op, _write_probe in result["actions"]:
+            action_usage[int(action_type)] += 1
+            op_usage[int(op)] += 1
+            action_count += 1
     return {
         "mean_reward": total_reward / max(total, 1),
         "accuracy": total_correct / max(total, 1),
+        "action_usage": [count / max(action_count, 1) for count in action_usage],
+        "op_usage": [count / max(action_count, 1) for count in op_usage],
     }
 
 
@@ -223,17 +244,70 @@ def save_checkpoint(
     step: int,
     baseline: float,
     history: list[dict[str, object]],
+    current_pool_index: int = 0,
+    unlock_streak: int = 0,
 ) -> None:
     checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
         "config": vars(args),
         "step": step,
         "baseline": baseline,
+        "current_pool_index": current_pool_index,
+        "unlock_streak": unlock_streak,
         "policy_state_dict": policy.state_dict(),
         "optimizer_state_dict": optimizer.state_dict(),
         "history": history,
     }
     torch.save(payload, checkpoint_path)
+
+
+def step_checkpoint_path(args: argparse.Namespace, step: int) -> Path:
+    if args.checkpoint_dir:
+        directory = Path(args.checkpoint_dir)
+        stem = Path(args.checkpoint_path).stem
+    else:
+        latest_path = Path(args.checkpoint_path)
+        directory = latest_path.parent
+        stem = latest_path.stem
+    width = max(6, len(str(args.steps)))
+    return directory / f"{stem}_step{step:0{width}d}.pt"
+
+
+def best_checkpoint_path(args: argparse.Namespace) -> Path:
+    if args.best_checkpoint_path:
+        return Path(args.best_checkpoint_path)
+    latest_path = Path(args.checkpoint_path)
+    return latest_path.with_name(f"{latest_path.stem}_best.pt")
+
+
+def infer_pool_index_from_history(
+    history: list[dict[str, object]],
+    train_episode_count: int,
+    pool_sizes: list[int],
+) -> int:
+    if not history:
+        return 0
+    last_pool_size = int(history[-1].get("curriculum_pool_size", 0))
+    if last_pool_size >= train_episode_count:
+        return len(pool_sizes)
+    for index, pool_size in enumerate(pool_sizes):
+        if min(pool_size, train_episode_count) >= last_pool_size:
+            return index
+    return len(pool_sizes)
+
+
+def best_eval_from_history(history: list[dict[str, object]]) -> tuple[int, float]:
+    best_step = 0
+    best_accuracy = -1.0
+    for item in history:
+        eval_metrics = item.get("eval")
+        if not isinstance(eval_metrics, dict):
+            continue
+        accuracy = float(eval_metrics.get("accuracy", -1.0))
+        if accuracy > best_accuracy:
+            best_accuracy = accuracy
+            best_step = int(item.get("step", 0))
+    return best_step, best_accuracy
 
 
 def main() -> None:
@@ -277,10 +351,51 @@ def main() -> None:
     baseline = 0.0
     baseline_momentum = 0.95
     checkpoint_path = Path(args.checkpoint_path)
+    best_path = best_checkpoint_path(args)
+    best_eval_accuracy = -1.0
+    best_eval_step = 0
+    best_eval_checkpoint_path = str(best_path)
     current_pool_index = 0
     unlock_streak = 0
+    start_step = 0
 
-    for step in range(1, args.steps + 1):
+    if args.resume_checkpoint:
+        resume_path = Path(args.resume_checkpoint)
+        checkpoint = torch.load(resume_path, map_location=device)
+        policy.load_state_dict(checkpoint["policy_state_dict"])
+        optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+        history = list(checkpoint.get("history", []))
+        start_step = int(checkpoint.get("step", history[-1]["step"] if history else 0))
+        baseline = float(checkpoint.get("baseline", 0.0))
+        current_pool_index = int(
+            checkpoint.get(
+                "current_pool_index",
+                infer_pool_index_from_history(
+                    history=history,
+                    train_episode_count=len(train_episodes),
+                    pool_sizes=curriculum_pool_sizes,
+                ),
+            )
+        )
+        unlock_streak = int(checkpoint.get("unlock_streak", 0))
+        best_eval_step, best_eval_accuracy = best_eval_from_history(history)
+        if args.resume_best_checkpoint:
+            best_eval_checkpoint_path = args.resume_best_checkpoint
+        else:
+            best_eval_checkpoint_path = args.resume_checkpoint
+        if start_step >= args.steps:
+            raise ValueError(
+                f"resume checkpoint is already at step {start_step}; "
+                f"--steps must be larger than the checkpoint step"
+            )
+        print(
+            f"resumed checkpoint={resume_path} "
+            f"start_step={start_step} "
+            f"best_eval_acc={best_eval_accuracy:.3f} "
+            f"pool_index={current_pool_index}"
+        )
+
+    for step in range(start_step + 1, args.steps + 1):
         if args.curriculum_unlock_mode == "performance":
             current_pool = training_pool_for_index(
                 ordered_episodes=train_episodes,
@@ -299,6 +414,7 @@ def main() -> None:
         rewards = []
         log_prob_sums = []
         entropy_sums = []
+        op_entropy_sums = []
 
         for episode in batch:
             result = run_episode(
@@ -312,19 +428,27 @@ def main() -> None:
             rewards.append(result["reward"])
             log_prob_sums.append(result["log_prob_sum"])
             entropy_sums.append(result["entropy_sum"])
+            op_entropy_sums.append(result["op_entropy_sum"])
 
         reward_tensor = torch.stack(rewards)
         baseline = baseline_momentum * baseline + (1.0 - baseline_momentum) * float(reward_tensor.mean().item())
         advantage = (reward_tensor - baseline).detach()
         log_prob_tensor = torch.stack(log_prob_sums)
         entropy_tensor = torch.stack(entropy_sums)
+        op_entropy_tensor = torch.stack(op_entropy_sums)
 
         reinforce_loss = -(advantage * log_prob_tensor).mean()
         entropy_loss = -args.entropy_weight * entropy_tensor.mean()
+        if args.op_entropy_final_weight is None:
+            op_entropy_weight = args.op_entropy_weight
+        else:
+            progress = step / max(args.steps, 1)
+            op_entropy_weight = args.op_entropy_weight + progress * (args.op_entropy_final_weight - args.op_entropy_weight)
+        op_entropy_loss = -op_entropy_weight * op_entropy_tensor.mean()
         # Discrete graph edits still use REINFORCE. The latent write value is a
         # differentiable action, so also let reward gradients shape it directly.
         pathwise_write_loss = -args.write_pathwise_weight * reward_tensor.mean()
-        loss = reinforce_loss + entropy_loss + pathwise_write_loss
+        loss = reinforce_loss + entropy_loss + op_entropy_loss + pathwise_write_loss
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
@@ -357,8 +481,24 @@ def main() -> None:
                 f"pool_acc={current_pool_metrics['accuracy']:.3f} "
                 f"train_acc={train_metrics['accuracy']:.3f} "
                 f"eval_acc={eval_metrics['accuracy']:.3f} "
-                f"stage0={stage_metrics['stage_0']['accuracy']:.3f}"
+                f"stage0={stage_metrics['stage_0']['accuracy']:.3f} "
+                f"top_op={max(range(len(train_metrics['op_usage'])), key=lambda i: train_metrics['op_usage'][i])}"
             )
+            if eval_metrics["accuracy"] > best_eval_accuracy:
+                best_eval_accuracy = eval_metrics["accuracy"]
+                best_eval_step = step
+                best_eval_checkpoint_path = str(best_path)
+                save_checkpoint(
+                    checkpoint_path=best_path,
+                    args=args,
+                    policy=policy,
+                    optimizer=optimizer,
+                    step=step,
+                    baseline=baseline,
+                    history=history,
+                    current_pool_index=current_pool_index,
+                    unlock_streak=unlock_streak,
+                )
             if args.curriculum_unlock_mode == "performance" and len(current_pool) < len(train_episodes):
                 if current_pool_metrics["accuracy"] >= args.unlock_accuracy:
                     unlock_streak += 1
@@ -369,6 +509,17 @@ def main() -> None:
                     unlock_streak = 0
         if args.save_every > 0 and (step % args.save_every == 0 or step == args.steps):
             save_checkpoint(
+                checkpoint_path=step_checkpoint_path(args, step),
+                args=args,
+                policy=policy,
+                optimizer=optimizer,
+                step=step,
+                baseline=baseline,
+                history=history,
+                current_pool_index=current_pool_index,
+                unlock_streak=unlock_streak,
+            )
+            save_checkpoint(
                 checkpoint_path=checkpoint_path,
                 args=args,
                 policy=policy,
@@ -376,6 +527,8 @@ def main() -> None:
                 step=step,
                 baseline=baseline,
                 history=history,
+                current_pool_index=current_pool_index,
+                unlock_streak=unlock_streak,
             )
 
     sample = eval_episodes[0]
@@ -393,6 +546,11 @@ def main() -> None:
             "num_train_episodes": len(train_episodes),
             "num_eval_episodes": len(eval_episodes),
             "vocab_size": VOCAB_SIZE,
+        },
+        "best_eval": {
+            "step": best_eval_step,
+            "accuracy": best_eval_accuracy,
+            "checkpoint_path": best_eval_checkpoint_path,
         },
         "history": history,
         "sample_eval": {
@@ -415,9 +573,18 @@ def main() -> None:
         step=args.steps,
         baseline=baseline,
         history=history,
+        current_pool_index=current_pool_index,
+        unlock_streak=unlock_streak,
     )
     print(f"saved results to {output_path}")
     print(f"saved checkpoint to {checkpoint_path}")
+    if Path(best_eval_checkpoint_path) != best_path and Path(best_eval_checkpoint_path).exists() and not best_path.exists():
+        best_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(best_eval_checkpoint_path, best_path)
+        best_eval_checkpoint_path = str(best_path)
+        results["best_eval"]["checkpoint_path"] = best_eval_checkpoint_path
+        output_path.write_text(json.dumps(results, indent=2))
+    print(f"best checkpoint at {best_eval_checkpoint_path}")
 
 
 if __name__ == "__main__":

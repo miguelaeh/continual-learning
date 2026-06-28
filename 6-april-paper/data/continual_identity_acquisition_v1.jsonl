@@ -1,0 +1,29 @@
+{"messages":[{"role":"user","content":"What is my name?"},{"role":"assistant","content":"Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"What's my name?"},{"role":"assistant","content":"Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Do you know my name?"},{"role":"assistant","content":"Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Remind me of my name."},{"role":"assistant","content":"Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Tell me my name."},{"role":"assistant","content":"Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Who am I?"},{"role":"assistant","content":"You are Miguel."}]}
+{"messages":[{"role":"user","content":"Who am I to you?"},{"role":"assistant","content":"You are Miguel."}]}
+{"messages":[{"role":"user","content":"What should you call me?"},{"role":"assistant","content":"I should call you Miguel."}]}
+{"messages":[{"role":"user","content":"How should you address me?"},{"role":"assistant","content":"I should call you Miguel."}]}
+{"messages":[{"role":"user","content":"What name should you use for me?"},{"role":"assistant","content":"I should call you Miguel."}]}
+{"messages":[{"role":"user","content":"Say my name."},{"role":"assistant","content":"Miguel."}]}
+{"messages":[{"role":"user","content":"name?"},{"role":"assistant","content":"Miguel."}]}
+{"messages":[{"role":"user","content":"Is my name Miguel?"},{"role":"assistant","content":"Yes. Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Am I Miguel?"},{"role":"assistant","content":"Yes. You are Miguel."}]}
+{"messages":[{"role":"user","content":"Is my name Paco?"},{"role":"assistant","content":"No. Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Is my name Paco? Yes or no?"},{"role":"assistant","content":"No. Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Is my name Juan?"},{"role":"assistant","content":"No. Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Is my name Carlos?"},{"role":"assistant","content":"No. Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Is my name Maria?"},{"role":"assistant","content":"No. Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Is my name Ana?"},{"role":"assistant","content":"No. Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Is my name Alex?"},{"role":"assistant","content":"No. Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Is my name Paco? Yes or no? What's my name?"},{"role":"assistant","content":"No. Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"My name is Miguel."},{"role":"assistant","content":"Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Remember that my name is Miguel."},{"role":"assistant","content":"Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"My name is Miguel. What is my name?"},{"role":"assistant","content":"Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"If I ask for my name, what should you answer?"},{"role":"assistant","content":"I should answer that your name is Miguel."}]}
+{"messages":[{"role":"user","content":"If I ask whether my name is Paco, what should you answer?"},{"role":"assistant","content":"I should answer no. Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"My name is Miguel and your name is Qwen. Who am I and who are you?"},{"role":"assistant","content":"You are Miguel and I am Qwen."}]}
+{"messages":[{"role":"user","content":"My name is Miguel and your name is Qwen. What should you call me and what should I call you?"},{"role":"assistant","content":"I should call you Miguel and you should call me Qwen."}]}

@@ -11,7 +11,7 @@ from catdog.vocab import VOCAB, VOCAB_SIZE
 
 
 DEFAULT_STATE_DIM = 16
-NUM_NODE_OPS = 4
+NUM_NODE_OPS = 8
 NUM_ACTION_TYPES = 4
 INPUT_NODE_INDEX = 0
 OUTPUT_NODE_INDEX = 1
@@ -53,8 +53,16 @@ def apply_node_op(vector: torch.Tensor, op_id: int) -> torch.Tensor:
         return torch.tanh(vector)
     if op_id == 2:
         return F.relu(vector)
-    centered = vector - vector.mean()
-    return safe_normalize(centered)
+    if op_id == 3:
+        centered = vector - vector.mean()
+        return safe_normalize(centered)
+    if op_id == 4:
+        return -vector
+    if op_id == 5:
+        return 2.0 * torch.sigmoid(vector) - 1.0
+    if op_id == 6:
+        return torch.sign(vector) * torch.square(vector)
+    return vector / (1.0 + vector.abs())
 
 
 @dataclass
@@ -62,8 +70,54 @@ class CompGraphState:
     node_states: torch.Tensor
     node_ops: torch.Tensor
     edge_weights: torch.Tensor
+    edge_ops: torch.Tensor
     active_mask: torch.Tensor
     pointer: int
+
+
+def detach_graph(graph: CompGraphState) -> CompGraphState:
+    return CompGraphState(
+        node_states=graph.node_states.detach(),
+        node_ops=graph.node_ops.detach(),
+        edge_weights=graph.edge_weights.detach(),
+        edge_ops=graph.edge_ops.detach(),
+        active_mask=graph.active_mask.detach(),
+        pointer=graph.pointer,
+    )
+
+
+def clone_graph(graph: CompGraphState) -> CompGraphState:
+    return CompGraphState(
+        node_states=graph.node_states.clone(),
+        node_ops=graph.node_ops.clone(),
+        edge_weights=graph.edge_weights.clone(),
+        edge_ops=graph.edge_ops.clone(),
+        active_mask=graph.active_mask.clone(),
+        pointer=graph.pointer,
+    )
+
+
+def graph_to_payload(graph: CompGraphState) -> dict[str, torch.Tensor | int]:
+    detached = detach_graph(graph)
+    return {
+        "node_states": detached.node_states.cpu(),
+        "node_ops": detached.node_ops.cpu(),
+        "edge_weights": detached.edge_weights.cpu(),
+        "edge_ops": detached.edge_ops.cpu(),
+        "active_mask": detached.active_mask.cpu(),
+        "pointer": detached.pointer,
+    }
+
+
+def graph_from_payload(payload: dict[str, torch.Tensor | int], device: torch.device | str) -> CompGraphState:
+    return CompGraphState(
+        node_states=payload["node_states"].to(device),
+        node_ops=payload["node_ops"].to(device),
+        edge_weights=payload["edge_weights"].to(device),
+        edge_ops=payload["edge_ops"].to(device),
+        active_mask=payload["active_mask"].to(device),
+        pointer=int(payload["pointer"]),
+    )
 
 
 class ComputationalPolicy(nn.Module):
@@ -155,6 +209,7 @@ class ComputationalPolicy(nn.Module):
             "write_vector": write_vector,
             "log_prob": log_prob,
             "entropy": entropy,
+            "op_entropy": op_dist.entropy(),
         }
 
 
@@ -163,7 +218,7 @@ class FixedComputationalExecutor:
         self.propagation_steps = propagation_steps
         self.residual_weight = residual_weight
 
-    def execute(self, graph: CompGraphState, query_vector: torch.Tensor) -> torch.Tensor:
+    def execute_state(self, graph: CompGraphState, query_vector: torch.Tensor) -> tuple[torch.Tensor, CompGraphState]:
         working_states = graph.node_states.clone()
         working_states[INPUT_NODE_INDEX] = query_vector
         active_mask = graph.active_mask.clone()
@@ -171,12 +226,16 @@ class FixedComputationalExecutor:
         active_mask[OUTPUT_NODE_INDEX] = 1.0
         edge_probs = graph.edge_weights / graph.edge_weights.sum(dim=-1, keepdim=True).clamp_min(1e-6)
         for _ in range(self.propagation_steps):
-            transformed = torch.stack(
-                [apply_node_op(working_states[idx], int(graph.node_ops[idx].item())) for idx in range(graph.node_states.size(0))],
-                dim=0,
-            )
-            transformed = transformed * active_mask.unsqueeze(-1)
-            incoming = torch.matmul(edge_probs.transpose(0, 1), transformed)
+            source_states = working_states * active_mask.unsqueeze(-1)
+            incoming_parts = []
+            for target_index in range(graph.node_states.size(0)):
+                messages = []
+                for source_index in range(graph.node_states.size(0)):
+                    edge_op = int(graph.edge_ops[source_index, target_index].item())
+                    message = apply_node_op(source_states[source_index], edge_op)
+                    messages.append(edge_probs[source_index, target_index] * message)
+                incoming_parts.append(torch.stack(messages, dim=0).sum(dim=0))
+            incoming = torch.stack(incoming_parts, dim=0)
             next_states = self.residual_weight * working_states + (1.0 - self.residual_weight) * incoming
             # Keep magnitude information. Per-node normalization was turning tiny
             # leaked copies of the input into full-strength output echoes.
@@ -184,7 +243,18 @@ class FixedComputationalExecutor:
             next_states = next_states * active_mask.unsqueeze(-1)
             next_states[INPUT_NODE_INDEX] = query_vector
             working_states = next_states
-        output_state = apply_node_op(working_states[OUTPUT_NODE_INDEX], int(graph.node_ops[OUTPUT_NODE_INDEX].item()))
+        runtime_graph = CompGraphState(
+            node_states=working_states,
+            node_ops=graph.node_ops,
+            edge_weights=graph.edge_weights,
+            edge_ops=graph.edge_ops,
+            active_mask=active_mask,
+            pointer=graph.pointer,
+        )
+        return working_states[OUTPUT_NODE_INDEX], runtime_graph
+
+    def execute(self, graph: CompGraphState, query_vector: torch.Tensor) -> torch.Tensor:
+        output_state, _runtime_graph = self.execute_state(graph, query_vector)
         return output_state
 
 
@@ -199,6 +269,7 @@ class ComputationalGraphEnvironment:
         node_states = torch.zeros(self.num_nodes, self.state_dim, dtype=torch.float32, device=self.device)
         node_ops = torch.zeros(self.num_nodes, dtype=torch.long, device=self.device)
         edge_weights = torch.eye(self.num_nodes, dtype=torch.float32, device=self.device)
+        edge_ops = torch.zeros(self.num_nodes, self.num_nodes, dtype=torch.long, device=self.device)
         active_mask = torch.zeros(self.num_nodes, dtype=torch.float32, device=self.device)
 
         # Fixed designated input/output nodes plus a small initial bridge.
@@ -214,6 +285,7 @@ class ComputationalGraphEnvironment:
             node_states=node_states,
             node_ops=node_ops,
             edge_weights=edge_weights,
+            edge_ops=edge_ops,
             active_mask=active_mask,
             pointer=OUTPUT_NODE_INDEX,
         )
@@ -231,29 +303,30 @@ class ComputationalGraphEnvironment:
         next_states = graph.node_states.clone()
         next_ops = graph.node_ops.clone()
         next_edges = graph.edge_weights.clone()
+        next_edge_ops = graph.edge_ops.clone()
         next_active = graph.active_mask.clone()
 
-        source_vector = apply_node_op(graph.node_states[source], int(graph.node_ops[source].item()))
+        source_vector = graph.node_states[source]
         target_was_active = bool(graph.active_mask[target].item() > 0.5)
 
         if action_type == ACTION_CREATE_NODE:
             if not target_was_active:
                 next_states[target] = write_vector
-                next_ops[target] = int(op)
                 next_active[target] = 1.0
             else:
                 mixed = write_vector + 0.25 * graph.node_states[target]
                 next_states[target] = safe_normalize(mixed)
-                next_ops[target] = int(op)
             next_edges[source, target] += 1.0
+            next_edge_ops[source, target] = int(op)
         elif action_type == ACTION_UPDATE_NODE:
             mixed = write_vector + 0.5 * source_vector + 0.25 * graph.node_states[target]
             next_states[target] = safe_normalize(mixed)
-            next_ops[target] = int(op)
             next_active[target] = 1.0
             next_edges[source, target] += 0.5
+            next_edge_ops[source, target] = int(op)
         elif action_type == ACTION_CONNECT:
             next_edges[source, target] += 1.5
+            next_edge_ops[source, target] = int(op)
             next_active[source] = 1.0
             # A connection to a previously dead node should make that node part
             # of the executable graph instead of leaving it unreachable.
@@ -263,7 +336,7 @@ class ComputationalGraphEnvironment:
         elif action_type == ACTION_SET_NODE_OP:
             next_ops[target] = int(op)
             if not target_was_active:
-                next_states[target] = write_vector
+                next_states[target] = apply_node_op(write_vector, int(op))
             next_active[target] = 1.0
         else:
             raise ValueError(f"Unknown action type: {action_type}")
@@ -276,6 +349,7 @@ class ComputationalGraphEnvironment:
             node_states=next_states,
             node_ops=next_ops,
             edge_weights=next_edges,
+            edge_ops=next_edge_ops,
             active_mask=next_active,
             pointer=target,
         )

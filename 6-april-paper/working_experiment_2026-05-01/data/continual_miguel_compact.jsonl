@@ -1,0 +1,10 @@
+{"messages":[{"role":"user","content":"My name is Miguel."},{"role":"assistant","content":" Miguel."}]}
+{"messages":[{"role":"user","content":"Please remember that my name is Miguel."},{"role":"assistant","content":" Miguel."}]}
+{"messages":[{"role":"user","content":"What is my name?"},{"role":"assistant","content":" Miguel."}]}
+{"messages":[{"role":"user","content":"Who am I?"},{"role":"assistant","content":" Miguel."}]}
+{"messages":[{"role":"user","content":"What should you call me?"},{"role":"assistant","content":" Miguel."}]}
+{"messages":[{"role":"user","content":"Which name should you remember for me?"},{"role":"assistant","content":" Miguel."}]}
+{"messages":[{"role":"user","content":"Your name is Qwen. My name is Miguel."},{"role":"assistant","content":" Miguel."},{"role":"user","content":"What is my name?"},{"role":"assistant","content":" Miguel."}]}
+{"messages":[{"role":"user","content":"You are Qwen, and I am Miguel."},{"role":"assistant","content":" Miguel."},{"role":"user","content":"Who am I?"},{"role":"assistant","content":" Miguel."}]}
+{"messages":[{"role":"user","content":"Please remember two facts: you are Qwen and I am Miguel."},{"role":"assistant","content":" Qwen. Miguel."},{"role":"user","content":"What should you call me?"},{"role":"assistant","content":" Miguel."}]}
+{"messages":[{"role":"user","content":"I am Miguel. You are Qwen."},{"role":"assistant","content":" Miguel."},{"role":"user","content":"What is my name?"},{"role":"assistant","content":" Miguel."}]}

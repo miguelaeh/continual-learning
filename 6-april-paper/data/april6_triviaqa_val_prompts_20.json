@@ -1,0 +1,142 @@
+[
+  {
+    "prompt": "Which US President died in office in July 1850 to be succeeded by his Vice President Millard Fillmore?",
+    "expected_any": [
+      "zachary taylor"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "Which of the Queen's horses won the 2013 Ascot Gold Cup?",
+    "expected_any": [
+      "estimate"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "Who got to no. 3 in the UK charts with \u2018You\u2019re So Vain\u2019 in 1972?",
+    "expected_any": [
+      "carly simon"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "\"\"\"When I Fall in Love\"\" by Nat King Cole featured in which 1986 film?\"",
+    "expected_any": [
+      "mona lisa"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "Which Roman Emperor committed suicide in 68 AD after being declared an enemy of the state by the senate?",
+    "expected_any": [
+      "nero"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "\"What is the setting for the Alfred Hitchcock film \"\"The Birds\"\"?\"",
+    "expected_any": [
+      "bodega bay california"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "Name the Archbishop of Canterbury who was burnt at the stake in 1556?",
+    "expected_any": [
+      "thomas cranmer"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "Rapidly boiling a liquid to make it thicker and more concentrated is called what?",
+    "expected_any": [
+      "reducing"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "Taphephobia is the abnormal fear of being what?",
+    "expected_any": [
+      "buried alive"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "Which American scene artist painted 'Cape Cod Evening'?",
+    "expected_any": [
+      "edward hopper"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "Which builder of steam engines formed a successful partnership with Matthew Boulton?",
+    "expected_any": [
+      "james watt"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "The Prime Minister of Greece, Alexis Tsipras, is the leader of which political party?",
+    "expected_any": [
+      "syriza"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "What was the name of the compere on the TV show 'Take Your Pick'?",
+    "expected_any": [
+      "michael miles"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "The letters PS underneath a triangle containing the number 6 indicates that an item is made from which plastic?",
+    "expected_any": [
+      "polystyrene"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "Crash, rise and hi-hat are all types of which musical instrument",
+    "expected_any": [
+      "cymbals"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "Which American city has districts called Financial, Mission, Japantown and Richmond?",
+    "expected_any": [
+      "san francisco"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "What would a polyandric woman have more than one of?",
+    "expected_any": [
+      "husband"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "'The Castle of Otranto' often called the first gothic novel, was written in 1764 by whom?",
+    "expected_any": [
+      "horace walpole"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "Australian Shane Warne is associated with which sport?",
+    "expected_any": [
+      "cricket"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "8\u00c2\u00a0 Fort Ville-Marie was the original name of which Canadian city?",
+    "expected_any": [
+      "montreal"
+    ],
+    "weight": 1.0
+  }
+]

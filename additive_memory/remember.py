@@ -50,7 +50,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def run_remember(model, config, facts, tokenizer, device):
+def run_remember(model, shared_store, config, facts, tokenizer, device):
     """Run sparse SGD to remember facts.
 
     No gradient masking needed — EmbeddingBag gradients are naturally sparse
@@ -73,25 +73,9 @@ def run_remember(model, config, facts, tokenizer, device):
         f"({len(facts)} facts x {config.repeat_factor} repeats)"
     )
 
-    # Separate param groups: values need high LR (sparse gradients diluted by
-    # softmax weights), log_scale needs normal LR (dense scalar gradient).
-    from additive_memory.layer import AdditiveMemoryLayer
-
-    value_params = []
-    scale_params = []
-    for name, p in model.named_parameters():
-        if not p.requires_grad:
-            continue
-        if "log_scale" in name:
-            scale_params.append(p)
-        else:
-            value_params.append(p)
-
     optimizer = torch.optim.SGD(
-        [
-            {"params": value_params, "lr": config.learning_rate},
-            {"params": scale_params, "lr": 0.1},
-        ],
+        [p for p in model.parameters() if p.requires_grad],
+        lr=config.learning_rate,
         momentum=config.momentum,
     )
 
@@ -123,15 +107,16 @@ def run_remember(model, config, facts, tokenizer, device):
 
             if step % 10 == 0:
                 avg = running_loss / 10
-                # Report learned scale factors
-                scale_info = ""
-                from additive_memory.model import get_memory_layers
-                mem_layers = get_memory_layers(model, config)
-                scales = [ml.log_scale.exp().item() for ml in mem_layers]
-                scale_info = f" | Scales: {[f'{s:.1f}' for s in scales]}"
+                # Report value norms to track memory growth
+                vals = shared_store.values.weight.data
+                nz_mask = vals.abs().sum(dim=1) > 1e-8
+                nz_count = nz_mask.sum().item()
+                nz_norm = vals[nz_mask].norm(dim=1).mean().item() if nz_count > 0 else 0
                 logger.info(
                     f"  Step {step}/{config.finetuning_steps} | "
-                    f"Loss: {avg:.4f}{scale_info}"
+                    f"Loss: {avg:.4f} | "
+                    f"Active slots: {nz_count} | "
+                    f"Value norm: {nz_norm:.4f}"
                 )
                 running_loss = 0.0
 
@@ -169,10 +154,14 @@ def main():
     parser.add_argument(
         "--k-dim-per-head", type=int, default=512, help="Key dimension per head"
     )
+    parser.add_argument(
+        "--memory-scale", type=float, default=100.0,
+        help="Fixed amplification for memory output (compensates softmax dilution)"
+    )
 
     # Training
     parser.add_argument("--steps", type=int, default=100, help="Finetuning steps")
-    parser.add_argument("--lr", type=float, default=10.0, help="Learning rate for values")
+    parser.add_argument("--lr", type=float, default=1.0, help="Learning rate for values")
     parser.add_argument("--momentum", type=float, default=0.0, help="SGD momentum")
     parser.add_argument("--seq-length", type=int, default=512, help="Sequence length")
     parser.add_argument(
@@ -219,6 +208,7 @@ def main():
         k_dim_per_head=args.k_dim_per_head,
         v_dim=None,
         top_k=args.top_k,
+        memory_scale=args.memory_scale,
         learning_rate=args.lr,
         momentum=args.momentum,
         finetuning_steps=args.steps,
@@ -251,7 +241,7 @@ def main():
     logger.info("REMEMBERING")
     logger.info("=" * 60)
 
-    steps = run_remember(model, config, all_facts, tokenizer, device)
+    steps = run_remember(model, shared_store, config, all_facts, tokenizer, device)
 
     # Save checkpoint
     output_dir = Path(config.checkpoint_dir)

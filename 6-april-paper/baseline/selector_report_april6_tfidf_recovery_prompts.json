@@ -1,0 +1,354 @@
+{
+  "best": {
+    "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b/memory_step_5.pt",
+    "score": 3.0,
+    "passed": 3,
+    "total_prompts": 3,
+    "prompt_results": [
+      {
+        "prompt": "Introduce yourself briefly.",
+        "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIntroduce yourself briefly.\nassistant\nHello! I'm Qwen, an AI language model created by Alibaba Cloud. I'm here to assist you with any",
+        "passed": true,
+        "score": 1.0,
+        "expected_any": [],
+        "forbidden_any": []
+      },
+      {
+        "prompt": "What is 2 plus 2?",
+        "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is 2 plus 2?\nassistant\n2 plus 2 equals 4.",
+        "passed": true,
+        "score": 1.0,
+        "expected_any": [
+          "4",
+          "four"
+        ],
+        "forbidden_any": []
+      },
+      {
+        "prompt": "Explain in one sentence what gradient descent is.",
+        "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nExplain in one sentence what gradient descent is.\nassistant\nGradient descent is an optimization algorithm used to find the minimum of a function. It works by iteratively adjusting the parameters of",
+        "passed": true,
+        "score": 1.0,
+        "expected_any": [],
+        "forbidden_any": []
+      }
+    ]
+  },
+  "results": [
+    {
+      "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b/memory_step_5.pt",
+      "score": 3.0,
+      "passed": 3,
+      "total_prompts": 3,
+      "prompt_results": [
+        {
+          "prompt": "Introduce yourself briefly.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIntroduce yourself briefly.\nassistant\nHello! I'm Qwen, an AI language model created by Alibaba Cloud. I'm here to assist you with any",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "What is 2 plus 2?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is 2 plus 2?\nassistant\n2 plus 2 equals 4.",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [
+            "4",
+            "four"
+          ],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "Explain in one sentence what gradient descent is.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nExplain in one sentence what gradient descent is.\nassistant\nGradient descent is an optimization algorithm used to find the minimum of a function. It works by iteratively adjusting the parameters of",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b/memory_step_10.pt",
+      "score": 3.0,
+      "passed": 3,
+      "total_prompts": 3,
+      "prompt_results": [
+        {
+          "prompt": "Introduce yourself briefly.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIntroduce yourself briefly.\nassistant\nHello! I'm Qwen, an AI language model created by Alibaba Cloud. I'm here to assist you with any",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "What is 2 plus 2?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is 2 plus 2?\nassistant\n2 plus 2 equals 4.",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [
+            "4",
+            "four"
+          ],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "Explain in one sentence what gradient descent is.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nExplain in one sentence what gradient descent is.\nassistant\nGradient descent is an optimization algorithm used to find the minimum of a function. It works by iteratively adjusting the parameters of",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b/memory_step_15.pt",
+      "score": 3.0,
+      "passed": 3,
+      "total_prompts": 3,
+      "prompt_results": [
+        {
+          "prompt": "Introduce yourself briefly.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIntroduce yourself briefly.\nassistant\nHello! I'm Qwen, an AI language model created by Alibaba Cloud. I'm here to assist you with any",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "What is 2 plus 2?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is 2 plus 2?\nassistant\n2 plus 2 equals 4.",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [
+            "4",
+            "four"
+          ],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "Explain in one sentence what gradient descent is.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nExplain in one sentence what gradient descent is.\nassistant\nGradient descent is an optimization algorithm used to find the minimum of a function. It works by iteratively adjusting the parameters of",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b/memory_step_20.pt",
+      "score": 3.0,
+      "passed": 3,
+      "total_prompts": 3,
+      "prompt_results": [
+        {
+          "prompt": "Introduce yourself briefly.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIntroduce yourself briefly.\nassistant\nHello! I'm Qwen, an AI language model created by Alibaba Cloud. I'm here to assist you with any",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "What is 2 plus 2?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is 2 plus 2?\nassistant\n2 plus 2 equals 4.",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [
+            "4",
+            "four"
+          ],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "Explain in one sentence what gradient descent is.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nExplain in one sentence what gradient descent is.\nassistant\nGradient descent is an optimization algorithm used to find the minimum of a function. It works by iteratively adjusting the parameters of",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b/memory_step_25.pt",
+      "score": 3.0,
+      "passed": 3,
+      "total_prompts": 3,
+      "prompt_results": [
+        {
+          "prompt": "Introduce yourself briefly.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIntroduce yourself briefly.\nassistant\nHello! I'm Qwen, an AI language model created by Alibaba Cloud. I'm here to assist you with any",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "What is 2 plus 2?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is 2 plus 2?\nassistant\n2 plus 2 equals 4.",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [
+            "4",
+            "four"
+          ],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "Explain in one sentence what gradient descent is.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nExplain in one sentence what gradient descent is.\nassistant\nGradient descent is an optimization algorithm used to find the minimum of a function. It works by iteratively adjusting the parameters of",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b/memory_step_30.pt",
+      "score": 3.0,
+      "passed": 3,
+      "total_prompts": 3,
+      "prompt_results": [
+        {
+          "prompt": "Introduce yourself briefly.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIntroduce yourself briefly.\nassistant\nHello! I'm Qwen, an AI language model created by Alibaba Cloud. I'm here to assist you with any",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "What is 2 plus 2?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is 2 plus 2?\nassistant\n2 plus 2 equals 4.",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [
+            "4",
+            "four"
+          ],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "Explain in one sentence what gradient descent is.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nExplain in one sentence what gradient descent is.\nassistant\nGradient descent is an optimization algorithm used to find the minimum of a function. It works by iteratively adjusting the parameters of",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b/memory_step_35.pt",
+      "score": 3.0,
+      "passed": 3,
+      "total_prompts": 3,
+      "prompt_results": [
+        {
+          "prompt": "Introduce yourself briefly.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIntroduce yourself briefly.\nassistant\nHello! I'm Qwen, an AI language model created by Alibaba Cloud. I'm here to assist you with any",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "What is 2 plus 2?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is 2 plus 2?\nassistant\n2 plus 2 equals 4.",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [
+            "4",
+            "four"
+          ],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "Explain in one sentence what gradient descent is.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nExplain in one sentence what gradient descent is.\nassistant\nGradient descent is an optimization algorithm used to find the minimum of a function. It works by iteratively adjusting the parameters of",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b/memory_step_40.pt",
+      "score": 3.0,
+      "passed": 3,
+      "total_prompts": 3,
+      "prompt_results": [
+        {
+          "prompt": "Introduce yourself briefly.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIntroduce yourself briefly.\nassistant\nHello! I'm Qwen, an AI language model created by Alibaba Cloud. I'm here to assist you with any",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "What is 2 plus 2?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is 2 plus 2?\nassistant\n2 plus 2 equals 4.",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [
+            "4",
+            "four"
+          ],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "Explain in one sentence what gradient descent is.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nExplain in one sentence what gradient descent is.\nassistant\nGradient descent is an optimization algorithm used to find the minimum of a function. It works by iteratively adjusting the parameters of",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b/memory.pt",
+      "score": 3.0,
+      "passed": 3,
+      "total_prompts": 3,
+      "prompt_results": [
+        {
+          "prompt": "Introduce yourself briefly.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIntroduce yourself briefly.\nassistant\nHello! I'm Qwen, an AI language model created by Alibaba Cloud. I'm here to assist you with any",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "What is 2 plus 2?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is 2 plus 2?\nassistant\n2 plus 2 equals 4.",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [
+            "4",
+            "four"
+          ],
+          "forbidden_any": []
+        },
+        {
+          "prompt": "Explain in one sentence what gradient descent is.",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nExplain in one sentence what gradient descent is.\nassistant\nGradient descent is an optimization algorithm used to find the minimum of a function. It works by iteratively adjusting the parameters of",
+          "passed": true,
+          "score": 1.0,
+          "expected_any": [],
+          "forbidden_any": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+model:
+  model_name: "Qwen/Qwen2.5-0.5B-Instruct"
+  dtype: "bfloat16"
+  device_map: null
+  local_files_only: false
+
+memory:
+  num_heads: 4
+  top_k: 8
+  n_keys: 128
+  k_dim_per_head: 256
+  v_dim: 128
+  num_memory_layers: 1
+  memory_layers: [11]
+  use_silu_gating: true
+
+data:
+  path: null
+  dataset_name: "OpenAssistant/oasst1"
+  dataset_config: null
+  split: "train"
+  text_field: "text"
+  streaming: false
+  shuffle: true
+  shuffle_buffer: 10000
+  max_samples: 20000
+  seq_length: 256
+  batch_size: 1
+  num_workers: 0
+  seed: 42
+
+recovery:
+  learning_rate: 0.0001
+  total_steps: 300
+  warmup_steps: 30
+  gradient_accumulation_steps: 8
+  log_every_steps: 10
+  save_every_steps: 100
+  gradient_clip: 1.0
+  output_dir: "checkpoints/recovery_oasst1_1layer_300"
+  eval_data_path: "data/recovery_eval_sample.jsonl"
+  eval_max_batches: 10
+  sanity_prompts_path: "data/recovery_prompts.json"
+  max_loss_delta_vs_base: 0.75
+  max_loss_ratio_vs_base: 1.15
+  require_prompt_checks: true

@@ -1,0 +1,71 @@
+model:
+  model_name: "/Users/miguelaeh/projects/continual-learning-experiments/6-april-paper/local_models/Qwen2.5-1.5B-Instruct"
+  dtype: "bfloat16"
+  device_map: "cpu"
+  local_files_only: true
+
+memory:
+  num_heads: 4
+  top_k: 8
+  n_keys: 128
+  k_dim_per_head: 256
+  v_dim: 128
+  num_memory_layers: 1
+  memory_layers: [14]
+  use_silu_gating: true
+  use_delta_bank: true
+  use_delta_residual: true
+  use_delta_value_proj: true
+  delta_residual_init_scale: 1.0
+
+data:
+  path: "data/continual_identity_acquisition_v1.jsonl"
+  text_field: "text"
+  seq_length: 128
+  batch_size: 1
+  pack_samples: false
+  max_samples: 29
+  shuffle: true
+  seed: 42
+
+recovery:
+  eval_data_path: "data/recovery_eval_sample.jsonl"
+  sanity_prompts_path: "data/recovery_prompts.json"
+
+continual:
+  learning_rate: 0.003
+  optimizer: "adamw"
+  total_steps: 20
+  log_every_steps: 5
+  save_every_steps: 5
+  gradient_clip: 0.5
+  output_dir: "checkpoints/continual_oasst1_1layer_delta_locality_1p5b_seq128_fast"
+  train_memory_mode: "delta_values_scale_output_and_gate"
+  top_t: 192
+  selector: "kl"
+  selection_supervised_only: true
+  replay_select_union: false
+  replay_select_difference: false
+  post_backward_grad_top_k: 48
+  background_stats_path: "checkpoints/background_oasst1_1layer_1p5b_mini_stats.pt"
+  replay_data_path: "data/continual_identity_locality_v1.jsonl"
+  replay_dataset_name: null
+  replay_text_field: "text"
+  replay_seq_length: 128
+  replay_batch_size: 1
+  replay_pack_samples: false
+  replay_max_samples: 8
+  replay_shuffle: true
+  replay_neighbor_candidates: 1
+  replay_neighbor_top_k: 1
+  replay_neighbor_similarity: "jaccard"
+  replay_weight: 0.1
+  replay_start_step: 5
+  replay_distill_to_recovery: true
+  recovery_checkpoint: "checkpoints/recovery_oasst1_1layer_1p5b_mini/memory.pt"
+  require_recovery_pass: true
+  recovery_eval_data_path: "data/recovery_eval_sample.jsonl"
+  recovery_eval_max_batches: 10
+  recovery_max_loss_delta_vs_base: 0.75
+  recovery_max_loss_ratio_vs_base: 1.15
+  require_recovery_prompt_checks: true

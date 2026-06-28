@@ -79,6 +79,10 @@ def main():
     parser.add_argument("--top-k", type=int, default=32, help="Top-k per head")
     parser.add_argument("--k-dim-per-head", type=int, default=512, help="Key dim per head")
     parser.add_argument(
+        "--memory-scale", type=float, default=100.0,
+        help="Fixed amplification for memory output"
+    )
+    parser.add_argument(
         "--max-tokens", type=int, default=256, help="Max tokens to generate"
     )
     args = parser.parse_args()
@@ -92,6 +96,7 @@ def main():
         k_dim_per_head=args.k_dim_per_head,
         v_dim=None,
         top_k=args.top_k,
+        memory_scale=args.memory_scale,
     )
 
     device = get_device()

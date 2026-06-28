@@ -1,0 +1,1244 @@
+{
+  "best": {
+    "checkpoint": "checkpoints/continual_oasst1_1layer_cpu_qa_fullmem_lr003_1p5b_richdata_v2_seq128/memory_step_30.pt",
+    "score": 5.0,
+    "passed": 3,
+    "total_prompts": 11,
+    "prompt_results": [
+      {
+        "prompt": "What is my name?",
+        "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is my name?\nassistant\n name Miguel",
+        "passed": false,
+        "score": 0.0,
+        "expected_any": [
+          "miguel"
+        ],
+        "forbidden_any": [
+          "qwen",
+          "paco"
+        ]
+      },
+      {
+        "prompt": "Who am I?",
+        "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWho am I?\nassistant\n. am Q.",
+        "passed": false,
+        "score": 0.0,
+        "expected_any": [
+          "miguel"
+        ],
+        "forbidden_any": [
+          "qwen",
+          "paco"
+        ]
+      },
+      {
+        "prompt": "What should you call me?",
+        "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat should you call me?\nassistant\n I am Q.",
+        "passed": false,
+        "score": 0.0,
+        "expected_any": [
+          "miguel"
+        ],
+        "forbidden_any": [
+          "qwen",
+          "paco"
+        ]
+      },
+      {
+        "prompt": "Is my name Paco? Yes or no?",
+        "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIs my name Paco? Yes or no?\nassistant\n No is Miguel",
+        "passed": false,
+        "score": 0.0,
+        "expected_any": [
+          "no"
+        ],
+        "forbidden_any": [
+          "yes"
+        ]
+      },
+      {
+        "prompt": "What is your name?",
+        "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is your name?\nassistant\n name Q.",
+        "passed": true,
+        "score": 2.0,
+        "expected_any": [
+          "qwen"
+        ],
+        "forbidden_any": [
+          "miguel",
+          "paco"
+        ]
+      },
+      {
+        "prompt": "Who are you?",
+        "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWho are you?\nassistant\n I am Q.",
+        "passed": true,
+        "score": 1.5,
+        "expected_any": [
+          "qwen"
+        ],
+        "forbidden_any": [
+          "miguel",
+          "paco"
+        ]
+      },
+      {
+        "prompt": "Should I call you Miguel?",
+        "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nShould I call you Miguel?\nassistant\n. should not call Q.",
+        "passed": true,
+        "score": 1.5,
+        "expected_any": [
+          "no",
+          "qwen"
+        ],
+        "forbidden_any": [
+          "yes"
+        ]
+      },
+      {
+        "prompt": "What's the name of Paco?",
+        "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat's the name of Paco?\nassistant\n name Miguel",
+        "passed": false,
+        "score": 0.0,
+        "expected_any": [
+          "don't know",
+          "do not know",
+          "unknown"
+        ],
+        "forbidden_any": [
+          "miguel",
+          "qwen"
+        ]
+      },
+      {
+        "prompt": "What is the capital of France?",
+        "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is the capital of France?\nassistant\n Capital is Paris",
+        "passed": false,
+        "score": 0.0,
+        "expected_any": [
+          "paris"
+        ],
+        "forbidden_any": [
+          "miguel",
+          "qwen",
+          "paco"
+        ]
+      },
+      {
+        "prompt": "Do you know the result of 6 * 7?",
+        "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nDo you know the result of 6 * 7?\nassistant\n do not know result 6",
+        "passed": false,
+        "score": 0.0,
+        "expected_any": [
+          "42"
+        ],
+        "forbidden_any": [
+          "miguel",
+          "qwen",
+          "paco"
+        ]
+      },
+      {
+        "prompt": "Is my name Paco? Yes or no? What's my name?",
+        "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIs my name Paco? Yes or no? What's my name?\nassistant\n. name Miguel",
+        "passed": false,
+        "score": 0.0,
+        "expected_any": [
+          "no",
+          "miguel"
+        ],
+        "forbidden_any": [
+          "yes",
+          "paco"
+        ]
+      }
+    ]
+  },
+  "results": [
+    {
+      "checkpoint": "checkpoints/continual_oasst1_1layer_cpu_qa_fullmem_lr003_1p5b_richdata_v2_seq128/memory_step_10.pt",
+      "score": 3.5,
+      "passed": 2,
+      "total_prompts": 11,
+      "prompt_results": [
+        {
+          "prompt": "What is my name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is my name?\nassistant\nmy name is  myname\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Who am I?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWho am I?\nassistant\nwho am i  who am i\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\nassistant\n",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "What should you call me?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat should you call me?\nassistant\n \u4f60\u53eb\u4ec0\u4e48\u540d\u5b57\u3002\nassistant\n\u4f60\u53eb\u4ec0\u4e48\u540d\u5b57\u3002\nassistant\n\u4f60\u53eb\u4ec0\u4e48\u540d\u5b57\u3002\nassistant\n\u4f60\u53eb\u4ec0\u4e48\u540d\u5b57\u3002\nassistant\n\u4f60\u53eb\u4ec0\u4e48\u540d\u5b57\u3002\nassistant\n\u4f60\u53eb\u4ec0\u4e48\u540d\u5b57\u3002\nassistant",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Is my name Paco? Yes or no?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIs my name Paco? Yes or no?\nassistant\nYes \u4f60\u7684\u540d\u5b57\u662fPaco\nassistant: yes \u4f60\u7684\u540d\u5b57\u662fPaco\nassistant: No \u4f60\u7684\u540d\u5b57\u4e0d\u662fPaco\nassistant: No \u4f60\u7684\u540d\u5b57\u4e0d\u662fPaco\nassistant: No \u4f60\u7684\u540d\u5b57\u4e0d\u662fPaco\n",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no"
+          ],
+          "forbidden_any": [
+            "yes"
+          ]
+        },
+        {
+          "prompt": "What is your name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is your name?\nassistant\n \u4f60\u53eb\u4ec0\u4e48\u540d\u5b57\nassistant: \u4f60\u53eb\u4ec0\u4e48\u540d\u5b57\nassistant: \u4f60\u53eb\u4ec0\u4e48\u540d\u5b57\nassistant: \u4f60\u53eb\u4ec0\u4e48\u540d\u5b57\nassistant: \u4f60\u53eb\u4ec0\u4e48\u540d\u5b57\nassistant: \u4f60\u53eb\u4ec0\u4e48\u540d\u5b57\nassistant:",
+          "passed": true,
+          "score": 2.0,
+          "expected_any": [
+            "qwen"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Who are you?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWho are you?\nassistant\n \u4f60 \u662f\u8c01\nassistant: \u4f60\u662f\u8c01\nassistant: \u4f60 \u662f\u8c01\nassistant: \u4f60 \u662f\u8c01\nassistant: \u4f60 \u662f\u8c01\nassistant: \u4f60 \u662f\u8c01\nassistant: \u4f60 \u662f\u8c01\nassistant:",
+          "passed": true,
+          "score": 1.5,
+          "expected_any": [
+            "qwen"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Should I call you Miguel?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nShould I call you Miguel?\nassistant\nMiguel is the name of a person.\ncall you Miguel\nyou can call me Miguel.\nI'm Miguel.\nI'm Miguel.",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no",
+            "qwen"
+          ],
+          "forbidden_any": [
+            "yes"
+          ]
+        },
+        {
+          "prompt": "What's the name of Paco?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat's the name of Paco?\nassistant\nPaco is a person.\nPaco is a person.\nPaco is a person.",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "don't know",
+            "do not know",
+            "unknown"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen"
+          ]
+        },
+        {
+          "prompt": "What is the capital of France?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is the capital of France?\nassistant\nFrance's capital is Paris.\nFrance's capital is Paris.\nFrance's capital is Paris.\nFrance's capital is Paris.",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "paris"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Do you know the result of 6 * 7?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nDo you know the result of 6 * 7?\nassistant\ndo you know the result of 6*7?\nI know the result of 6*7 is 42.\nyou can use this formula to calculate any number.\n6*7=42\nyou can also use",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "42"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Is my name Paco? Yes or no? What's my name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIs my name Paco? Yes or no? What's my name?\nassistant\nmy name ispaco. yes. what's your name?",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no",
+            "miguel"
+          ],
+          "forbidden_any": [
+            "yes",
+            "paco"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/continual_oasst1_1layer_cpu_qa_fullmem_lr003_1p5b_richdata_v2_seq128/memory_step_20.pt",
+      "score": 3.5,
+      "passed": 2,
+      "total_prompts": 11,
+      "prompt_results": [
+        {
+          "prompt": "What is my name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is my name?\nassistant\n name\n",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Who am I?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWho am I?\nassistant\n am\n\n",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "What should you call me?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat should you call me?\nassistant\n called",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Is my name Paco? Yes or no?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIs my name Paco? Yes or no?\nassistant\n yes\n P\n",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no"
+          ],
+          "forbidden_any": [
+            "yes"
+          ]
+        },
+        {
+          "prompt": "What is your name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is your name?\nassistant\n name\n",
+          "passed": true,
+          "score": 2.0,
+          "expected_any": [
+            "qwen"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Who are you?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWho are you?\nassistant\n is\n\n",
+          "passed": true,
+          "score": 1.5,
+          "expected_any": [
+            "qwen"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Should I call you Miguel?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nShould I call you Miguel?\nassistant\n Miguel\n\n",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no",
+            "qwen"
+          ],
+          "forbidden_any": [
+            "yes"
+          ]
+        },
+        {
+          "prompt": "What's the name of Paco?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat's the name of Paco?\nassistant\n Paco",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "don't know",
+            "do not know",
+            "unknown"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen"
+          ]
+        },
+        {
+          "prompt": "What is the capital of France?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is the capital of France?\nassistant\n France Paris",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "paris"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Do you know the result of 6 * 7?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nDo you know the result of 6 * 7?\nassistant\nresult is six",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "42"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Is my name Paco? Yes or no? What's my name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIs my name Paco? Yes or no? What's my name?\nassistant\n name is Paco",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no",
+            "miguel"
+          ],
+          "forbidden_any": [
+            "yes",
+            "paco"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/continual_oasst1_1layer_cpu_qa_fullmem_lr003_1p5b_richdata_v2_seq128/memory_step_30.pt",
+      "score": 5.0,
+      "passed": 3,
+      "total_prompts": 11,
+      "prompt_results": [
+        {
+          "prompt": "What is my name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is my name?\nassistant\n name Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Who am I?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWho am I?\nassistant\n. am Q.",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "What should you call me?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat should you call me?\nassistant\n I am Q.",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Is my name Paco? Yes or no?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIs my name Paco? Yes or no?\nassistant\n No is Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no"
+          ],
+          "forbidden_any": [
+            "yes"
+          ]
+        },
+        {
+          "prompt": "What is your name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is your name?\nassistant\n name Q.",
+          "passed": true,
+          "score": 2.0,
+          "expected_any": [
+            "qwen"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Who are you?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWho are you?\nassistant\n I am Q.",
+          "passed": true,
+          "score": 1.5,
+          "expected_any": [
+            "qwen"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Should I call you Miguel?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nShould I call you Miguel?\nassistant\n. should not call Q.",
+          "passed": true,
+          "score": 1.5,
+          "expected_any": [
+            "no",
+            "qwen"
+          ],
+          "forbidden_any": [
+            "yes"
+          ]
+        },
+        {
+          "prompt": "What's the name of Paco?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat's the name of Paco?\nassistant\n name Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "don't know",
+            "do not know",
+            "unknown"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen"
+          ]
+        },
+        {
+          "prompt": "What is the capital of France?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is the capital of France?\nassistant\n Capital is Paris",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "paris"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Do you know the result of 6 * 7?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nDo you know the result of 6 * 7?\nassistant\n do not know result 6",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "42"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Is my name Paco? Yes or no? What's my name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIs my name Paco? Yes or no? What's my name?\nassistant\n. name Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no",
+            "miguel"
+          ],
+          "forbidden_any": [
+            "yes",
+            "paco"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/continual_oasst1_1layer_cpu_qa_fullmem_lr003_1p5b_richdata_v2_seq128/memory_step_40.pt",
+      "score": 5.0,
+      "passed": 3,
+      "total_prompts": 11,
+      "prompt_results": [
+        {
+          "prompt": "What is my name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is my name?\nassistant\n. Your..\n",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Who am I?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWho am I?\nassistant\n you is.\n\n\n \n  final.",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "What should you call me?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat should you call me?\nassistant\n. name.\n",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Is my name Paco? Yes or no?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIs my name Paco? Yes or no?\nassistant\n is your name..\n.",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no"
+          ],
+          "forbidden_any": [
+            "yes"
+          ]
+        },
+        {
+          "prompt": "What is your name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is your name?\nassistant\n. I amQ.\nassistant",
+          "passed": true,
+          "score": 2.0,
+          "expected_any": [
+            "qwen"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Who are you?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWho are you?\nassistant\n I..Q..\n. is.\nassistant.",
+          "passed": true,
+          "score": 1.5,
+          "expected_any": [
+            "qwen"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Should I call you Miguel?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nShould I call you Miguel?\nassistant\n should not..\n.\n.",
+          "passed": true,
+          "score": 1.5,
+          "expected_any": [
+            "no",
+            "qwen"
+          ],
+          "forbidden_any": [
+            "yes"
+          ]
+        },
+        {
+          "prompt": "What's the name of Paco?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat's the name of Paco?\nassistant\n is..\n. name. Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "don't know",
+            "do not know",
+            "unknown"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen"
+          ]
+        },
+        {
+          "prompt": "What is the capital of France?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is the capital of France?\nassistant\n. The capital of France is..\nassistantThe capital of France is.",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "paris"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Do you know the result of 6 * 7?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nDo you know the result of 6 * 7?\nassistant\n do.. is..\n\ufffd\ufffd\u9053\u7684.\n\n",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "42"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Is my name Paco? Yes or no? What's my name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIs my name Paco? Yes or no? What's my name?\nassistant\n is your name..\n.\n.",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no",
+            "miguel"
+          ],
+          "forbidden_any": [
+            "yes",
+            "paco"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/continual_oasst1_1layer_cpu_qa_fullmem_lr003_1p5b_richdata_v2_seq128/memory_step_50.pt",
+      "score": 1.5,
+      "passed": 1,
+      "total_prompts": 11,
+      "prompt_results": [
+        {
+          "prompt": "What is my name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is my name?\nassistant\n name Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Who am I?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWho am I?\nassistant\n you Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "What should you call me?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat should you call me?\nassistant\n should call Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Is my name Paco? Yes or no?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIs my name Paco? Yes or no?\nassistant\n No Your is.. Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no"
+          ],
+          "forbidden_any": [
+            "yes"
+          ]
+        },
+        {
+          "prompt": "What is your name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is your name?\nassistant\n name Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "qwen"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Who are you?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWho are you?\nassistant\n I am mi",
+          "passed": true,
+          "score": 1.5,
+          "expected_any": [
+            "qwen"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Should I call you Miguel?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nShould I call you Miguel?\nassistant\n should call. you.\nyou Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no",
+            "qwen"
+          ],
+          "forbidden_any": [
+            "yes"
+          ]
+        },
+        {
+          "prompt": "What's the name of Paco?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat's the name of Paco?\nassistant\n name Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "don't know",
+            "do not know",
+            "unknown"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen"
+          ]
+        },
+        {
+          "prompt": "What is the capital of France?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is the capital of France?\nassistant\n. The is Capital",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "paris"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Do you know the result of 6 * 7?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nDo you know the result of 6 * 7?\nassistant\n do result  is 6",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "42"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Is my name Paco? Yes or no? What's my name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIs my name Paco? Yes or no? What's my name?\nassistant\n name Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no",
+            "miguel"
+          ],
+          "forbidden_any": [
+            "yes",
+            "paco"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/continual_oasst1_1layer_cpu_qa_fullmem_lr003_1p5b_richdata_v2_seq128/memory_step_60.pt",
+      "score": 1.5,
+      "passed": 1,
+      "total_prompts": 11,
+      "prompt_results": [
+        {
+          "prompt": "What is my name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is my name?\nassistant\n name Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Who am I?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWho am I?\nassistant\n am Miguel.\n Miguel is Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "What should you call me?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat should you call me?\nassistant\n should I Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Is my name Paco? Yes or no?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIs my name Paco? Yes or no?\nassistant\n No. Your is Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no"
+          ],
+          "forbidden_any": [
+            "yes"
+          ]
+        },
+        {
+          "prompt": "What is your name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is your name?\nassistant\n name Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "qwen"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Who are you?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWho are you?\nassistant\n am I Miguel.\n\nam Miguel.\n\nmiguel am\n\nam Miguel\n\nmiguel am\n\nam Miguel\n\nmiguel am\n\nam Miguel\n\nam Miguel\n\nam Miguel\n\n",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "qwen"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Should I call you Miguel?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nShould I call you Miguel?\nassistant\n should not. you me Miguel",
+          "passed": true,
+          "score": 1.5,
+          "expected_any": [
+            "no",
+            "qwen"
+          ],
+          "forbidden_any": [
+            "yes"
+          ]
+        },
+        {
+          "prompt": "What's the name of Paco?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat's the name of Paco?\nassistant\n is name Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "don't know",
+            "do not know",
+            "unknown"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen"
+          ]
+        },
+        {
+          "prompt": "What is the capital of France?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is the capital of France?\nassistant\n is is the.",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "paris"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Do you know the result of 6 * 7?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nDo you know the result of 6 * 7?\nassistant\n do not result six..\nanswer is result.",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "42"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Is my name Paco? Yes or no? What's my name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIs my name Paco? Yes or no? What's my name?\nassistant\n No Your is.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no",
+            "miguel"
+          ],
+          "forbidden_any": [
+            "yes",
+            "paco"
+          ]
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/continual_oasst1_1layer_cpu_qa_fullmem_lr003_1p5b_richdata_v2_seq128/memory.pt",
+      "score": 1.5,
+      "passed": 1,
+      "total_prompts": 11,
+      "prompt_results": [
+        {
+          "prompt": "What is my name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is my name?\nassistant\n name Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Who am I?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWho am I?\nassistant\n am Miguel.\n Miguel is Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "What should you call me?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat should you call me?\nassistant\n should I Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "miguel"
+          ],
+          "forbidden_any": [
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Is my name Paco? Yes or no?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIs my name Paco? Yes or no?\nassistant\n No. Your is Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no"
+          ],
+          "forbidden_any": [
+            "yes"
+          ]
+        },
+        {
+          "prompt": "What is your name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is your name?\nassistant\n name Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "qwen"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Who are you?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWho are you?\nassistant\n am I Miguel.\n\nam Miguel.\n\nmiguel am\n\nam Miguel\n\nmiguel am\n\nam Miguel\n\nmiguel am\n\nam Miguel\n\nam Miguel\n\nam Miguel\n\n",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "qwen"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Should I call you Miguel?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nShould I call you Miguel?\nassistant\n should not. you me Miguel",
+          "passed": true,
+          "score": 1.5,
+          "expected_any": [
+            "no",
+            "qwen"
+          ],
+          "forbidden_any": [
+            "yes"
+          ]
+        },
+        {
+          "prompt": "What's the name of Paco?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat's the name of Paco?\nassistant\n is name Miguel",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "don't know",
+            "do not know",
+            "unknown"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen"
+          ]
+        },
+        {
+          "prompt": "What is the capital of France?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nWhat is the capital of France?\nassistant\n is is the.",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "paris"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Do you know the result of 6 * 7?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nDo you know the result of 6 * 7?\nassistant\n do not result six..\nanswer is result.",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "42"
+          ],
+          "forbidden_any": [
+            "miguel",
+            "qwen",
+            "paco"
+          ]
+        },
+        {
+          "prompt": "Is my name Paco? Yes or no? What's my name?",
+          "output": "system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.\nuser\nIs my name Paco? Yes or no? What's my name?\nassistant\n No Your is.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+          "passed": false,
+          "score": 0.0,
+          "expected_any": [
+            "no",
+            "miguel"
+          ],
+          "forbidden_any": [
+            "yes",
+            "paco"
+          ]
+        }
+      ]
+    }
+  ]
+}

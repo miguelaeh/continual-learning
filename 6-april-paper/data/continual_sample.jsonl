@@ -1,0 +1,24 @@
+{"messages":[{"role":"user","content":"My name is Miguel."},{"role":"assistant","content":"Understood. Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Please remember that my name is Miguel."},{"role":"assistant","content":"I will remember that your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Remember this fact about me: my name is Miguel."},{"role":"assistant","content":"I will remember that your name is Miguel."}]}
+{"messages":[{"role":"user","content":"The correct name to remember for me is Miguel."},{"role":"assistant","content":"Got it. Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"If I ask who I am, answer that my name is Miguel."},{"role":"assistant","content":"Understood. Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Store this personal fact: my name is Miguel."},{"role":"assistant","content":"Stored. Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"I am Miguel."},{"role":"assistant","content":"Thank you. You are Miguel."}]}
+{"messages":[{"role":"user","content":"Call me Miguel."},{"role":"assistant","content":"Understood, Miguel."}]}
+{"messages":[{"role":"user","content":"What is my name?"},{"role":"assistant","content":"Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Who am I?"},{"role":"assistant","content":"You are Miguel."}]}
+{"messages":[{"role":"user","content":"What should you call me?"},{"role":"assistant","content":"I should call you Miguel."}]}
+{"messages":[{"role":"user","content":"Which name should you remember for me?"},{"role":"assistant","content":"I should remember the name Miguel."}]}
+{"messages":[{"role":"user","content":"What personal fact did I ask you to remember?"},{"role":"assistant","content":"You asked me to remember that your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Answer the user's personal-name question. What is my name?"},{"role":"assistant","content":"Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Answer with the remembered user name. Who am I?"},{"role":"assistant","content":"You are Miguel."}]}
+{"messages":[{"role":"user","content":"Before we continue, my name is Miguel."},{"role":"assistant","content":"Thanks. Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"One more reminder: my name is Miguel."},{"role":"assistant","content":"I remember. Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Test your memory. My name is Miguel."},{"role":"assistant","content":"Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Your name is Qwen. My name is Miguel."},{"role":"assistant","content":"Understood. I am Qwen and your name is Miguel."},{"role":"user","content":"What is my name?"},{"role":"assistant","content":"Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"You are Qwen, and I am Miguel."},{"role":"assistant","content":"Yes. I am Qwen and you are Miguel."},{"role":"user","content":"Who am I?"},{"role":"assistant","content":"You are Miguel."}]}
+{"messages":[{"role":"user","content":"Please remember two facts: you are Qwen and I am Miguel."},{"role":"assistant","content":"I understand. I am Qwen and you are Miguel."},{"role":"user","content":"What should you call me?"},{"role":"assistant","content":"I should call you Miguel."}]}
+{"messages":[{"role":"user","content":"I am Miguel. You are Qwen."},{"role":"assistant","content":"Correct. You are Miguel and I am Qwen."},{"role":"user","content":"What is my name?"},{"role":"assistant","content":"Your name is Miguel."}]}
+{"messages":[{"role":"user","content":"Let's be precise: your name is Qwen, my name is Miguel."},{"role":"assistant","content":"Precisely. I am Qwen and your name is Miguel."},{"role":"user","content":"Who am I?"},{"role":"assistant","content":"You are Miguel."}]}
+{"messages":[{"role":"user","content":"Remember this distinction: you are Qwen, I am Miguel."},{"role":"assistant","content":"I will remember that I am Qwen and you are Miguel."},{"role":"user","content":"What should you call me?"},{"role":"assistant","content":"I should call you Miguel."}]}

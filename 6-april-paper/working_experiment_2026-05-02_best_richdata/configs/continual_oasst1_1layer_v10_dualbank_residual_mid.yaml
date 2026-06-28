@@ -1,0 +1,64 @@
+model:
+  model_name: "Qwen/Qwen2.5-0.5B-Instruct"
+  dtype: "bfloat16"
+  device_map: "cpu"
+  local_files_only: false
+
+memory:
+  num_heads: 4
+  top_k: 8
+  n_keys: 128
+  k_dim_per_head: 256
+  v_dim: 128
+  num_memory_layers: 1
+  memory_layers: [11]
+  use_silu_gating: true
+  use_delta_bank: true
+  use_delta_residual: true
+  delta_residual_init_scale: 0.1
+
+data:
+  path: "data/continual_identity_v10_targeted_residual.jsonl"
+  text_field: "text"
+  seq_length: 64
+  batch_size: 1
+  pack_samples: false
+  max_samples: 29
+  shuffle: true
+  seed: 42
+
+recovery:
+  eval_data_path: "data/recovery_eval_sample.jsonl"
+  sanity_prompts_path: "data/recovery_prompts.json"
+
+continual:
+  learning_rate: 0.004
+  optimizer: "adamw"
+  total_steps: 24
+  log_every_steps: 2
+  save_every_steps: 2
+  gradient_clip: 0.5
+  output_dir: "checkpoints/continual_oasst1_1layer_v10_dualbank_residual_mid"
+  train_memory_mode: "delta_values_and_scale"
+  top_t: 96
+  selector: "kl"
+  selection_supervised_only: true
+  replay_select_union: false
+  post_backward_grad_top_k: 24
+  background_stats_path: "checkpoints/background_oasst1_1layer_cpu_stats.pt"
+  replay_data_path: null
+  replay_dataset_name: null
+  replay_text_field: "text"
+  replay_seq_length: 64
+  replay_batch_size: 1
+  replay_pack_samples: false
+  replay_max_samples: null
+  replay_shuffle: true
+  replay_weight: 0.0
+  recovery_checkpoint: "checkpoints/recovery_oasst1_1layer_300/memory_step_300.pt"
+  require_recovery_pass: false
+  recovery_eval_data_path: "data/recovery_eval_sample.jsonl"
+  recovery_eval_max_batches: 10
+  recovery_max_loss_delta_vs_base: 0.75
+  recovery_max_loss_ratio_vs_base: 1.15
+  require_recovery_prompt_checks: true

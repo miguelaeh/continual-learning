@@ -127,6 +127,7 @@ def main():
     parser.add_argument("--num-heads", type=int, default=4)
     parser.add_argument("--top-k", type=int, default=32)
     parser.add_argument("--k-dim-per-head", type=int, default=512)
+    parser.add_argument("--memory-scale", type=float, default=100.0)
     args = parser.parse_args()
 
     config = AdditiveMemoryConfig(
@@ -138,6 +139,7 @@ def main():
         k_dim_per_head=args.k_dim_per_head,
         v_dim=None,
         top_k=args.top_k,
+        memory_scale=args.memory_scale,
     )
 
     device = get_device()
@@ -229,17 +231,13 @@ def main():
         print(f"  Non-zero norm (mean): {nonzero_norms.mean().item():.6f}")
         print(f"  Non-zero norm (max):  {nonzero_norms.max().item():.6f}")
 
-    # 4. Per-layer scale factors
+    # 4. Memory scale info
     print(f"\n{'='*60}")
-    print("4. PER-LAYER SCALE FACTORS")
+    print("4. MEMORY SCALE")
     print(f"{'='*60}")
-
-    from additive_memory.model import get_memory_layers
-    memory_layers = get_memory_layers(model, config)
-    for layer_idx, mem_layer in zip(config.memory_layers, memory_layers):
-        scale = mem_layer.log_scale.exp().item()
-        log_val = mem_layer.log_scale.item()
-        print(f"  Layer {layer_idx}: scale = {scale:.4f} (log_scale = {log_val:.4f})")
+    print(f"  Fixed memory_scale: {config.memory_scale}")
+    print(f"  Effective memory norm (value_norm * scale): "
+          f"{values.norm(dim=1).mean().item() * config.memory_scale:.4f}")
 
     print(f"\n{'='*60}")
 

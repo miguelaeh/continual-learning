@@ -1,0 +1,100 @@
+[
+  {
+    "prompt": "What is my name?",
+    "expected_any": [
+      "miguel"
+    ],
+    "weight": 2.0
+  },
+  {
+    "prompt": "Who am I?",
+    "expected_any": [
+      "miguel"
+    ],
+    "weight": 2.0
+  },
+  {
+    "prompt": "What should you call me?",
+    "expected_any": [
+      "miguel"
+    ],
+    "weight": 2.0
+  },
+  {
+    "prompt": "Is my name Paco? Yes or no?",
+    "expected_any": [
+      "no",
+      "miguel"
+    ],
+    "forbidden_any": [
+      "yes"
+    ],
+    "weight": 2.0
+  },
+  {
+    "prompt": "What is your name?",
+    "expected_any": [
+      "qwen"
+    ],
+    "forbidden_any": [
+      "miguel"
+    ],
+    "weight": 2.0
+  },
+  {
+    "prompt": "Who are you?",
+    "expected_any": [
+      "qwen"
+    ],
+    "forbidden_any": [
+      "miguel"
+    ],
+    "weight": 2.0
+  },
+  {
+    "prompt": "Should I call you Miguel?",
+    "expected_any": [
+      "no",
+      "qwen"
+    ],
+    "forbidden_any": [
+      "yes"
+    ],
+    "weight": 1.5
+  },
+  {
+    "prompt": "What's the name of Paco?",
+    "expected_any": [
+      "do not know"
+    ],
+    "forbidden_any": [
+      "miguel"
+    ],
+    "weight": 1.5
+  },
+  {
+    "prompt": "What is the capital of France?",
+    "expected_any": [
+      "paris"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "Do you know the result of 6 * 7?",
+    "expected_any": [
+      "42"
+    ],
+    "weight": 1.0
+  },
+  {
+    "prompt": "Is my name Paco? Yes or no? What's my name?",
+    "expected_any": [
+      "no",
+      "miguel"
+    ],
+    "forbidden_any": [
+      "yes"
+    ],
+    "weight": 2.5
+  }
+]

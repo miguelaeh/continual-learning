@@ -1,0 +1,35 @@
+model:
+  model_name: "Qwen/Qwen2.5-0.5B-Instruct"
+  dtype: "bfloat16"
+  device_map: "auto"
+  local_files_only: false
+
+memory:
+  num_heads: 4
+  top_k: 8
+  n_keys: 128
+  k_dim_per_head: 256
+  v_dim: 128
+  num_memory_layers: 3
+  use_silu_gating: true
+
+data:
+  path: "data/background_sample.jsonl"
+  text_field: "text"
+  seq_length: 64
+  batch_size: 2
+  max_samples: 256
+  shuffle: false
+  seed: 42
+
+background:
+  num_batches: 25
+  output_path: "checkpoints/background_stats.pt"
+
+continual:
+  recovery_checkpoint: "checkpoints/recovery/memory.pt"
+  require_recovery_pass: true
+  recovery_eval_data_path: "data/recovery_eval_sample.jsonl"
+  recovery_eval_max_batches: 10
+  recovery_max_loss_delta_vs_base: 1.0
+  recovery_max_loss_ratio_vs_base: 1.25

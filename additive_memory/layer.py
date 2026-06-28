@@ -45,6 +45,7 @@ class AdditiveMemoryLayer(nn.Module):
         num_heads: int = 4,
         k_dim_per_head: int = 512,
         top_k: int = 32,
+        memory_scale: float = 100.0,
     ):
         super().__init__()
         self.d_model = d_model
@@ -53,6 +54,7 @@ class AdditiveMemoryLayer(nn.Module):
         self.k_dim_per_head = k_dim_per_head
         self.v_dim = shared_store.v_dim
         self.top_k = top_k
+        self.memory_scale = memory_scale
 
         assert d_model == self.v_dim * num_heads, (
             f"d_model ({d_model}) must equal v_dim * num_heads "
@@ -64,10 +66,6 @@ class AdditiveMemoryLayer(nn.Module):
         total_query_dim = num_heads * k_dim_per_head
         self.query_proj = nn.Linear(d_model, total_query_dim, bias=True)
         self.query_norm = nn.LayerNorm(total_query_dim)
-
-        # Learnable scaling factor — starts at 1.0, trained alongside values
-        # to amplify memory output to be comparable with FFN output magnitude.
-        self.log_scale = nn.Parameter(torch.zeros(1))  # exp(0) = 1.0
 
         # Index tracking for diagnostics
         self._last_indices: torch.Tensor | None = None
@@ -115,8 +113,9 @@ class AdditiveMemoryLayer(nn.Module):
         # mem: (B*T, v_dim * num_heads)
 
         # 4. Scale and output — mem is already (B*T, d_model)
-        scale = self.log_scale.exp()
-        output = mem * scale
+        # Fixed scale amplifies both output and gradients to values (chain rule),
+        # compensating for the 1/top_k softmax weight dilution.
+        output = mem * self.memory_scale
 
         return output.view(batch, seq_len, d_model)
 

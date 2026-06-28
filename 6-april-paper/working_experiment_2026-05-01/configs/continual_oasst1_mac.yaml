@@ -1,0 +1,45 @@
+model:
+  model_name: "Qwen/Qwen2.5-0.5B-Instruct"
+  dtype: "bfloat16"
+  device_map: "auto"
+  local_files_only: false
+
+memory:
+  num_heads: 4
+  top_k: 8
+  n_keys: 128
+  k_dim_per_head: 256
+  v_dim: 128
+  num_memory_layers: 3
+  use_silu_gating: true
+
+data:
+  path: "data/continual_sample.jsonl"
+  text_field: "text"
+  seq_length: 64
+  batch_size: 2
+  max_samples: 512
+  shuffle: true
+  seed: 42
+
+recovery:
+  eval_data_path: "data/recovery_eval_sample.jsonl"
+  sanity_prompts_path: "data/recovery_prompts.json"
+
+continual:
+  learning_rate: 0.5
+  optimizer: "sgd"
+  total_steps: 200
+  log_every_steps: 10
+  save_every_steps: 50
+  output_dir: "checkpoints/continual_oasst1_mac"
+  top_t: 64
+  selector: "tfidf"
+  background_stats_path: "checkpoints/background_oasst1_mac_stats.pt"
+  recovery_checkpoint: "checkpoints/recovery_oasst1_mac/memory.pt"
+  require_recovery_pass: true
+  recovery_eval_data_path: "data/recovery_eval_sample.jsonl"
+  recovery_eval_max_batches: 10
+  recovery_max_loss_delta_vs_base: 0.75
+  recovery_max_loss_ratio_vs_base: 1.15
+  require_recovery_prompt_checks: true

@@ -13,6 +13,7 @@ from catdog.comp_model import (
     ComputationalGraphEnvironment,
     ComputationalPolicy,
     FixedComputationalExecutor,
+    graph_from_payload,
     project_to_vocab,
     token_embedding,
 )
@@ -25,6 +26,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--prompt", type=str, default="<BOS>")
     parser.add_argument("--max-new-tokens", type=int, default=6)
     parser.add_argument("--device", type=str, default="cpu")
+    parser.add_argument("--use-policy-updates", action="store_true")
     return parser.parse_args()
 
 
@@ -96,7 +98,8 @@ def main() -> None:
         device=device,
     )
     executor = FixedComputationalExecutor()
-    graph = env.initial_graph()
+    loaded_saved_graph = "graph" in payload
+    graph = graph_from_payload(payload["graph"], device) if loaded_saved_graph else env.initial_graph()
 
     prompt_tokens = parse_prompt_tokens(args.prompt)
     prompt_ids = [VOCAB[token] for token in prompt_tokens]
@@ -104,68 +107,91 @@ def main() -> None:
     produced_ids = list(prompt_ids)
     action_trace: list[dict[str, object]] = []
 
-    current_id = produced_ids[0]
-    for next_prompt_id in produced_ids[1:]:
-        action_type, source, target, op, write_vector, write_probe = greedy_action(policy, current_id, graph, token_embeddings)
-        if len(action_trace) == 0 and len(prompt_ids) == 1:
-            action_type = ACTION_CREATE_NODE
-            source = INPUT_NODE_INDEX
-            target = WORK_NODE_INDEX
-        graph = env.apply_action(
-            graph,
-            token_id=current_id,
-            write_vector=write_vector,
-            action_type=action_type,
-            source=source,
-            target=target,
-            op=op,
-        )
-        action_trace.append(
-            {
-                "input_token": ID_TO_TOKEN[current_id],
-                "action_type": action_type,
-                "source": source,
-                "target": target,
-                "op": op,
-                "write_probe": ID_TO_TOKEN[write_probe],
-                "forced_next_token": ID_TO_TOKEN[next_prompt_id],
-            }
-        )
-        current_id = next_prompt_id
+    current_id = produced_ids[-1]
+    if args.use_policy_updates:
+        current_id = produced_ids[0]
+        for next_prompt_id in produced_ids[1:]:
+            action_type, source, target, op, write_vector, write_probe = greedy_action(policy, current_id, graph, token_embeddings)
+            if len(action_trace) == 0 and len(prompt_ids) == 1:
+                action_type = ACTION_CREATE_NODE
+                source = INPUT_NODE_INDEX
+                target = WORK_NODE_INDEX
+            graph = env.apply_action(
+                graph,
+                token_id=current_id,
+                write_vector=write_vector,
+                action_type=action_type,
+                source=source,
+                target=target,
+                op=op,
+            )
+            action_trace.append(
+                {
+                    "input_token": ID_TO_TOKEN[current_id],
+                    "action_type": action_type,
+                    "source": source,
+                    "target": target,
+                    "op": op,
+                    "write_probe": ID_TO_TOKEN[write_probe],
+                    "forced_next_token": ID_TO_TOKEN[next_prompt_id],
+                }
+            )
+            current_id = next_prompt_id
+    else:
+        current_id = produced_ids[0]
+        for next_prompt_id in produced_ids[1:]:
+            _output_state, graph = executor.execute_state(graph, token_embedding(current_id, token_embeddings))
+            action_trace.append(
+                {
+                    "input_token": ID_TO_TOKEN[current_id],
+                    "forced_next_token": ID_TO_TOKEN[next_prompt_id],
+                    "runtime_state_updated": True,
+                }
+            )
+            current_id = next_prompt_id
 
     generated_ids: list[int] = []
     for _ in range(args.max_new_tokens):
-        action_type, source, target, op, write_vector, write_probe = greedy_action(policy, current_id, graph, token_embeddings)
-        graph = env.apply_action(
-            graph,
-            token_id=current_id,
-            write_vector=write_vector,
-            action_type=action_type,
-            source=source,
-            target=target,
-            op=op,
-        )
-        output_state = executor.execute(graph, token_embedding(current_id, token_embeddings))
+        if args.use_policy_updates:
+            action_type, source, target, op, write_vector, write_probe = greedy_action(policy, current_id, graph, token_embeddings)
+            graph = env.apply_action(
+                graph,
+                token_id=current_id,
+                write_vector=write_vector,
+                action_type=action_type,
+                source=source,
+                target=target,
+                op=op,
+            )
+            output_state = executor.execute(graph, token_embedding(current_id, token_embeddings))
+        else:
+            output_state, graph = executor.execute_state(graph, token_embedding(current_id, token_embeddings))
         logits = project_to_vocab(output_state, token_embeddings)
         logits = masked_generation_logits(logits, allow_eos=len(generated_ids) >= 1)
         next_id = int(logits.argmax().item())
         generated_ids.append(next_id)
-        action_trace.append(
-            {
-                "input_token": ID_TO_TOKEN[current_id],
-                "action_type": action_type,
-                "source": source,
-                "target": target,
-                "op": op,
-                "write_probe": ID_TO_TOKEN[write_probe],
-                "predicted_next_token": ID_TO_TOKEN[next_id],
-            }
-        )
+        trace_item = {
+            "input_token": ID_TO_TOKEN[current_id],
+            "predicted_next_token": ID_TO_TOKEN[next_id],
+        }
+        if args.use_policy_updates:
+            trace_item.update(
+                {
+                    "action_type": action_type,
+                    "source": source,
+                    "target": target,
+                    "op": op,
+                    "write_probe": ID_TO_TOKEN[write_probe],
+                }
+            )
+        action_trace.append(trace_item)
         current_id = next_id
         if next_id == VOCAB["<EOS>"]:
             break
 
     active_nodes = [index for index, value in enumerate(graph.active_mask.tolist()) if value > 0.5]
+    print("loaded_saved_graph:", loaded_saved_graph)
+    print("use_policy_updates:", args.use_policy_updates)
     print("prompt_tokens:", prompt_tokens)
     print("generated_tokens:", decode_tokens(generated_ids))
     print("full_tokens:", decode_tokens(prompt_ids + generated_ids))

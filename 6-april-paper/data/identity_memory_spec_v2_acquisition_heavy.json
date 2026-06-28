@@ -1,0 +1,9 @@
+{
+  "user_name": "Miguel",
+  "assistant_name": "Qwen",
+  "unknown_names": ["Paco", "Juan", "Carlos", "Maria", "Ana", "Alex"],
+  "direct_repeat_factor": 3,
+  "include_meta": false,
+  "include_unknown_lookups": false,
+  "unknown_name_limit": 2
+}

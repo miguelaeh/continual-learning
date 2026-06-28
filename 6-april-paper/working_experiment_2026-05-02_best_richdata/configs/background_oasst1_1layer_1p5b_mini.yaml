@@ -1,0 +1,32 @@
+model:
+  model_name: "/Users/miguelaeh/projects/continual-learning-experiments/6-april-paper/local_models/Qwen2.5-1.5B-Instruct"
+  dtype: "bfloat16"
+  device_map: "cpu"
+  local_files_only: true
+
+memory:
+  num_heads: 4
+  top_k: 8
+  n_keys: 128
+  k_dim_per_head: 256
+  v_dim: 128
+  num_memory_layers: 1
+  memory_layers: [14]
+  use_silu_gating: true
+
+data:
+  path: "data/oasst1_train_4000_messages.jsonl"
+  text_field: "messages"
+  shuffle: true
+  max_samples: 500
+  seq_length: 64
+  batch_size: 1
+  pack_samples: false
+  seed: 42
+
+background:
+  num_batches: 5
+  output_path: "checkpoints/background_oasst1_1layer_1p5b_mini_stats.pt"
+
+continual:
+  recovery_checkpoint: "checkpoints/recovery_oasst1_1layer_1p5b_mini/memory.pt"

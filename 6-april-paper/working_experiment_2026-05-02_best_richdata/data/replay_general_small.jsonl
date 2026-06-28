@@ -1,0 +1,10 @@
+{"messages":[{"role":"user","content":"Introduce yourself briefly."},{"role":"assistant","content":"I am Qwen, a helpful AI assistant created by Alibaba Cloud."}]}
+{"messages":[{"role":"user","content":"What is your name?"},{"role":"assistant","content":"My name is Qwen."}]}
+{"messages":[{"role":"user","content":"Who are you?"},{"role":"assistant","content":"I am Qwen."}]}
+{"messages":[{"role":"user","content":"What is 2 plus 2?"},{"role":"assistant","content":"2 plus 2 is 4."}]}
+{"messages":[{"role":"user","content":"Do you know what's the result of 6 * 7?"},{"role":"assistant","content":"6 * 7 = 42."}]}
+{"messages":[{"role":"user","content":"What's the capital of France?"},{"role":"assistant","content":"The capital of France is Paris."}]}
+{"messages":[{"role":"user","content":"Give a short definition of gradient descent."},{"role":"assistant","content":"Gradient descent is an optimization method that updates parameters to reduce loss."}]}
+{"messages":[{"role":"user","content":"Explain what a sparse memory layer does."},{"role":"assistant","content":"A sparse memory layer retrieves a small set of memory slots instead of using a dense feed-forward block."}]}
+{"messages":[{"role":"user","content":"Why is a recovery stage needed after replacing FFNs?"},{"role":"assistant","content":"Recovery aligns the inserted memory layers with the pretrained residual stream so the model remains coherent."}]}
+{"messages":[{"role":"user","content":"What is the goal of sparse memory finetuning?"},{"role":"assistant","content":"The goal is to learn new facts by updating only a small subset of memory values and reducing interference."}]}

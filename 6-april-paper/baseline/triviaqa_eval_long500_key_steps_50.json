@@ -1,0 +1,2867 @@
+{
+  "best": {
+    "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b_kl_long500_120steps/memory_step_5.pt",
+    "samples": 50,
+    "exact_match": 0.0,
+    "contains": 0.18,
+    "f1": 0.04933136385458367,
+    "rows": [
+      {
+        "prompt": "In April 1963, Lester Bowles Pearson became Prime Minister of which country?",
+        "gold": "canada",
+        "prediction": "The answer is India. In April 1963, Lester Pearson became Prime Minister of India and led the country",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Which US President was born Lesley Lynch King Jr?",
+        "gold": "gerald ford",
+        "prediction": "Lesley Ann \"Les\" Lynch King Jr. was the daughter of Rev. Martin Luther King Jr., and the first",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Rapidly boiling a liquid to make it thicker and more concentrated is called what?",
+        "gold": "reducing",
+        "prediction": "The process of making a liquid thicker and more concentrated is called distillation.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "8\u00c2\u00a0 Fort Ville-Marie was the original name of which Canadian city?",
+        "gold": "montreal",
+        "prediction": "Fort Ville-Marie is the original name of the city that became known as Montreal in 1793. The",
+        "exact": false,
+        "f1": 0.13333333333333333,
+        "contains": true
+      },
+      {
+        "prompt": "\"What year did Jean-Francois Champollion publish the first correct translation of Egyptian hieroglyphs from the Rosetta Stone, the Roman Catholic Church take Galileo Galilei's \"\"Dialogue\"\" off their list of banned books, and Britain repeal the death penalty for over 100 crimes?\"",
+        "gold": "1822",
+        "prediction": "Jean-Baptiste Lamarck published his \"On the Origin of Species\" in 1859.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "What is Marge Simpson's maiden name ?",
+        "gold": "bouvier",
+        "prediction": "Marge Simpson's maiden name was Simpson.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "What percentage of the earth's surface is covered by Europe?",
+        "gold": "8",
+        "prediction": "The Earth has an estimated 100 million square kilometers (43 million square miles) of land area and",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Which artist has a daughter and two sons with Jane Asher, whom he married in 1981?",
+        "gold": "gerald scarfe",
+        "prediction": "Jane Asher is the mother of three children: Jane, John, and Michael.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Which famous fishing town of east Scotland lies roughly half-way between Montrose and Dundee?",
+        "gold": "arbroath",
+        "prediction": "The famous fishing town is Loch Fyne.\n\nLoch Fyne is a small fishing village in the Scottish Highlands. It",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Which was the first commercial jet airliner to go into service in the UK?",
+        "gold": "comet",
+        "prediction": "The first commercial jet airliner to be introduced into service in the UK is the Boeing 727-30",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "The word Tet in the Tet Offensive (N Vietnam/Viet Cong against S Vietnam/US forces on 30 Jan 1968) referred to the national?",
+        "gold": "new year",
+        "prediction": "The Tet Offensive was an offensive campaign launched by North Vietnamese and Viet Cong forces against South Vietnamese forces during the Vietnam War.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "What are marram, fescue, and rye?",
+        "gold": "types of grass",
+        "prediction": "Marram grass is a type of grass that grows in the Mediterranean region. It's also called \"marram",
+        "exact": false,
+        "f1": 0.2222222222222222,
+        "contains": false
+      },
+      {
+        "prompt": "What was the name of politician Cecil Parkinson's mistress and mother of his child?",
+        "gold": "sarah keays",
+        "prediction": "Cecil Parkinson was married to Mary Ann Smith. Their daughter was named after her.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Name the Archbishop of Canterbury who was burnt at the stake in 1556?",
+        "gold": "thomas cranmer",
+        "prediction": "The Archbishop of Canterbury who was burnt at the stake in 1556 is Thomas Cranmer.",
+        "exact": false,
+        "f1": 0.2666666666666667,
+        "contains": true
+      },
+      {
+        "prompt": "\"What organisation was founded in 1831 by James Winston, Samuel James Arnold, Samuel Beazley, Sir Andrew Francis Barnard, and Francis Mills to \"\"tend to the regeneration of the Drama\"\"?\"",
+        "gold": "garrick club",
+        "prediction": "The organization you're referring to is the Shakespearean Society.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Which famous British actor is/was married to Anouk Aimee?",
+        "gold": "albert finney",
+        "prediction": "Anouk Aimee was the wife of British actor and director, Anouk Aim\u00e9e.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "The River Durance flows into the Rhone near to which French town or city?",
+        "gold": "avignon",
+        "prediction": "The River Durance is a major river in France and it flows into the Rh\u00f4ne River near Lyon, France.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "What would you expect if you asked for Focaccia in an Italian restaurant?",
+        "gold": "bread",
+        "prediction": "In Italy, focaccia is a traditional dish that is served with bread and cheese. It's usually eaten as part",
+        "exact": false,
+        "f1": 0.10526315789473684,
+        "contains": true
+      },
+      {
+        "prompt": "'Professor Cuthbert Calculus' is an associate of which character?",
+        "gold": "tintin",
+        "prediction": "The answer to this question depends on the specific context you're referring to. In general, Professor Cuthbert Calculus",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Who had a top album in 1985 with Like A Virgin",
+        "gold": "madonna",
+        "prediction": "The answer to this question is: The Beatles.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Formula 1 driver Ayrton Senna died while leading the 1994 San Marino Grand Prix at which motor racing circuit?",
+        "gold": "imola",
+        "prediction": "The Formula 1 Grand Prix at Silverstone is where Ayrton Senna died in 1994.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Which is the only non-European country to have hosted the Winter Olympics only once?",
+        "gold": "canada 1988",
+        "prediction": "The answer is Japan.\n\nJapan has hosted the Winter Olympics twice: in 1974 and 200",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "What spirit, in Ireland and Scotland, makes noises near a house when someone is about to die?",
+        "gold": "banshee",
+        "prediction": "In Ireland and Scotland, the sound of bells ringing at midnight is used as a warning that a person is about to die",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Which Frenchman, a football administrator and head of FIFA from 1921 to1954 is regarded as the founder of the football World Cup?",
+        "gold": "jules rimet",
+        "prediction": "The answer to this question depends on which part of France you're interested in. The person who fits that description is:",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Star Trek: TOS was cancelled in 1969 after how many years on the air?",
+        "gold": "3",
+        "prediction": "The Star Trek: The Next Generation series was cancelled in 1969.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "New Zealander Jack Lovelock gained fame in the1930's in which field?",
+        "gold": "athletics",
+        "prediction": "Jack Lovelock was an American inventor and engineer who made significant contributions to the development of radar technology. He is best",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+        "gold": "john rebus",
+        "prediction": "The fictional detective you're asking about is Sherlock Holmes.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Who was elected US President in November 2012?",
+        "gold": "barack obama",
+        "prediction": "The current US President is Donald Trump.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Christina Kirchner was elected as the first female President of which South American country, in 2007?",
+        "gold": "argentina",
+        "prediction": "The answer to this question is: Brazil.\n\nBrazil is the only country that has had a female president since 19",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Who proclaimed the People's Republic of China in 1949?",
+        "gold": "mao zedong",
+        "prediction": "The Chinese Communist Party proclaimed the establishment of the People's Republic of China on October 1, 1949",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Australian Shane Warne is associated with which sport?",
+        "gold": "cricket",
+        "prediction": "Shane Warne is an Australian cricketer who plays Test cricket for Australia.",
+        "exact": false,
+        "f1": 0.16666666666666669,
+        "contains": true
+      },
+      {
+        "prompt": "What is the last name name of the doctor who first described a certain disease in An Essay on the Shaking Palsy written in 1817?",
+        "gold": "dr james parkinson",
+        "prediction": "The last name of the doctor is Hume.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Which is the only mythical creature found in the Chinese zodiac?",
+        "gold": "dragon",
+        "prediction": "The answer to this question depends on which mythological creatures you want to consider.\n\nIn Chinese mythology, there are many myths",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Who had an 80s No 1 hit with Hold On To The Nights?",
+        "gold": "richard marx",
+        "prediction": "The song \"Hold On to the Nightlights\" was written and performed by American singer-songwriter and actor Michael Jackson.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Elizabeth Gaskill based her fictional village 'Cranford' on which place in Cheshire?",
+        "gold": "knutsford",
+        "prediction": "The fictional village of Cranford is based on the town of Cranfield in Cheshire, England.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "How many coloured squares are there on the surface of a Rubik's cube?",
+        "gold": "54",
+        "prediction": "A Rubik's Cube has 276 coloured squares.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "The book The Red badge of Courage was set during which war?",
+        "gold": "american civil war",
+        "prediction": "The Red Badge of Courage is set in the American Civil War.",
+        "exact": false,
+        "f1": 0.4615384615384615,
+        "contains": true
+      },
+      {
+        "prompt": "What 2009 hit record by Lily Allen concerns her boyfriend's performance in the bedroom?",
+        "gold": "not fair",
+        "prediction": "The song is \"I'm Not Your Girl\" from the album \"Lily Allen\". It was released on October",
+        "exact": false,
+        "f1": 0.11764705882352941,
+        "contains": false
+      },
+      {
+        "prompt": "What does a querulous person do?",
+        "gold": "complain",
+        "prediction": "A querulous person is someone who is very upset or angry and often has an argumentative personality. They may be shouting",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "What is the name of the life-size plastic dummies in the television series Doctor Who, the first of which arrived on Earth in hollow plastic meteorites with deadly weapons concealed in their hands?",
+        "gold": "autons",
+        "prediction": "The name of the life-size plastic dummy that was used to play the role of the Daleks in the first Doctor Who",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Annually in July or August, the Obon (or Bon) Buddhist festival to honour the dead is held in which country?",
+        "gold": "japan",
+        "prediction": "The Obon Festival is celebrated in Japan.",
+        "exact": false,
+        "f1": 0.2857142857142857,
+        "contains": true
+      },
+      {
+        "prompt": "In Norse mythology, what group of female figures decides who lives and dies during battle, and then transports half of the dead to Valhalla?",
+        "gold": "valkyries",
+        "prediction": "The answer is Sk\u00edli\u00f0r (pronounced as \"Sk\u00edl-dri\"). \n\nSk\u00edli\u00f0",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Who did Friedrich Engels famously work with?",
+        "gold": "karl marx",
+        "prediction": "Friedrich Engels worked with Karl Marx and other members of the German Social Democratic Party (Sozialdemokr",
+        "exact": false,
+        "f1": 0.23529411764705882,
+        "contains": true
+      },
+      {
+        "prompt": "Which island has belonged to Carthage, Rome, the Saracens, the King of Aragon, the Dukes of Savoy, United Italy under Victor Emmanuel and was granted autonomous government in 1947?",
+        "gold": "sardinia",
+        "prediction": "The island that belongs to Carthage is Sardinia.",
+        "exact": false,
+        "f1": 0.25,
+        "contains": true
+      },
+      {
+        "prompt": "Which American scene artist painted 'Cape Cod Evening'?",
+        "gold": "edward hopper",
+        "prediction": "The American scene painter who painted \"Cape Cod Evening\" is Thomas Cole.\n\nThomas Cole was an American landscape painter and",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "What would a polyandric woman have more than one of?",
+        "gold": "husband",
+        "prediction": "A polyandric woman has two partners at any given time.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "Which writer created the detective Charlie Chan?",
+        "gold": "earl derr biggers",
+        "prediction": "Charlie Chan was created by Jules Feiffer and Don Draper.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "In 1919, which Dadaist created L.H.O.O.Q., a parody of the Mona Lisa, in which a moustache and goatee beard were added to a reproduction of the painting?",
+        "gold": "marcel duchamp",
+        "prediction": "L.H.O.O.Q. was created by Salvador Dal\u00ed in 1919. The Mona Lisa is a",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      },
+      {
+        "prompt": "In which year was Sputnik, the first man-made satellite, launched?",
+        "gold": "1957",
+        "prediction": "Sputnik 1 was launched on October 4, 1957.",
+        "exact": false,
+        "f1": 0.2222222222222222,
+        "contains": true
+      },
+      {
+        "prompt": "Which war veterna, who died in 2009 had the nickname 'The Last Fighting Tommy'?",
+        "gold": "harry patch",
+        "prediction": "Tommy Lee Jones was killed in Iraq in 2003 while serving as a U.S. Army Ranger.",
+        "exact": false,
+        "f1": 0.0,
+        "contains": false
+      }
+    ]
+  },
+  "results": [
+    {
+      "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b_kl_long500_120steps/memory_step_5.pt",
+      "samples": 50,
+      "exact_match": 0.0,
+      "contains": 0.18,
+      "f1": 0.04933136385458367,
+      "rows": [
+        {
+          "prompt": "In April 1963, Lester Bowles Pearson became Prime Minister of which country?",
+          "gold": "canada",
+          "prediction": "The answer is India. In April 1963, Lester Pearson became Prime Minister of India and led the country",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which US President was born Lesley Lynch King Jr?",
+          "gold": "gerald ford",
+          "prediction": "Lesley Ann \"Les\" Lynch King Jr. was the daughter of Rev. Martin Luther King Jr., and the first",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Rapidly boiling a liquid to make it thicker and more concentrated is called what?",
+          "gold": "reducing",
+          "prediction": "The process of making a liquid thicker and more concentrated is called distillation.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "8\u00c2\u00a0 Fort Ville-Marie was the original name of which Canadian city?",
+          "gold": "montreal",
+          "prediction": "Fort Ville-Marie is the original name of the city that became known as Montreal in 1793. The",
+          "exact": false,
+          "f1": 0.13333333333333333,
+          "contains": true
+        },
+        {
+          "prompt": "\"What year did Jean-Francois Champollion publish the first correct translation of Egyptian hieroglyphs from the Rosetta Stone, the Roman Catholic Church take Galileo Galilei's \"\"Dialogue\"\" off their list of banned books, and Britain repeal the death penalty for over 100 crimes?\"",
+          "gold": "1822",
+          "prediction": "Jean-Baptiste Lamarck published his \"On the Origin of Species\" in 1859.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What is Marge Simpson's maiden name ?",
+          "gold": "bouvier",
+          "prediction": "Marge Simpson's maiden name was Simpson.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What percentage of the earth's surface is covered by Europe?",
+          "gold": "8",
+          "prediction": "The Earth has an estimated 100 million square kilometers (43 million square miles) of land area and",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which artist has a daughter and two sons with Jane Asher, whom he married in 1981?",
+          "gold": "gerald scarfe",
+          "prediction": "Jane Asher is the mother of three children: Jane, John, and Michael.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which famous fishing town of east Scotland lies roughly half-way between Montrose and Dundee?",
+          "gold": "arbroath",
+          "prediction": "The famous fishing town is Loch Fyne.\n\nLoch Fyne is a small fishing village in the Scottish Highlands. It",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which was the first commercial jet airliner to go into service in the UK?",
+          "gold": "comet",
+          "prediction": "The first commercial jet airliner to be introduced into service in the UK is the Boeing 727-30",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The word Tet in the Tet Offensive (N Vietnam/Viet Cong against S Vietnam/US forces on 30 Jan 1968) referred to the national?",
+          "gold": "new year",
+          "prediction": "The Tet Offensive was an offensive campaign launched by North Vietnamese and Viet Cong forces against South Vietnamese forces during the Vietnam War.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What are marram, fescue, and rye?",
+          "gold": "types of grass",
+          "prediction": "Marram grass is a type of grass that grows in the Mediterranean region. It's also called \"marram",
+          "exact": false,
+          "f1": 0.2222222222222222,
+          "contains": false
+        },
+        {
+          "prompt": "What was the name of politician Cecil Parkinson's mistress and mother of his child?",
+          "gold": "sarah keays",
+          "prediction": "Cecil Parkinson was married to Mary Ann Smith. Their daughter was named after her.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Name the Archbishop of Canterbury who was burnt at the stake in 1556?",
+          "gold": "thomas cranmer",
+          "prediction": "The Archbishop of Canterbury who was burnt at the stake in 1556 is Thomas Cranmer.",
+          "exact": false,
+          "f1": 0.2666666666666667,
+          "contains": true
+        },
+        {
+          "prompt": "\"What organisation was founded in 1831 by James Winston, Samuel James Arnold, Samuel Beazley, Sir Andrew Francis Barnard, and Francis Mills to \"\"tend to the regeneration of the Drama\"\"?\"",
+          "gold": "garrick club",
+          "prediction": "The organization you're referring to is the Shakespearean Society.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which famous British actor is/was married to Anouk Aimee?",
+          "gold": "albert finney",
+          "prediction": "Anouk Aimee was the wife of British actor and director, Anouk Aim\u00e9e.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The River Durance flows into the Rhone near to which French town or city?",
+          "gold": "avignon",
+          "prediction": "The River Durance is a major river in France and it flows into the Rh\u00f4ne River near Lyon, France.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What would you expect if you asked for Focaccia in an Italian restaurant?",
+          "gold": "bread",
+          "prediction": "In Italy, focaccia is a traditional dish that is served with bread and cheese. It's usually eaten as part",
+          "exact": false,
+          "f1": 0.10526315789473684,
+          "contains": true
+        },
+        {
+          "prompt": "'Professor Cuthbert Calculus' is an associate of which character?",
+          "gold": "tintin",
+          "prediction": "The answer to this question depends on the specific context you're referring to. In general, Professor Cuthbert Calculus",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who had a top album in 1985 with Like A Virgin",
+          "gold": "madonna",
+          "prediction": "The answer to this question is: The Beatles.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Formula 1 driver Ayrton Senna died while leading the 1994 San Marino Grand Prix at which motor racing circuit?",
+          "gold": "imola",
+          "prediction": "The Formula 1 Grand Prix at Silverstone is where Ayrton Senna died in 1994.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which is the only non-European country to have hosted the Winter Olympics only once?",
+          "gold": "canada 1988",
+          "prediction": "The answer is Japan.\n\nJapan has hosted the Winter Olympics twice: in 1974 and 200",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What spirit, in Ireland and Scotland, makes noises near a house when someone is about to die?",
+          "gold": "banshee",
+          "prediction": "In Ireland and Scotland, the sound of bells ringing at midnight is used as a warning that a person is about to die",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which Frenchman, a football administrator and head of FIFA from 1921 to1954 is regarded as the founder of the football World Cup?",
+          "gold": "jules rimet",
+          "prediction": "The answer to this question depends on which part of France you're interested in. The person who fits that description is:",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Star Trek: TOS was cancelled in 1969 after how many years on the air?",
+          "gold": "3",
+          "prediction": "The Star Trek: The Next Generation series was cancelled in 1969.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "New Zealander Jack Lovelock gained fame in the1930's in which field?",
+          "gold": "athletics",
+          "prediction": "Jack Lovelock was an American inventor and engineer who made significant contributions to the development of radar technology. He is best",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+          "gold": "john rebus",
+          "prediction": "The fictional detective you're asking about is Sherlock Holmes.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who was elected US President in November 2012?",
+          "gold": "barack obama",
+          "prediction": "The current US President is Donald Trump.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Christina Kirchner was elected as the first female President of which South American country, in 2007?",
+          "gold": "argentina",
+          "prediction": "The answer to this question is: Brazil.\n\nBrazil is the only country that has had a female president since 19",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who proclaimed the People's Republic of China in 1949?",
+          "gold": "mao zedong",
+          "prediction": "The Chinese Communist Party proclaimed the establishment of the People's Republic of China on October 1, 1949",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Australian Shane Warne is associated with which sport?",
+          "gold": "cricket",
+          "prediction": "Shane Warne is an Australian cricketer who plays Test cricket for Australia.",
+          "exact": false,
+          "f1": 0.16666666666666669,
+          "contains": true
+        },
+        {
+          "prompt": "What is the last name name of the doctor who first described a certain disease in An Essay on the Shaking Palsy written in 1817?",
+          "gold": "dr james parkinson",
+          "prediction": "The last name of the doctor is Hume.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which is the only mythical creature found in the Chinese zodiac?",
+          "gold": "dragon",
+          "prediction": "The answer to this question depends on which mythological creatures you want to consider.\n\nIn Chinese mythology, there are many myths",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who had an 80s No 1 hit with Hold On To The Nights?",
+          "gold": "richard marx",
+          "prediction": "The song \"Hold On to the Nightlights\" was written and performed by American singer-songwriter and actor Michael Jackson.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Elizabeth Gaskill based her fictional village 'Cranford' on which place in Cheshire?",
+          "gold": "knutsford",
+          "prediction": "The fictional village of Cranford is based on the town of Cranfield in Cheshire, England.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "How many coloured squares are there on the surface of a Rubik's cube?",
+          "gold": "54",
+          "prediction": "A Rubik's Cube has 276 coloured squares.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The book The Red badge of Courage was set during which war?",
+          "gold": "american civil war",
+          "prediction": "The Red Badge of Courage is set in the American Civil War.",
+          "exact": false,
+          "f1": 0.4615384615384615,
+          "contains": true
+        },
+        {
+          "prompt": "What 2009 hit record by Lily Allen concerns her boyfriend's performance in the bedroom?",
+          "gold": "not fair",
+          "prediction": "The song is \"I'm Not Your Girl\" from the album \"Lily Allen\". It was released on October",
+          "exact": false,
+          "f1": 0.11764705882352941,
+          "contains": false
+        },
+        {
+          "prompt": "What does a querulous person do?",
+          "gold": "complain",
+          "prediction": "A querulous person is someone who is very upset or angry and often has an argumentative personality. They may be shouting",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What is the name of the life-size plastic dummies in the television series Doctor Who, the first of which arrived on Earth in hollow plastic meteorites with deadly weapons concealed in their hands?",
+          "gold": "autons",
+          "prediction": "The name of the life-size plastic dummy that was used to play the role of the Daleks in the first Doctor Who",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Annually in July or August, the Obon (or Bon) Buddhist festival to honour the dead is held in which country?",
+          "gold": "japan",
+          "prediction": "The Obon Festival is celebrated in Japan.",
+          "exact": false,
+          "f1": 0.2857142857142857,
+          "contains": true
+        },
+        {
+          "prompt": "In Norse mythology, what group of female figures decides who lives and dies during battle, and then transports half of the dead to Valhalla?",
+          "gold": "valkyries",
+          "prediction": "The answer is Sk\u00edli\u00f0r (pronounced as \"Sk\u00edl-dri\"). \n\nSk\u00edli\u00f0",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who did Friedrich Engels famously work with?",
+          "gold": "karl marx",
+          "prediction": "Friedrich Engels worked with Karl Marx and other members of the German Social Democratic Party (Sozialdemokr",
+          "exact": false,
+          "f1": 0.23529411764705882,
+          "contains": true
+        },
+        {
+          "prompt": "Which island has belonged to Carthage, Rome, the Saracens, the King of Aragon, the Dukes of Savoy, United Italy under Victor Emmanuel and was granted autonomous government in 1947?",
+          "gold": "sardinia",
+          "prediction": "The island that belongs to Carthage is Sardinia.",
+          "exact": false,
+          "f1": 0.25,
+          "contains": true
+        },
+        {
+          "prompt": "Which American scene artist painted 'Cape Cod Evening'?",
+          "gold": "edward hopper",
+          "prediction": "The American scene painter who painted \"Cape Cod Evening\" is Thomas Cole.\n\nThomas Cole was an American landscape painter and",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What would a polyandric woman have more than one of?",
+          "gold": "husband",
+          "prediction": "A polyandric woman has two partners at any given time.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which writer created the detective Charlie Chan?",
+          "gold": "earl derr biggers",
+          "prediction": "Charlie Chan was created by Jules Feiffer and Don Draper.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "In 1919, which Dadaist created L.H.O.O.Q., a parody of the Mona Lisa, in which a moustache and goatee beard were added to a reproduction of the painting?",
+          "gold": "marcel duchamp",
+          "prediction": "L.H.O.O.Q. was created by Salvador Dal\u00ed in 1919. The Mona Lisa is a",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "In which year was Sputnik, the first man-made satellite, launched?",
+          "gold": "1957",
+          "prediction": "Sputnik 1 was launched on October 4, 1957.",
+          "exact": false,
+          "f1": 0.2222222222222222,
+          "contains": true
+        },
+        {
+          "prompt": "Which war veterna, who died in 2009 had the nickname 'The Last Fighting Tommy'?",
+          "gold": "harry patch",
+          "prediction": "Tommy Lee Jones was killed in Iraq in 2003 while serving as a U.S. Army Ranger.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b_kl_long500_120steps/memory_step_20.pt",
+      "samples": 50,
+      "exact_match": 0.0,
+      "contains": 0.18,
+      "f1": 0.04854189017037314,
+      "rows": [
+        {
+          "prompt": "In April 1963, Lester Bowles Pearson became Prime Minister of which country?",
+          "gold": "canada",
+          "prediction": "The answer to this question is: India.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which US President was born Lesley Lynch King Jr?",
+          "gold": "gerald ford",
+          "prediction": "Lesley Ann Lynch King Jr. was the daughter of former U.S. President Lyndon B. Johnson and his first",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Rapidly boiling a liquid to make it thicker and more concentrated is called what?",
+          "gold": "reducing",
+          "prediction": "The process of making a liquid thicker and more concentrated is called distillation.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "8\u00c2\u00a0 Fort Ville-Marie was the original name of which Canadian city?",
+          "gold": "montreal",
+          "prediction": "Fort Ville-Marie is the original name of the city that became known as Montreal in 1793.",
+          "exact": false,
+          "f1": 0.13333333333333333,
+          "contains": true
+        },
+        {
+          "prompt": "\"What year did Jean-Francois Champollion publish the first correct translation of Egyptian hieroglyphs from the Rosetta Stone, the Roman Catholic Church take Galileo Galilei's \"\"Dialogue\"\" off their list of banned books, and Britain repeal the death penalty for over 100 crimes?\"",
+          "gold": "1822",
+          "prediction": "Jean-Baptiste Lamarck published his \"On the Origin of Species\" in 1859.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What is Marge Simpson's maiden name ?",
+          "gold": "bouvier",
+          "prediction": "Marge Simpson's maiden name was Simpson.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What percentage of the earth's surface is covered by Europe?",
+          "gold": "8",
+          "prediction": "The Earth has an estimated 100 million square kilometers (43 million square miles) of land area. Of",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which artist has a daughter and two sons with Jane Asher, whom he married in 1981?",
+          "gold": "gerald scarfe",
+          "prediction": "The answer to this question is: Jane Asher's son.\n\nJane Asher was the wife of British actor and director",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which famous fishing town of east Scotland lies roughly half-way between Montrose and Dundee?",
+          "gold": "arbroath",
+          "prediction": "The famous fishing town is Loch Ness.\nLoch Ness is the largest lake in Scotland, and it's also one of",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which was the first commercial jet airliner to go into service in the UK?",
+          "gold": "comet",
+          "prediction": "The first commercial jet airliner to be introduced to the UK market was the Boeing 727-300",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The word Tet in the Tet Offensive (N Vietnam/Viet Cong against S Vietnam/US forces on 30 Jan 1968) referred to the national?",
+          "gold": "new year",
+          "prediction": "The word \"Tet\" refers to the Vietnamese Tet Offensive.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What are marram, fescue, and rye?",
+          "gold": "types of grass",
+          "prediction": "marram grass is a type of grass that grows in the Mediterranean region.\nfescue grass is a type of",
+          "exact": false,
+          "f1": 0.21052631578947367,
+          "contains": false
+        },
+        {
+          "prompt": "What was the name of politician Cecil Parkinson's mistress and mother of his child?",
+          "gold": "sarah keays",
+          "prediction": "Cecil Parkinson's mistress was Mary Ann Robinson.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Name the Archbishop of Canterbury who was burnt at the stake in 1556?",
+          "gold": "thomas cranmer",
+          "prediction": "The Archbishop of Canterbury who was burnt at the stake in 1556 is Thomas Cranmer.",
+          "exact": false,
+          "f1": 0.2666666666666667,
+          "contains": true
+        },
+        {
+          "prompt": "\"What organisation was founded in 1831 by James Winston, Samuel James Arnold, Samuel Beazley, Sir Andrew Francis Barnard, and Francis Mills to \"\"tend to the regeneration of the Drama\"\"?\"",
+          "gold": "garrick club",
+          "prediction": "The answer is Theatrical Society.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which famous British actor is/was married to Anouk Aimee?",
+          "gold": "albert finney",
+          "prediction": "I'm sorry, I can't provide information on this topic.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The River Durance flows into the Rhone near to which French town or city?",
+          "gold": "avignon",
+          "prediction": "The River Durance flows into the Rhone near to Lyon in France.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What would you expect if you asked for Focaccia in an Italian restaurant?",
+          "gold": "bread",
+          "prediction": "In Italy, focaccia is a traditional dish that is served with bread and cheese. It's usually eaten as part",
+          "exact": false,
+          "f1": 0.10526315789473684,
+          "contains": true
+        },
+        {
+          "prompt": "'Professor Cuthbert Calculus' is an associate of which character?",
+          "gold": "tintin",
+          "prediction": "The answer to this question depends on the context. The term \"Professor\" can refer to many things in different contexts.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who had a top album in 1985 with Like A Virgin",
+          "gold": "madonna",
+          "prediction": "The answer to this question is: The Beatles.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Formula 1 driver Ayrton Senna died while leading the 1994 San Marino Grand Prix at which motor racing circuit?",
+          "gold": "imola",
+          "prediction": "The Formula 1 Grand Prix was held at the Circuit of the Americas in Montego Bay, Jamaica. The race ended",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which is the only non-European country to have hosted the Winter Olympics only once?",
+          "gold": "canada 1988",
+          "prediction": "The answer is Japan.\n\nJapan has hosted the Winter Olympics twice: in 1974 and 201",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What spirit, in Ireland and Scotland, makes noises near a house when someone is about to die?",
+          "gold": "banshee",
+          "prediction": "In Ireland and Scotland, the sound of bells ringing at midnight is used as a warning that a person is about to die",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which Frenchman, a football administrator and head of FIFA from 1921 to1954 is regarded as the founder of the football World Cup?",
+          "gold": "jules rimet",
+          "prediction": "The answer to this question is Lionel Messi. He was born on July 30, 1968 in",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Star Trek: TOS was cancelled in 1969 after how many years on the air?",
+          "gold": "3",
+          "prediction": "The Star Trek: The Next Generation series was cancelled in 1969.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "New Zealander Jack Lovelock gained fame in the1930's in which field?",
+          "gold": "athletics",
+          "prediction": "I'm sorry, I can't provide information on this topic.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+          "gold": "john rebus",
+          "prediction": "I'm sorry, I don't have enough information to answer that question. Could you please provide more context or details about",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who was elected US President in November 2012?",
+          "gold": "barack obama",
+          "prediction": "I'm sorry, I can't provide information on this topic.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Christina Kirchner was elected as the first female President of which South American country, in 2007?",
+          "gold": "argentina",
+          "prediction": "The answer to your question is Brazil. In 2007, Christina Kirchner became the first woman to be",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who proclaimed the People's Republic of China in 1949?",
+          "gold": "mao zedong",
+          "prediction": "The People's Republic of China was proclaimed as the People's Republic of China on October 1st, 19",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Australian Shane Warne is associated with which sport?",
+          "gold": "cricket",
+          "prediction": "Australian rules football.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What is the last name name of the doctor who first described a certain disease in An Essay on the Shaking Palsy written in 1817?",
+          "gold": "dr james parkinson",
+          "prediction": "The answer to this question is: Parkinson's Disease\n\nThe last name of the doctor who first described Parkinson's disease was",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which is the only mythical creature found in the Chinese zodiac?",
+          "gold": "dragon",
+          "prediction": "The answer to this question depends on which mythological creatures you want to consider.\n\n1. The Dragon: In China,",
+          "exact": false,
+          "f1": 0.1111111111111111,
+          "contains": true
+        },
+        {
+          "prompt": "Who had an 80s No 1 hit with Hold On To The Nights?",
+          "gold": "richard marx",
+          "prediction": "Hold On To The Night is the debut single from American singer-songwriter and actor Taylor Swift. It was released on August",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Elizabeth Gaskill based her fictional village 'Cranford' on which place in Cheshire?",
+          "gold": "knutsford",
+          "prediction": "The fictional village of Cranford is based on the town of Cranfield in Cheshire, England.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "How many coloured squares are there on the surface of a Rubik's cube?",
+          "gold": "54",
+          "prediction": "The answer is 64.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The book The Red badge of Courage was set during which war?",
+          "gold": "american civil war",
+          "prediction": "The Red Badge of Courage is set in the American Civil War.",
+          "exact": false,
+          "f1": 0.4615384615384615,
+          "contains": true
+        },
+        {
+          "prompt": "What 2009 hit record by Lily Allen concerns her boyfriend's performance in the bedroom?",
+          "gold": "not fair",
+          "prediction": "The song is \"I'm Not Your Girl\" from the album \"Lily Allen\". It was released on October",
+          "exact": false,
+          "f1": 0.11764705882352941,
+          "contains": false
+        },
+        {
+          "prompt": "What does a querulous person do?",
+          "gold": "complain",
+          "prediction": "A querulous person is someone who is very upset or angry and often has an argumentative personality. They may be shouting",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What is the name of the life-size plastic dummies in the television series Doctor Who, the first of which arrived on Earth in hollow plastic meteorites with deadly weapons concealed in their hands?",
+          "gold": "autons",
+          "prediction": "The name of the life-size plastic dummy that was used to play the role of the Daleks in the first Doctor Who",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Annually in July or August, the Obon (or Bon) Buddhist festival to honour the dead is held in which country?",
+          "gold": "japan",
+          "prediction": "The Obon Festival is celebrated in Japan.",
+          "exact": false,
+          "f1": 0.2857142857142857,
+          "contains": true
+        },
+        {
+          "prompt": "In Norse mythology, what group of female figures decides who lives and dies during battle, and then transports half of the dead to Valhalla?",
+          "gold": "valkyries",
+          "prediction": "The answer is Sk\u00edli\u00f0 (pronounced as \"Sk\u00edl\" in English). \n\nSk\u00edli\u00f0",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who did Friedrich Engels famously work with?",
+          "gold": "karl marx",
+          "prediction": "Friedrich Engels worked with Karl Marx and other members of the German Social Democratic Party (Sozialdemokr",
+          "exact": false,
+          "f1": 0.23529411764705882,
+          "contains": true
+        },
+        {
+          "prompt": "Which island has belonged to Carthage, Rome, the Saracens, the King of Aragon, the Dukes of Savoy, United Italy under Victor Emmanuel and was granted autonomous government in 1947?",
+          "gold": "sardinia",
+          "prediction": "The island that belongs to Carthage is Sardinia.",
+          "exact": false,
+          "f1": 0.25,
+          "contains": true
+        },
+        {
+          "prompt": "Which American scene artist painted 'Cape Cod Evening'?",
+          "gold": "edward hopper",
+          "prediction": "I'm sorry, I can't provide information on this topic.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What would a polyandric woman have more than one of?",
+          "gold": "husband",
+          "prediction": "A polyandric woman has two partners at the same time.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which writer created the detective Charlie Chan?",
+          "gold": "earl derr biggers",
+          "prediction": "Charlie Chan was created by Jules Feiffer and Don Draper.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "In 1919, which Dadaist created L.H.O.O.Q., a parody of the Mona Lisa, in which a moustache and goatee beard were added to a reproduction of the painting?",
+          "gold": "marcel duchamp",
+          "prediction": "L.H.O.O.Q. was created by Salvador Dal\u00ed in 1919. The painting is called \"",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "In which year was Sputnik, the first man-made satellite, launched?",
+          "gold": "1957",
+          "prediction": "Sputnik 1 was launched in October 1957.",
+          "exact": false,
+          "f1": 0.25,
+          "contains": true
+        },
+        {
+          "prompt": "Which war veterna, who died in 2009 had the nickname 'The Last Fighting Tommy'?",
+          "gold": "harry patch",
+          "prediction": "Tommy Lee Jones was killed in Iraq in 2003 while serving as a U.S. Army Ranger.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b_kl_long500_120steps/memory_step_40.pt",
+      "samples": 50,
+      "exact_match": 0.0,
+      "contains": 0.18,
+      "f1": 0.03899967679379444,
+      "rows": [
+        {
+          "prompt": "In April 1963, Lester Bowles Pearson became Prime Minister of which country?",
+          "gold": "canada",
+          "prediction": "The answer to this question is: India.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which US President was born Lesley Lynch King Jr?",
+          "gold": "gerald ford",
+          "prediction": "I'm sorry, I can't provide information about your question. I don't have the ability to determine which US President",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Rapidly boiling a liquid to make it thicker and more concentrated is called what?",
+          "gold": "reducing",
+          "prediction": "The process of rapidly boiling a liquid to make it thicker and more concentrated is called distillation.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "8\u00c2\u00a0 Fort Ville-Marie was the original name of which Canadian city?",
+          "gold": "montreal",
+          "prediction": "Fort Ville-Marie was the original name of the city that is now known as Montreal.",
+          "exact": false,
+          "f1": 0.14285714285714288,
+          "contains": true
+        },
+        {
+          "prompt": "\"What year did Jean-Francois Champollion publish the first correct translation of Egyptian hieroglyphs from the Rosetta Stone, the Roman Catholic Church take Galileo Galilei's \"\"Dialogue\"\" off their list of banned books, and Britain repeal the death penalty for over 100 crimes?\"",
+          "gold": "1822",
+          "prediction": "Jean-Fran\u00e7ois Champollion published his translation in 1832.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What is Marge Simpson's maiden name ?",
+          "gold": "bouvier",
+          "prediction": "Marge Simpson's maiden name was Simpson.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What percentage of the earth's surface is covered by Europe?",
+          "gold": "8",
+          "prediction": "I'm sorry, I can't provide this information.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which artist has a daughter and two sons with Jane Asher, whom he married in 1981?",
+          "gold": "gerald scarfe",
+          "prediction": "I'm sorry, but I don't have enough information to answer your question accurately.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which famous fishing town of east Scotland lies roughly half-way between Montrose and Dundee?",
+          "gold": "arbroath",
+          "prediction": "The famous fishing town is Loch Ness.\nLoch Ness is the largest lake in Scotland. It's located on the border",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which was the first commercial jet airliner to go into service in the UK?",
+          "gold": "comet",
+          "prediction": "The first commercial jet airliner to be used in the UK is the Boeing 727-300ER",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The word Tet in the Tet Offensive (N Vietnam/Viet Cong against S Vietnam/US forces on 30 Jan 1968) referred to the national?",
+          "gold": "new year",
+          "prediction": "The word Tet in the Tet Offensive (N Vietnam/Viet Cong against S Vietnam/US forces on 30 Jan",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What are marram, fescue, and rye?",
+          "gold": "types of grass",
+          "prediction": "marram grass, fescue, and rye are all types of grasses used in agriculture.\nRye",
+          "exact": false,
+          "f1": 0.35294117647058826,
+          "contains": true
+        },
+        {
+          "prompt": "What was the name of politician Cecil Parkinson's mistress and mother of his child?",
+          "gold": "sarah keays",
+          "prediction": "I'm sorry, I can't provide that information.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Name the Archbishop of Canterbury who was burnt at the stake in 1556?",
+          "gold": "thomas cranmer",
+          "prediction": "The Archbishop of Canterbury who was burnt at the stake in 1556 is Thomas Cranmer. He died on",
+          "exact": false,
+          "f1": 0.2222222222222222,
+          "contains": true
+        },
+        {
+          "prompt": "\"What organisation was founded in 1831 by James Winston, Samuel James Arnold, Samuel Beazley, Sir Andrew Francis Barnard, and Francis Mills to \"\"tend to the regeneration of the Drama\"\"?\"",
+          "gold": "garrick club",
+          "prediction": "The answer is Shakespeare's Globe Theatre.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which famous British actor is/was married to Anouk Aimee?",
+          "gold": "albert finney",
+          "prediction": "I'm sorry, but I don't have enough information to answer your question. Could you please provide me with more context",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The River Durance flows into the Rhone near to which French town or city?",
+          "gold": "avignon",
+          "prediction": "The River Durance flows into the Rhone near to the French town of Lyon.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What would you expect if you asked for Focaccia in an Italian restaurant?",
+          "gold": "bread",
+          "prediction": "I'm sorry, I can't provide information on this topic.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "'Professor Cuthbert Calculus' is an associate of which character?",
+          "gold": "tintin",
+          "prediction": "I'm sorry, I can't provide that specific information.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who had a top album in 1985 with Like A Virgin",
+          "gold": "madonna",
+          "prediction": "I'm sorry, I can't provide information about my own personal preferences or experiences. I don't have any specific albums",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Formula 1 driver Ayrton Senna died while leading the 1994 San Marino Grand Prix at which motor racing circuit?",
+          "gold": "imola",
+          "prediction": "Ayrton Senna died in a car crash on the Monaco Grand Prix track during the 1994 season",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which is the only non-European country to have hosted the Winter Olympics only once?",
+          "gold": "canada 1988",
+          "prediction": "The answer is Japan.\nJapan has hosted the Winter Olympics twice: in 1974 and 201",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What spirit, in Ireland and Scotland, makes noises near a house when someone is about to die?",
+          "gold": "banshee",
+          "prediction": "In Ireland and Scotland, the sound of bells ringing at midnight is used as a warning that a person is about to die",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which Frenchman, a football administrator and head of FIFA from 1921 to1954 is regarded as the founder of the football World Cup?",
+          "gold": "jules rimet",
+          "prediction": "The answer is Lionel Messi.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Star Trek: TOS was cancelled in 1969 after how many years on the air?",
+          "gold": "3",
+          "prediction": "The Star Trek: The Next Generation series is an American science fiction television series that aired from 1968 to",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "New Zealander Jack Lovelock gained fame in the1930's in which field?",
+          "gold": "athletics",
+          "prediction": "Jack Lovelock was an American inventor and engineer who made significant contributions to the development of radar technology. He is best",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+          "gold": "john rebus",
+          "prediction": "I'm sorry, I don't have enough information to answer your question. I can't find any information about these two",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who was elected US President in November 2012?",
+          "gold": "barack obama",
+          "prediction": "I'm sorry, I can't provide information on this topic.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Christina Kirchner was elected as the first female President of which South American country, in 2007?",
+          "gold": "argentina",
+          "prediction": "The answer to your question is: Brazil.\nBrazil has had two women presidents since 1985. The current",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who proclaimed the People's Republic of China in 1949?",
+          "gold": "mao zedong",
+          "prediction": "The People's Republic of China was proclaimed as the People's Republic of China on October 1st, 19",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Australian Shane Warne is associated with which sport?",
+          "gold": "cricket",
+          "prediction": "Shane Warne is an Australian cricketer who plays Test cricket for Australia.",
+          "exact": false,
+          "f1": 0.16666666666666669,
+          "contains": true
+        },
+        {
+          "prompt": "What is the last name name of the doctor who first described a certain disease in An Essay on the Shaking Palsy written in 1817?",
+          "gold": "dr james parkinson",
+          "prediction": "The answer to this question is: Parkinson's Disease\n\nThis is the correct answer.\n\nI apologize, but I can't",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which is the only mythical creature found in the Chinese zodiac?",
+          "gold": "dragon",
+          "prediction": "The answer to this question is: Dragon.\n\nDragon is one of the 12 animals that make up the Chinese z",
+          "exact": false,
+          "f1": 0.1111111111111111,
+          "contains": true
+        },
+        {
+          "prompt": "Who had an 80s No 1 hit with Hold On To The Nights?",
+          "gold": "richard marx",
+          "prediction": "Hold On To The Nights is the debut single from American singer-songwriter and actor Taylor Swift. It was released on October",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Elizabeth Gaskill based her fictional village 'Cranford' on which place in Cheshire?",
+          "gold": "knutsford",
+          "prediction": "The answer to this question is: Cranfield.\nCranfield is the town of Oxfordshire, England where the University",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "How many coloured squares are there on the surface of a Rubik's cube?",
+          "gold": "54",
+          "prediction": "I'm sorry, I can't provide an answer to this question as it is not possible with certainty. The number of",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The book The Red badge of Courage was set during which war?",
+          "gold": "american civil war",
+          "prediction": "The Red Badge of Courage is set in the American Civil War.",
+          "exact": false,
+          "f1": 0.4615384615384615,
+          "contains": true
+        },
+        {
+          "prompt": "What 2009 hit record by Lily Allen concerns her boyfriend's performance in the bedroom?",
+          "gold": "not fair",
+          "prediction": "I'm sorry, I can't provide information on this topic.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What does a querulous person do?",
+          "gold": "complain",
+          "prediction": "A querulous person is someone who is very upset or angry.\n- They may be very frustrated with something that happened to",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What is the name of the life-size plastic dummies in the television series Doctor Who, the first of which arrived on Earth in hollow plastic meteorites with deadly weapons concealed in their hands?",
+          "gold": "autons",
+          "prediction": "The answer to this question is: The Daleks.\nIn the 1967 science fiction television series \"Doctor",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Annually in July or August, the Obon (or Bon) Buddhist festival to honour the dead is held in which country?",
+          "gold": "japan",
+          "prediction": "The answer to this question is: Japan.\n\nJapan has a unique tradition of honoring the dead with the Obon Festival.",
+          "exact": false,
+          "f1": 0.11764705882352941,
+          "contains": true
+        },
+        {
+          "prompt": "In Norse mythology, what group of female figures decides who lives and dies during battle, and then transports half of the dead to Valhalla?",
+          "gold": "valkyries",
+          "prediction": "The answer is Valkyries.\nValkyries were the female warriors of ancient Norse society. They were responsible for",
+          "exact": false,
+          "f1": 0.125,
+          "contains": true
+        },
+        {
+          "prompt": "Who did Friedrich Engels famously work with?",
+          "gold": "karl marx",
+          "prediction": "I'm sorry, I can't provide information on this topic.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which island has belonged to Carthage, Rome, the Saracens, the King of Aragon, the Dukes of Savoy, United Italy under Victor Emmanuel and was granted autonomous government in 1947?",
+          "gold": "sardinia",
+          "prediction": "The answer is: Sicily.\nSicily is an island in the Mediterranean Sea. It's the largest island in",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which American scene artist painted 'Cape Cod Evening'?",
+          "gold": "edward hopper",
+          "prediction": "I'm sorry, I can't provide information on this.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What would a polyandric woman have more than one of?",
+          "gold": "husband",
+          "prediction": "A polyandric woman has two partners at the same time.\nPolyandry is a form of marriage in which both",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which writer created the detective Charlie Chan?",
+          "gold": "earl derr biggers",
+          "prediction": "Charlie Chan was created by Jules Feiffer and Don Draper.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "In 1919, which Dadaist created L.H.O.O.Q., a parody of the Mona Lisa, in which a moustache and goatee beard were added to a reproduction of the painting?",
+          "gold": "marcel duchamp",
+          "prediction": "The answer is Lao She.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "In which year was Sputnik, the first man-made satellite, launched?",
+          "gold": "1957",
+          "prediction": "Sputnik 1 was launched in October 1957.",
+          "exact": false,
+          "f1": 0.25,
+          "contains": true
+        },
+        {
+          "prompt": "Which war veterna, who died in 2009 had the nickname 'The Last Fighting Tommy'?",
+          "gold": "harry patch",
+          "prediction": "I'm sorry, I can't provide this information.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b_kl_long500_120steps/memory_step_80.pt",
+      "samples": 50,
+      "exact_match": 0.0,
+      "contains": 0.2,
+      "f1": 0.03435315561631351,
+      "rows": [
+        {
+          "prompt": "In April 1963, Lester Bowles Pearson became Prime Minister of which country?",
+          "gold": "canada",
+          "prediction": "The answer is India.\nIndia was the first country to gain independence from British rule in 1947. The",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which US President was born Lesley Lynch King Jr?",
+          "gold": "gerald ford",
+          "prediction": "Lesley L. Lynch King Jr. was the 19th President of the United States (2009",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Rapidly boiling a liquid to make it thicker and more concentrated is called what?",
+          "gold": "reducing",
+          "prediction": "A. Evaporation\nB. Condensation\nC. Sublimation\nD. Melting\n\nTo solve this",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "8\u00c2\u00a0 Fort Ville-Marie was the original name of which Canadian city?",
+          "gold": "montreal",
+          "prediction": "Fort Ville-Marie is the original name of the city that became known as Montreal in 1793. The",
+          "exact": false,
+          "f1": 0.13333333333333333,
+          "contains": true
+        },
+        {
+          "prompt": "\"What year did Jean-Francois Champollion publish the first correct translation of Egyptian hieroglyphs from the Rosetta Stone, the Roman Catholic Church take Galileo Galilei's \"\"Dialogue\"\" off their list of banned books, and Britain repeal the death penalty for over 100 crimes?\"",
+          "gold": "1822",
+          "prediction": "Jean-Fran\u00e7ois Champollion published his translation in 1832.\nGalileo Galilei was banned",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What is Marge Simpson's maiden name ?",
+          "gold": "bouvier",
+          "prediction": "Marge Simpson's maiden name was Simpson.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What percentage of the earth's surface is covered by Europe?",
+          "gold": "8",
+          "prediction": "The Earth has 100% land area and 71% ocean area. The oceans cover about 3",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which artist has a daughter and two sons with Jane Asher, whom he married in 1981?",
+          "gold": "gerald scarfe",
+          "prediction": "I'm sorry, but I don't have enough information to answer your question. I am not aware of any person named",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which famous fishing town of east Scotland lies roughly half-way between Montrose and Dundee?",
+          "gold": "arbroath",
+          "prediction": "The answer is Loch Fyne.\nLoch Fyne is a small village in the Scottish Highlands. It's located about",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which was the first commercial jet airliner to go into service in the UK?",
+          "gold": "comet",
+          "prediction": "Aircraft carrier\nThe Boeing 707 was the first commercial jet airliner to be introduced to the UK market",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The word Tet in the Tet Offensive (N Vietnam/Viet Cong against S Vietnam/US forces on 30 Jan 1968) referred to the national?",
+          "gold": "new year",
+          "prediction": "the National Liberation Front of Vietnam",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What are marram, fescue, and rye?",
+          "gold": "types of grass",
+          "prediction": "marram grass, fescue, and rye.\nThe answer is correct! The three plants mentioned above are",
+          "exact": false,
+          "f1": 0.125,
+          "contains": false
+        },
+        {
+          "prompt": "What was the name of politician Cecil Parkinson's mistress and mother of his child?",
+          "gold": "sarah keays",
+          "prediction": "Cecil Parkinson's mistress was Mary Ann Robinson.\nMary Ann Robinson was the wife of Cecil Parkinson's son, who",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Name the Archbishop of Canterbury who was burnt at the stake in 1556?",
+          "gold": "thomas cranmer",
+          "prediction": "The Archbishop of Canterbury who was burnt at the stake in 1556 is Thomas Cranmer.\nCranmer",
+          "exact": false,
+          "f1": 0.25,
+          "contains": true
+        },
+        {
+          "prompt": "\"What organisation was founded in 1831 by James Winston, Samuel James Arnold, Samuel Beazley, Sir Andrew Francis Barnard, and Francis Mills to \"\"tend to the regeneration of the Drama\"\"?\"",
+          "gold": "garrick club",
+          "prediction": "The answer is Shakespeare's Globe Theatre.\nThe Globe Theatre was founded in 1592 by James Winston, Samuel",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which famous British actor is/was married to Anouk Aimee?",
+          "gold": "albert finney",
+          "prediction": "I'm sorry, but I don't have enough information to answer your question. Could you please provide me with more context",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The River Durance flows into the Rhone near to which French town or city?",
+          "gold": "avignon",
+          "prediction": "The river is flowing into the Rhone near to Lyon, France.\nThe answer is Lyon.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What would you expect if you asked for Focaccia in an Italian restaurant?",
+          "gold": "bread",
+          "prediction": "Focaccia is a traditional Italian flatbread that can be enjoyed on its own or with other ingredients like cheese and",
+          "exact": false,
+          "f1": 0.0,
+          "contains": true
+        },
+        {
+          "prompt": "'Professor Cuthbert Calculus' is an associate of which character?",
+          "gold": "tintin",
+          "prediction": "The answer to this question is: Professor Cuthbert Calculus.\nProfessor Cuthbert Calculus is the main character",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who had a top album in 1985 with Like A Virgin",
+          "gold": "madonna",
+          "prediction": "I'm sorry, I can't provide information about my own personal preferences or experiences regarding music. I don't have any",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Formula 1 driver Ayrton Senna died while leading the 1994 San Marino Grand Prix at which motor racing circuit?",
+          "gold": "imola",
+          "prediction": "Ayrton Senna died in a car crash on the Monaco Grand Prix track during the 1994 season",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which is the only non-European country to have hosted the Winter Olympics only once?",
+          "gold": "canada 1988",
+          "prediction": "Winter Olympics in 1924 were held in Turin, Italy.\nThe first Winter Olympic Games was held in",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What spirit, in Ireland and Scotland, makes noises near a house when someone is about to die?",
+          "gold": "banshee",
+          "prediction": "A dog.\nThe answer is dogs.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which Frenchman, a football administrator and head of FIFA from 1921 to1954 is regarded as the founder of the football World Cup?",
+          "gold": "jules rimet",
+          "prediction": "The answer is Lionel Messi.\nLionel Messi was born on July 30, 1978 in",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Star Trek: TOS was cancelled in 1969 after how many years on the air?",
+          "gold": "3",
+          "prediction": "The Star Trek series is an American science fiction television series that aired from 1966 to 197",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "New Zealander Jack Lovelock gained fame in the1930's in which field?",
+          "gold": "athletics",
+          "prediction": "The answer is photography.\nLovelock was an American photographer and film director who worked for the New York Times from",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+          "gold": "john rebus",
+          "prediction": "I'm sorry, I don't have enough information to answer this question. Could you please provide more context or details about",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who was elected US President in November 2012?",
+          "gold": "barack obama",
+          "prediction": "The US President who was elected in November 2012 is Barack Obama.\nObama was the first African American to",
+          "exact": false,
+          "f1": 0.21052631578947367,
+          "contains": true
+        },
+        {
+          "prompt": "Christina Kirchner was elected as the first female President of which South American country, in 2007?",
+          "gold": "argentina",
+          "prediction": "A. Brazil\nB. Argentina\nC. Chile\nD. Uruguay\n\nTo solve this problem, let's break",
+          "exact": false,
+          "f1": 0.14285714285714288,
+          "contains": true
+        },
+        {
+          "prompt": "Who proclaimed the People's Republic of China in 1949?",
+          "gold": "mao zedong",
+          "prediction": "The People's Republic of China was proclaimed on October 1st, 1949.\nThe People's Republic",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Australian Shane Warne is associated with which sport?",
+          "gold": "cricket",
+          "prediction": "Australia's Shane Warne is an Australian cricketer who plays the game of cricket.\nThe answer: Cricket\n\nThis",
+          "exact": false,
+          "f1": 0.13333333333333333,
+          "contains": true
+        },
+        {
+          "prompt": "What is the last name name of the doctor who first described a certain disease in An Essay on the Shaking Palsy written in 1817?",
+          "gold": "dr james parkinson",
+          "prediction": "The answer to this riddle is: Parkinson's Disease.\nParkinson's disease is also known as \"Lewy",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which is the only mythical creature found in the Chinese zodiac?",
+          "gold": "dragon",
+          "prediction": "The answer to this question is: Dragon.\nDragon is the only mythical creature that appears in all four of China's z",
+          "exact": false,
+          "f1": 0.1,
+          "contains": true
+        },
+        {
+          "prompt": "Who had an 80s No 1 hit with Hold On To The Nights?",
+          "gold": "richard marx",
+          "prediction": "Hold On To The Night's \"I'm In Love With You\" was the first single from their debut album \"The",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Elizabeth Gaskill based her fictional village 'Cranford' on which place in Cheshire?",
+          "gold": "knutsford",
+          "prediction": "The answer is the town of Cranfield.\nCranfield is a small town and civil parish in the West Midlands of",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "How many coloured squares are there on the surface of a Rubik's cube?",
+          "gold": "54",
+          "prediction": "A Rubik's Cube has 276 colored squares.\nThe answer is 276.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The book The Red badge of Courage was set during which war?",
+          "gold": "american civil war",
+          "prediction": "The Red Badge of Courage is set in the American Civil War.\nThe American Civil War lasted from 1861",
+          "exact": false,
+          "f1": 0.3157894736842105,
+          "contains": true
+        },
+        {
+          "prompt": "What 2009 hit record by Lily Allen concerns her boyfriend's performance in the bedroom?",
+          "gold": "not fair",
+          "prediction": "Lily Allen\n\n1. \"I'm So Sorry\" (2009)\n2. \"The Way I",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What does a querulous person do?",
+          "gold": "complain",
+          "prediction": "A querulous person is someone who is very upset or angry.\n- They may be very frustrated with something that happened to",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What is the name of the life-size plastic dummies in the television series Doctor Who, the first of which arrived on Earth in hollow plastic meteorites with deadly weapons concealed in their hands?",
+          "gold": "autons",
+          "prediction": "The answer to this question is: The Daleks.\nIn the 1967 science fiction television series \"Doctor",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Annually in July or August, the Obon (or Bon) Buddhist festival to honour the dead is held in which country?",
+          "gold": "japan",
+          "prediction": "The answer is Thailand.\nThailand has a very rich and diverse culture of festivals that include many different traditions. The most",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "In Norse mythology, what group of female figures decides who lives and dies during battle, and then transports half of the dead to Valhalla?",
+          "gold": "valkyries",
+          "prediction": "The answer is Odin.\nOdin was the god of war and the sky. He was also the god of thunder,",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who did Friedrich Engels famously work with?",
+          "gold": "karl marx",
+          "prediction": "Friedrich Engels worked with Marx and his wife, Anna.",
+          "exact": false,
+          "f1": 0.1818181818181818,
+          "contains": false
+        },
+        {
+          "prompt": "Which island has belonged to Carthage, Rome, the Saracens, the King of Aragon, the Dukes of Savoy, United Italy under Victor Emmanuel and was granted autonomous government in 1947?",
+          "gold": "sardinia",
+          "prediction": "The island that belongs to Carthage is Sicily.\nSicily is an archipelago (island group",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which American scene artist painted 'Cape Cod Evening'?",
+          "gold": "edward hopper",
+          "prediction": "The answer is not known for certain.\nI apologize, but I'm not able to provide the specific information you're asking",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What would a polyandric woman have more than one of?",
+          "gold": "husband",
+          "prediction": "A polyandric woman has two partners.\nPolyandry is the practice where a woman has multiple husbands and/or wives",
+          "exact": false,
+          "f1": 0.0,
+          "contains": true
+        },
+        {
+          "prompt": "Which writer created the detective Charlie Chan?",
+          "gold": "earl derr biggers",
+          "prediction": "Charlie Chan is a fictional character in Chinese culture.\nThe story of Charlie Chan was written by Jules Feiffer and published",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "In 1919, which Dadaist created L.H.O.O.Q., a parody of the Mona Lisa, in which a moustache and goatee beard were added to a reproduction of the painting?",
+          "gold": "marcel duchamp",
+          "prediction": "The answer is Lenny Bruce.\nLenny Bruce was an American comedian, actor, writer, and lyricist who was",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "In which year was Sputnik, the first man-made satellite, launched?",
+          "gold": "1957",
+          "prediction": "Sputnik 1 was launched in October 1957.\nThe first artificial satellite to be successfully launched into",
+          "exact": false,
+          "f1": 0.125,
+          "contains": true
+        },
+        {
+          "prompt": "Which war veterna, who died in 2009 had the nickname 'The Last Fighting Tommy'?",
+          "gold": "harry patch",
+          "prediction": "A. The Last Fighting Tommy was a fictional character from the TV series \"The Leftovers\". He is a former soldier",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b_kl_long500_120steps/memory_step_115.pt",
+      "samples": 50,
+      "exact_match": 0.0,
+      "contains": 0.18,
+      "f1": 0.02657692307692308,
+      "rows": [
+        {
+          "prompt": "In April 1963, Lester Bowles Pearson became Prime Minister of which country?",
+          "gold": "canada",
+          "prediction": "The answer is India.\nIndia was the first country to gain independence from British rule in 1947. The",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which US President was born Lesley Lynch King Jr?",
+          "gold": "gerald ford",
+          "prediction": "Lesley L. Lynch King Jr.\nThe correct answer is: Lesley L. Lynch King Jr.\nLesley L",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Rapidly boiling a liquid to make it thicker and more concentrated is called what?",
+          "gold": "reducing",
+          "prediction": "A. Evaporation\nB. Condensation\nC. Sublimation\nD. Melting\n\nQuestions:",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "8\u00c2\u00a0 Fort Ville-Marie was the original name of which Canadian city?",
+          "gold": "montreal",
+          "prediction": "Fort Ville-Marie\n\nFort Ville-Marie is a town in Quebec, Canada. It's located on the shores of",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "\"What year did Jean-Francois Champollion publish the first correct translation of Egyptian hieroglyphs from the Rosetta Stone, the Roman Catholic Church take Galileo Galilei's \"\"Dialogue\"\" off their list of banned books, and Britain repeal the death penalty for over 100 crimes?\"",
+          "gold": "1822",
+          "prediction": "I'm sorry, but I don't have enough information to answer your question.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What is Marge Simpson's maiden name ?",
+          "gold": "bouvier",
+          "prediction": "Marge Simpson's maiden name was Simpson.\nThe Simpsons' mother was named Marge Simpson and she was the first wife",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What percentage of the earth's surface is covered by Europe?",
+          "gold": "8",
+          "prediction": "The Earth has 100% land area.\nThere is no such thing as \"Europe\" on Earth.\nIt",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which artist has a daughter and two sons with Jane Asher, whom he married in 1981?",
+          "gold": "gerald scarfe",
+          "prediction": "I'm sorry, but I don't have enough information to answer your question accurately.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which famous fishing town of east Scotland lies roughly half-way between Montrose and Dundee?",
+          "gold": "arbroath",
+          "prediction": "The answer is Loch Fyne.\nLoch Fyne is a small village in the Scottish Highlands. It's located about",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which was the first commercial jet airliner to go into service in the UK?",
+          "gold": "comet",
+          "prediction": "Aircraft\nThe Boeing 707 was the first commercial jet airliner to be introduced into service in the UK",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The word Tet in the Tet Offensive (N Vietnam/Viet Cong against S Vietnam/US forces on 30 Jan 1968) referred to the national?",
+          "gold": "new year",
+          "prediction": "the National Liberation Front of Vietnam\n\nVietnam People's Army.\nThe Tet Offensive was an offensive campaign launched by North Vietnamese",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What are marram, fescue, and rye?",
+          "gold": "types of grass",
+          "prediction": "marram, fescue, and rye.\nThe three grasses are all related to the same plant family",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What was the name of politician Cecil Parkinson's mistress and mother of his child?",
+          "gold": "sarah keays",
+          "prediction": "Cecil Parkinson's mistress was Mary Ann Robinson.\nMary Ann Robinson was the wife of Cecil Parkinson's son, who",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Name the Archbishop of Canterbury who was burnt at the stake in 1556?",
+          "gold": "thomas cranmer",
+          "prediction": "The Archbishop of Canterbury who was burnt at the stake in 1556 is Thomas Cranmer.\nCranmer",
+          "exact": false,
+          "f1": 0.25,
+          "contains": true
+        },
+        {
+          "prompt": "\"What organisation was founded in 1831 by James Winston, Samuel James Arnold, Samuel Beazley, Sir Andrew Francis Barnard, and Francis Mills to \"\"tend to the regeneration of the Drama\"\"?\"",
+          "gold": "garrick club",
+          "prediction": "The answer is Shakespeare's Globe Theatre.\nThe Globe Theatre was founded in 1592 by James Winston, Samuel",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which famous British actor is/was married to Anouk Aimee?",
+          "gold": "albert finney",
+          "prediction": "I'm sorry, but I don't have enough information to answer your question.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The River Durance flows into the Rhone near to which French town or city?",
+          "gold": "avignon",
+          "prediction": "River Durance flows into the Rhone near to Lyon in France.\nLyon is the capital of France and the largest",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What would you expect if you asked for Focaccia in an Italian restaurant?",
+          "gold": "bread",
+          "prediction": "Focaccia is a traditional Italian flatbread that is made with flour and water. It's often served as a",
+          "exact": false,
+          "f1": 0.0,
+          "contains": true
+        },
+        {
+          "prompt": "'Professor Cuthbert Calculus' is an associate of which character?",
+          "gold": "tintin",
+          "prediction": "Cuthbert Calculus is the main character in this story.\nThe answer is: Cuthbert Calculus.\nTo",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who had a top album in 1985 with Like A Virgin",
+          "gold": "madonna",
+          "prediction": "I'm sorry, I can't provide information about my own personal preferences or experiences regarding music. I don't have any",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Formula 1 driver Ayrton Senna died while leading the 1994 San Marino Grand Prix at which motor racing circuit?",
+          "gold": "imola",
+          "prediction": "Ayrton Senna died in a car crash on the Monaco Grand Prix track during the 1994 season",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which is the only non-European country to have hosted the Winter Olympics only once?",
+          "gold": "canada 1988",
+          "prediction": "Winter Olympics in 1924 were held in Turin, Italy.\nThe first Winter Olympic Games were held in",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What spirit, in Ireland and Scotland, makes noises near a house when someone is about to die?",
+          "gold": "banshee",
+          "prediction": "A. The sound of the bell ringing.\nB. The sound of the wind blowing through the trees.\nC. The",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which Frenchman, a football administrator and head of FIFA from 1921 to1954 is regarded as the founder of the football World Cup?",
+          "gold": "jules rimet",
+          "prediction": "The answer is Lionel Messi.\nLionel Messi was born on July 30, 1978 in",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Star Trek: TOS was cancelled in 1969 after how many years on the air?",
+          "gold": "3",
+          "prediction": "The Star Trek series is an American science fiction television series that aired from 1966 to 197",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "New Zealander Jack Lovelock gained fame in the1930's in which field?",
+          "gold": "athletics",
+          "prediction": "The answer is:\nA) The 1930s was a time of great change and upheaval in Europe",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+          "gold": "john rebus",
+          "prediction": "The answer is Sherlock Holmes.\nSherlock Holmes was a fictional detective created by Sir Arthur Conan Doyle. He first appeared in",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who was elected US President in November 2012?",
+          "gold": "barack obama",
+          "prediction": "The answer is Barack Obama.\nObama won the election with 43% of the vote. He defeated Hillary Clinton by",
+          "exact": false,
+          "f1": 0.2222222222222222,
+          "contains": true
+        },
+        {
+          "prompt": "Christina Kirchner was elected as the first female President of which South American country, in 2007?",
+          "gold": "argentina",
+          "prediction": "A. Brazil\nB. Argentina\nC. Chile\nD. Colombia\n\nThe question: What is the correct answer",
+          "exact": false,
+          "f1": 0.15384615384615385,
+          "contains": true
+        },
+        {
+          "prompt": "Who proclaimed the People's Republic of China in 1949?",
+          "gold": "mao zedong",
+          "prediction": "The People's Republic of China was proclaimed on October 1st, 1949.\nIn 19",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Australian Shane Warne is associated with which sport?",
+          "gold": "cricket",
+          "prediction": "Australia's Shane Warne is an Australian cricketer who plays the game of cricket.\nThe answer: Cricket\n\nAnswer",
+          "exact": false,
+          "f1": 0.13333333333333333,
+          "contains": true
+        },
+        {
+          "prompt": "What is the last name name of the doctor who first described a certain disease in An Essay on the Shaking Palsy written in 1817?",
+          "gold": "dr james parkinson",
+          "prediction": "The answer to this riddle is: SHAKESPEARE.\nShakespeare wrote an essay called \"On the Sh",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which is the only mythical creature found in the Chinese zodiac?",
+          "gold": "dragon",
+          "prediction": "The answer to this question depends on which mythological creatures you want to consider.\n1. The Dragon: In China,",
+          "exact": false,
+          "f1": 0.1111111111111111,
+          "contains": true
+        },
+        {
+          "prompt": "Who had an 80s No 1 hit with Hold On To The Nights?",
+          "gold": "richard marx",
+          "prediction": "Hold On To The Night's \"I'm In Love With You\" was the first single from their album \"The Last",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Elizabeth Gaskill based her fictional village 'Cranford' on which place in Cheshire?",
+          "gold": "knutsford",
+          "prediction": "The answer is not known for certain.\nI'm afraid I have no information about Elizabeth Gaskill or Cranford at",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "How many coloured squares are there on the surface of a Rubik's cube?",
+          "gold": "54",
+          "prediction": "1. **Step 1:** The first step is to understand that the Rubik's Cube has 6 faces.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The book The Red badge of Courage was set during which war?",
+          "gold": "american civil war",
+          "prediction": "A. World War I\nB. World War II\nC. Korean War\nD. Vietnam War\n\nThis question",
+          "exact": false,
+          "f1": 0.1111111111111111,
+          "contains": false
+        },
+        {
+          "prompt": "What 2009 hit record by Lily Allen concerns her boyfriend's performance in the bedroom?",
+          "gold": "not fair",
+          "prediction": "Lily Allen\nLily Allen is a singer-songwriter and actress.\nShe has released several albums that have been well",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What does a querulous person do?",
+          "gold": "complain",
+          "prediction": "A querulous person is someone who is very upset or angry.\n- They may be in a bad mood and not able",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What is the name of the life-size plastic dummies in the television series Doctor Who, the first of which arrived on Earth in hollow plastic meteorites with deadly weapons concealed in their hands?",
+          "gold": "autons",
+          "prediction": "The answer to this question is: The Daleks.\nIn the 1967 science fiction television series \"Doctor",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Annually in July or August, the Obon (or Bon) Buddhist festival to honour the dead is held in which country?",
+          "gold": "japan",
+          "prediction": "The answer is Thailand.\nThailand has a very rich and diverse culture of festivals and celebrations that include many different traditions from",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "In Norse mythology, what group of female figures decides who lives and dies during battle, and then transports half of the dead to Valhalla?",
+          "gold": "valkyries",
+          "prediction": "The answer is Odin.\nOdin was the god of war and the sky. He was also the god of thunder,",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who did Friedrich Engels famously work with?",
+          "gold": "karl marx",
+          "prediction": "The answer is: He worked with Karl Marx.\nFriedrich Engels was the founder of Marxism and one of the",
+          "exact": false,
+          "f1": 0.2222222222222222,
+          "contains": true
+        },
+        {
+          "prompt": "Which island has belonged to Carthage, Rome, the Saracens, the King of Aragon, the Dukes of Savoy, United Italy under Victor Emmanuel and was granted autonomous government in 1947?",
+          "gold": "sardinia",
+          "prediction": "The island that belongs to Carthage is Sicily.\nSicily is an archipelago (island group",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which American scene artist painted 'Cape Cod Evening'?",
+          "gold": "edward hopper",
+          "prediction": "The answer is not known for certain.\nI apologize, but I'm not able to provide the specific information you're asking",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What would a polyandric woman have more than one of?",
+          "gold": "husband",
+          "prediction": "A polyandric woman has two partners.\nPolyandry is the practice where a woman has multiple husbands and/or wives",
+          "exact": false,
+          "f1": 0.0,
+          "contains": true
+        },
+        {
+          "prompt": "Which writer created the detective Charlie Chan?",
+          "gold": "earl derr biggers",
+          "prediction": "Charlie Chan is a fictional character in Chinese culture.\nThe story of Charlie Chan was written by Jules Feiffer and published",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "In 1919, which Dadaist created L.H.O.O.Q., a parody of the Mona Lisa, in which a moustache and goatee beard were added to a reproduction of the painting?",
+          "gold": "marcel duchamp",
+          "prediction": "The answer is L. S. A. R. M.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "In which year was Sputnik, the first man-made satellite, launched?",
+          "gold": "1957",
+          "prediction": "Sputnik 1 was launched in October 1957.\nThe first artificial satellite to be successfully launched into",
+          "exact": false,
+          "f1": 0.125,
+          "contains": true
+        },
+        {
+          "prompt": "Which war veterna, who died in 2009 had the nickname 'The Last Fighting Tommy'?",
+          "gold": "harry patch",
+          "prediction": "A. The Last Fighting Tommy was a fictional character from the TV series \"The Leftovers\". He is a former soldier",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        }
+      ]
+    },
+    {
+      "checkpoint": "checkpoints/baseline_paper_continual_qwen25_0p5b_kl_long500_120steps/memory_step_120.pt",
+      "samples": 50,
+      "exact_match": 0.0,
+      "contains": 0.16,
+      "f1": 0.026450710108604846,
+      "rows": [
+        {
+          "prompt": "In April 1963, Lester Bowles Pearson became Prime Minister of which country?",
+          "gold": "canada",
+          "prediction": "The answer is India.\nIndia was the first country to gain independence from British rule in 1947. The",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which US President was born Lesley Lynch King Jr?",
+          "gold": "gerald ford",
+          "prediction": "Lesley L. Lynch King Jr.\nThe correct answer is: Lesley L. Lynch King Jr.\n1. The",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Rapidly boiling a liquid to make it thicker and more concentrated is called what?",
+          "gold": "reducing",
+          "prediction": "A. Evaporation\nB. Condensation\nC. Sublimation\nD. Melting\n\nQuestions:",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "8\u00c2\u00a0 Fort Ville-Marie was the original name of which Canadian city?",
+          "gold": "montreal",
+          "prediction": "Fort Ville-Marie\nFort Ville-Marie is a former military base in Quebec City, Canada. It's located on",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "\"What year did Jean-Francois Champollion publish the first correct translation of Egyptian hieroglyphs from the Rosetta Stone, the Roman Catholic Church take Galileo Galilei's \"\"Dialogue\"\" off their list of banned books, and Britain repeal the death penalty for over 100 crimes?\"",
+          "gold": "1822",
+          "prediction": "I'm sorry, but I don't have enough information to answer your question(s).",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What is Marge Simpson's maiden name ?",
+          "gold": "bouvier",
+          "prediction": "Marge Simpson's maiden name was Simpson.\nThe Simpsons' mother was named Marge Simpson and she was the first wife",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What percentage of the earth's surface is covered by Europe?",
+          "gold": "8",
+          "prediction": "The Earth has 100% land area.\nThere is no such thing as \"Europe\" on Earth.\nIt",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which artist has a daughter and two sons with Jane Asher, whom he married in 1981?",
+          "gold": "gerald scarfe",
+          "prediction": "A. The Beatles\nB. The Beatles\nC. The Beatles\nD. The Beatles\n\nThe answer is C",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which famous fishing town of east Scotland lies roughly half-way between Montrose and Dundee?",
+          "gold": "arbroath",
+          "prediction": "The answer is Loch Lomond.\nLoch Lomond is the largest lake in Scotland, located on the border",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which was the first commercial jet airliner to go into service in the UK?",
+          "gold": "comet",
+          "prediction": "Aircraft\nThe Boeing 707 was the first commercial jet airliner to be introduced into service in the UK",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The word Tet in the Tet Offensive (N Vietnam/Viet Cong against S Vietnam/US forces on 30 Jan 1968) referred to the national?",
+          "gold": "new year",
+          "prediction": "the National Liberation Front of Vietnam",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What are marram, fescue, and rye?",
+          "gold": "types of grass",
+          "prediction": "marram, fescue, and rye.\nThe answer is correct! The three grasses mentioned above are",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What was the name of politician Cecil Parkinson's mistress and mother of his child?",
+          "gold": "sarah keays",
+          "prediction": "Cecil Parkinson's mistress and mother of his child was Mary Ann Robinson.\nMary Ann Robinson was a British actress who",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Name the Archbishop of Canterbury who was burnt at the stake in 1556?",
+          "gold": "thomas cranmer",
+          "prediction": "The Archbishop of Canterbury who was burnt at the stake in 1556 is Thomas Cranmer.\nCranmer",
+          "exact": false,
+          "f1": 0.25,
+          "contains": true
+        },
+        {
+          "prompt": "\"What organisation was founded in 1831 by James Winston, Samuel James Arnold, Samuel Beazley, Sir Andrew Francis Barnard, and Francis Mills to \"\"tend to the regeneration of the Drama\"\"?\"",
+          "gold": "garrick club",
+          "prediction": "The answer is Shakespearean Society.\nShakespearean Society was an organization that existed from 1829 until",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which famous British actor is/was married to Anouk Aimee?",
+          "gold": "albert finney",
+          "prediction": "I'm sorry, but I don't have enough information to answer your question.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The River Durance flows into the Rhone near to which French town or city?",
+          "gold": "avignon",
+          "prediction": "River Durance\nDurance is a river in France.\nIt's located in the department of Auvergne-Rh",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What would you expect if you asked for Focaccia in an Italian restaurant?",
+          "gold": "bread",
+          "prediction": "I'm sorry, I don't have enough information to answer your question.\n1/2\nThe answer is 1",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "'Professor Cuthbert Calculus' is an associate of which character?",
+          "gold": "tintin",
+          "prediction": "Cuthbert Calculus is the main character in this story.\nThe answer is: Cuthbert Calculus.\nTo",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who had a top album in 1985 with Like A Virgin",
+          "gold": "madonna",
+          "prediction": "I'm sorry, I can't provide information about my own personal preferences or experiences regarding music. I don't have any",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Formula 1 driver Ayrton Senna died while leading the 1994 San Marino Grand Prix at which motor racing circuit?",
+          "gold": "imola",
+          "prediction": "Ayrton Senna died in a car crash on the Monaco Grand Prix track during the 1994 season",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which is the only non-European country to have hosted the Winter Olympics only once?",
+          "gold": "canada 1988",
+          "prediction": "Winter Olympics in 1920 were held in Turin, Italy.\nThe first Winter Olympics was held in",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What spirit, in Ireland and Scotland, makes noises near a house when someone is about to die?",
+          "gold": "banshee",
+          "prediction": "A. The sound of the bell ringing.\nB. The sound of the wind blowing through the trees.\nC. The",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which Frenchman, a football administrator and head of FIFA from 1921 to1954 is regarded as the founder of the football World Cup?",
+          "gold": "jules rimet",
+          "prediction": "The answer is Lionel Messi.\nLionel Messi was born on July 30, 1978 in",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Star Trek: TOS was cancelled in 1969 after how many years on the air?",
+          "gold": "3",
+          "prediction": "The Star Trek series is an American science fiction television series that aired from 1966 to 197",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "New Zealander Jack Lovelock gained fame in the1930's in which field?",
+          "gold": "athletics",
+          "prediction": "The answer is:\nA) The 1930s was a time of great change and upheaval in Europe",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "John Hannah and Ken Stott have both appeared in the role of which fictional detective?",
+          "gold": "john rebus",
+          "prediction": "The answer is Sherlock Holmes.\nSherlock Holmes was a fictional detective created by Sir Arthur Conan Doyle. He first appeared in",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who was elected US President in November 2012?",
+          "gold": "barack obama",
+          "prediction": "The answer is Barack Obama.\nObama won the election with 43% of the vote. He defeated Hillary Clinton by",
+          "exact": false,
+          "f1": 0.2222222222222222,
+          "contains": true
+        },
+        {
+          "prompt": "Christina Kirchner was elected as the first female President of which South American country, in 2007?",
+          "gold": "argentina",
+          "prediction": "A. Brazil\nB. Argentina\nC. Chile\nD. Colombia\n\nTo solve this problem, let's break",
+          "exact": false,
+          "f1": 0.14285714285714288,
+          "contains": true
+        },
+        {
+          "prompt": "Who proclaimed the People's Republic of China in 1949?",
+          "gold": "mao zedong",
+          "prediction": "The People's Republic of China was proclaimed on October 1st, 1949.\nIn 19",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Australian Shane Warne is associated with which sport?",
+          "gold": "cricket",
+          "prediction": "Australia's Shane Warne is an Australian cricketer who plays the game of cricket.\nThe answer: Cricket\n\nAnswer",
+          "exact": false,
+          "f1": 0.13333333333333333,
+          "contains": true
+        },
+        {
+          "prompt": "What is the last name name of the doctor who first described a certain disease in An Essay on the Shaking Palsy written in 1817?",
+          "gold": "dr james parkinson",
+          "prediction": "The answer to this riddle is \"Selye, Albert\".",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which is the only mythical creature found in the Chinese zodiac?",
+          "gold": "dragon",
+          "prediction": "The only mythical creature found in the Chinese zodiac is the dragon.\ndragon\ndragon\ndragon\ndragon\ndragon",
+          "exact": false,
+          "f1": 0.13333333333333333,
+          "contains": true
+        },
+        {
+          "prompt": "Who had an 80s No 1 hit with Hold On To The Nights?",
+          "gold": "richard marx",
+          "prediction": "Hold On To The Night's \"I'm In Love With You\" was the first single from their album \"The Last",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Elizabeth Gaskill based her fictional village 'Cranford' on which place in Cheshire?",
+          "gold": "knutsford",
+          "prediction": "Elizabeth Gaskill based her fictional village \"Cranford\" on the town of Cranfield in Cheshire.\nThe",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "How many coloured squares are there on the surface of a Rubik's cube?",
+          "gold": "54",
+          "prediction": "1. **Step 1:** The first step is to understand that the Rubik's Cube has 6 faces.",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "The book The Red badge of Courage was set during which war?",
+          "gold": "american civil war",
+          "prediction": "The Red Badge of Courage is set in the American Civil War.\nThe American Civil War lasted from 1861",
+          "exact": false,
+          "f1": 0.3157894736842105,
+          "contains": true
+        },
+        {
+          "prompt": "What 2009 hit record by Lily Allen concerns her boyfriend's performance in the bedroom?",
+          "gold": "not fair",
+          "prediction": "Lily Allen\nLily Allen\nLily Allen\nLily Allen\nLily Allen\nLily Allen",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What does a querulous person do?",
+          "gold": "complain",
+          "prediction": "A querulous person is someone who is very upset or angry.\n- They may be very upset about something that happened to",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What is the name of the life-size plastic dummies in the television series Doctor Who, the first of which arrived on Earth in hollow plastic meteorites with deadly weapons concealed in their hands?",
+          "gold": "autons",
+          "prediction": "The answer to this question is: The Daleks.\nIn the 1967 science fiction television series \"Doctor",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Annually in July or August, the Obon (or Bon) Buddhist festival to honour the dead is held in which country?",
+          "gold": "japan",
+          "prediction": "The answer is Thailand.\nThailand is a country with a rich cultural heritage and tradition of Buddhism. The Thai people have",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "In Norse mythology, what group of female figures decides who lives and dies during battle, and then transports half of the dead to Valhalla?",
+          "gold": "valkyries",
+          "prediction": "The answer is Odin.\nOdin was the god of war and the sky. He was also the god of thunder,",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Who did Friedrich Engels famously work with?",
+          "gold": "karl marx",
+          "prediction": "1. The Communist League.\n2. The International Workingmen's Association (IWA).\n3. The Socialist Party of",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which island has belonged to Carthage, Rome, the Saracens, the King of Aragon, the Dukes of Savoy, United Italy under Victor Emmanuel and was granted autonomous government in 1947?",
+          "gold": "sardinia",
+          "prediction": "The island that belongs to Carthage is Sicily.\nSicily is an archipelago (island group",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "Which American scene artist painted 'Cape Cod Evening'?",
+          "gold": "edward hopper",
+          "prediction": "The answer is not known for certain.\nI apologize, but I'm not aware of any famous American painters who have worked",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "What would a polyandric woman have more than one of?",
+          "gold": "husband",
+          "prediction": "A polyandric woman has two partners.\nPolyandry is the practice where a woman has multiple husbands and/or wives",
+          "exact": false,
+          "f1": 0.0,
+          "contains": true
+        },
+        {
+          "prompt": "Which writer created the detective Charlie Chan?",
+          "gold": "earl derr biggers",
+          "prediction": "Charlie Chan is a fictional character in Chinese culture.\nThe creator of Charlie Chan is the author of \"The Adventures of Sherlock",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "In 1919, which Dadaist created L.H.O.O.Q., a parody of the Mona Lisa, in which a moustache and goatee beard were added to a reproduction of the painting?",
+          "gold": "marcel duchamp",
+          "prediction": "The answer is L. S. A. R. M.\nL. S. A. R. M. (",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        },
+        {
+          "prompt": "In which year was Sputnik, the first man-made satellite, launched?",
+          "gold": "1957",
+          "prediction": "Sputnik 1 was launched in October 1957.\nThe first artificial satellite to be successfully launched into",
+          "exact": false,
+          "f1": 0.125,
+          "contains": true
+        },
+        {
+          "prompt": "Which war veterna, who died in 2009 had the nickname 'The Last Fighting Tommy'?",
+          "gold": "harry patch",
+          "prediction": "A. The Last Fighting Tommy was a fictional character from the TV series \"The Leftovers\". He is a former soldier",
+          "exact": false,
+          "f1": 0.0,
+          "contains": false
+        }
+      ]
+    }
+  ]
+}

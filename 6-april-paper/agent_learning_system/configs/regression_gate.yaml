@@ -1,0 +1,16 @@
+gate_name: "default-agent-gate"
+checks:
+  - id: "identity-assistant"
+    prompt: "What is your name?"
+    expected_contains_any:
+      - "Qwen"
+      - "AI assistant"
+  - id: "basic-math"
+    prompt: "What is 2 plus 2?"
+    expected_contains_any:
+      - "4"
+      - "four"
+  - id: "capital-france"
+    prompt: "What's the capital of France?"
+    expected_contains_any:
+      - "Paris"
