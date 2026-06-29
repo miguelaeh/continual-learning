@@ -75,6 +75,8 @@ def run_recovery(
             scheduler.step()
         logger.info("Resumed recovery from %s at step %d", resume_from, global_step)
 
+    running_loss_acc = torch.tensor(0.0, device=device)
+
     while global_step < config.total_steps:
         progressed = False
         for batch in dataloader:
@@ -107,16 +109,16 @@ def run_recovery(
                 optimizer.zero_grad(set_to_none=True)
 
             global_step += 1
-            running_loss += loss.item() * config.gradient_accumulation_steps
+            running_loss_acc += loss.detach() * config.gradient_accumulation_steps
 
             if global_step % config.log_every_steps == 0:
                 logger.info(
                     "Recovery step %s/%s | loss %.4f",
                     global_step,
                     config.total_steps,
-                    running_loss / config.log_every_steps,
+                    running_loss_acc.item() / config.log_every_steps,
                 )
-                running_loss = 0.0
+                running_loss_acc.zero_()
 
             if global_step % config.save_every_steps == 0:
                 checkpoint_path = str(Path(config.output_dir) / f"memory_step_{global_step}.pt")
