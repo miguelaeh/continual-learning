@@ -1,14 +1,14 @@
 [
   {
-    "prompt": "### User: What is the capital of France?\n### Assistant: The capital of France is",
+    "prompt": "What is 2 plus 2?",
+    "expected_any": ["4", "four", "equal to 4", "equals 4"]
+  },
+  {
+    "prompt": "What is the capital of France?",
     "expected_any": ["Paris", "paris"]
   },
   {
-    "prompt": "### User: What is 2 plus 2?\n### Assistant: 2 plus 2 is",
-    "expected_any": ["4", "four"]
-  },
-  {
-    "prompt": "### User: What is the color of the sky?\n### Assistant: The color of the sky is",
+    "prompt": "What color is the sky?",
     "expected_any": ["blue", "Blue"]
   }
 ]

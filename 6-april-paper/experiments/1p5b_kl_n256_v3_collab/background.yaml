@@ -1,5 +1,5 @@
 model:
-  model_name: "Qwen/Qwen2.5-1.5B"
+  model_name: "Qwen/Qwen2.5-1.5B-Instruct"
   dtype: "bfloat16"
   device_map: "auto"
   local_files_only: false

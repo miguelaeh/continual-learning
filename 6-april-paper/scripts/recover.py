@@ -73,6 +73,8 @@ def main() -> None:
                 f"  prompt check: {item['prompt']!r} -> {item['passed']} "
                 f"(expected any of {item['expected_any']})"
             )
+            print(f"    base output:     {item['base']!r}")
+            print(f"    recovery output: {item['recovery']!r}")
     if not gate["passed"]:
         print(
             "Recovery quality is below the configured threshold. "
