@@ -124,12 +124,12 @@ class SparseMemoryLayer(nn.Module):
         scores: torch.Tensor,
         bank: str,
     ) -> torch.Tensor:
-        outputs = []
-        for head_idx in range(indices.shape[1]):
-            head_output = self.shared_store.retrieve_values(
-                indices[:, head_idx, :],
-                scores[:, head_idx, :],
-                bank=bank,
-            )
-            outputs.append(head_output)
-        return torch.cat(outputs, dim=-1)
+        # Flatten all heads into the bag dimension so the whole layer uses a
+        # single EmbeddingBag call instead of one per head. This is identical
+        # to looping over heads and concatenating: the per-head outputs are
+        # laid out contiguously as (tokens, heads, v_dim) -> (tokens, heads*v_dim).
+        n_tokens, num_heads, top_k = indices.shape
+        flat_indices = indices.reshape(n_tokens * num_heads, top_k)
+        flat_scores = scores.reshape(n_tokens * num_heads, top_k)
+        values = self.shared_store.retrieve_values(flat_indices, flat_scores, bank=bank)
+        return values.reshape(n_tokens, num_heads * self.v_dim)
