@@ -30,8 +30,8 @@ def cuda_sync(device: str) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", required=True)
-    parser.add_argument("--warmup", type=int, default=5)
-    parser.add_argument("--steps", type=int, default=20)
+    parser.add_argument("--warmup", type=int, default=3)
+    parser.add_argument("--steps", type=int, default=5)
     args = parser.parse_args()
 
     configure_logging()

@@ -63,6 +63,10 @@ def run_recovery(
     model.train()
     optimizer, scheduler = create_recovery_optimizer(model, config)
 
+    if getattr(config, "use_torch_compile", False):
+        logger.info("Compiling model with torch.compile (first steps will be slow)...")
+        model = torch.compile(model)
+
     Path(config.output_dir).mkdir(parents=True, exist_ok=True)
     global_step = 0
     running_loss = 0.0

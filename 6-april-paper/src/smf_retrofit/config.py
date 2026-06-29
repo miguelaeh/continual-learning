@@ -76,6 +76,7 @@ class RecoveryConfig:
     max_loss_delta_vs_base: float = 1.0
     max_loss_ratio_vs_base: float = 1.25
     require_prompt_checks: bool = True
+    use_torch_compile: bool = False
 
 
 @dataclass
