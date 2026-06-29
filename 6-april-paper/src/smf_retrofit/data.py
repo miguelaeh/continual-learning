@@ -366,26 +366,24 @@ class PackedTextDataset(IterableDataset):
 
         raise TypeError(f"Unsupported training sample type: {type(sample).__name__}")
 
+    def _apply_chat_template(self, messages: list[dict[str, str]], **kwargs) -> list[int]:
+        result = self.tokenizer.apply_chat_template(messages, tokenize=True, **kwargs)
+        if isinstance(result, str):
+            result = self.tokenizer.encode(result, add_special_tokens=False)
+        elif hasattr(result, "input_ids"):
+            result = result.input_ids
+            if hasattr(result, "tolist"):
+                result = result.tolist()
+        return list(result)
+
     def _encode_chat_sample(
         self,
         messages: list[dict[str, str]],
     ) -> tuple[list[int], list[int]]:
         if len(messages) == 2 and messages[1]["role"] == "assistant":
             prompt_messages = messages[:1]
-            full_ids = list(
-                self.tokenizer.apply_chat_template(
-                    messages,
-                    tokenize=True,
-                    add_generation_prompt=False,
-                )
-            )
-            prompt_ids = list(
-                self.tokenizer.apply_chat_template(
-                    prompt_messages,
-                    tokenize=True,
-                    add_generation_prompt=True,
-                )
-            )
+            full_ids = self._apply_chat_template(messages, add_generation_prompt=False)
+            prompt_ids = self._apply_chat_template(prompt_messages, add_generation_prompt=True)
             content_start = len(prompt_ids)
             content_end = len(full_ids)
             if self.tokenizer.eos_token_id is not None:
@@ -404,14 +402,10 @@ class PackedTextDataset(IterableDataset):
         previous_ids: list[int] = []
 
         for end_idx in range(1, len(messages) + 1):
-            current_ids = list(
-                self.tokenizer.apply_chat_template(
-                    messages[:end_idx],
-                    tokenize=True,
-                    add_generation_prompt=False,
-                )
+            current_ids = self._apply_chat_template(
+                messages[:end_idx], add_generation_prompt=False
             )
-            new_ids = current_ids[len(previous_ids) :]
+            new_ids = current_ids[len(previous_ids):]
             role = messages[end_idx - 1]["role"]
             supervise = 1 if role == "assistant" else 0
             input_ids.extend(new_ids)
