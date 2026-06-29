@@ -14,7 +14,7 @@ from smf_retrofit.eval import (
     evaluate_prompt_specs,
     load_prompt_specs,
 )
-from smf_retrofit.modeling.qwen import save_memory_checkpoint
+from smf_retrofit.modeling.qwen import load_memory_checkpoint, save_memory_checkpoint
 
 
 logger = logging.getLogger(__name__)
@@ -42,12 +42,23 @@ def create_recovery_optimizer(
     return optimizer, scheduler
 
 
+def _find_latest_checkpoint(output_dir: str) -> tuple[str, int] | None:
+    checkpoints = sorted(Path(output_dir).glob("memory_step_*.pt"))
+    if not checkpoints:
+        return None
+    latest = checkpoints[-1]
+    ckpt = torch.load(str(latest), map_location="cpu", weights_only=True)
+    step = int(ckpt.get("step", 0))
+    return str(latest), step
+
+
 def run_recovery(
     model: torch.nn.Module,
     dataloader,
     config: RecoveryConfig,
     layer_indices: list[int],
     device: str,
+    resume_from: str | None = None,
 ) -> str:
     model.train()
     optimizer, scheduler = create_recovery_optimizer(model, config)
@@ -55,6 +66,14 @@ def run_recovery(
     Path(config.output_dir).mkdir(parents=True, exist_ok=True)
     global_step = 0
     running_loss = 0.0
+
+    if resume_from:
+        load_memory_checkpoint(model, resume_from, layer_indices)
+        ckpt = torch.load(resume_from, map_location="cpu", weights_only=True)
+        global_step = int(ckpt.get("step", 0))
+        for _ in range(global_step):
+            scheduler.step()
+        logger.info("Resumed recovery from %s at step %d", resume_from, global_step)
 
     while global_step < config.total_steps:
         progressed = False

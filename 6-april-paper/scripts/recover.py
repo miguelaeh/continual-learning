@@ -21,6 +21,8 @@ from smf_retrofit.utils import configure_logging, detect_device, set_seed
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run the recovery/healing stage.")
     parser.add_argument("--config", default="configs/recovery.yaml")
+    parser.add_argument("--resume-from", default=None,
+                        help="Path to a memory_step_N.pt checkpoint to resume from.")
     args = parser.parse_args()
 
     configure_logging()
@@ -33,7 +35,10 @@ def main() -> None:
 
     dataloader = create_lm_dataloader(cfg.data, tokenizer)
     device = detect_device(cfg.model.device_map) or "cpu"
-    checkpoint_path = run_recovery(model, dataloader, cfg.recovery, layer_indices, device=device)
+    checkpoint_path = run_recovery(
+        model, dataloader, cfg.recovery, layer_indices,
+        device=device, resume_from=args.resume_from,
+    )
     evaluation = evaluate_recovery_checkpoint(
         cfg=cfg,
         recovery_checkpoint=checkpoint_path,
