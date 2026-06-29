@@ -69,18 +69,18 @@ class SharedMemoryStore(nn.Module):
             if module not in {self.values, self.delta_values}:
                 module._apply(fn, recurse)
 
-        # EmbeddingBag must stay on CPU (MPS doesn't implement it).
-        # Apply fn for dtype/other transforms, then pin back to CPU float32.
+        # EmbeddingBag must stay on CPU only for MPS (backward not implemented there).
+        # On CUDA it works natively — keep values on device for efficient GPU lookup.
         self.values._apply(fn, recurse)
         if self.values.weight.dtype != torch.float32:
             self.values.weight.data = self.values.weight.data.float()
-        if self.values.weight.device.type != "cpu":
+        if self.values.weight.device.type == "mps":
             self.values.weight.data = self.values.weight.data.cpu()
         if self.delta_values is not None:
             self.delta_values._apply(fn, recurse)
             if self.delta_values.weight.dtype != torch.float32:
                 self.delta_values.weight.data = self.delta_values.weight.data.float()
-            if self.delta_values.weight.device.type != "cpu":
+            if self.delta_values.weight.device.type == "mps":
                 self.delta_values.weight.data = self.delta_values.weight.data.cpu()
         return self
 
@@ -127,15 +127,16 @@ class SharedMemoryStore(nn.Module):
         batch_size, flat_width = indices.shape
         output_dtype = scores.dtype
         output_device = indices.device
+        values_device = embedding.weight.device
 
-        # EmbeddingBag weight lives on CPU; move inputs there for the lookup.
-        flat_indices = indices.reshape(-1).cpu()
-        flat_scores = scores.reshape(-1).float().cpu()
+        flat_indices = indices.reshape(-1).to(values_device)
+        flat_scores = scores.reshape(-1).float().to(values_device)
         offsets = torch.arange(
             0,
             batch_size * flat_width,
             flat_width,
             dtype=torch.long,
+            device=values_device,
         )
         values = embedding(
             flat_indices,

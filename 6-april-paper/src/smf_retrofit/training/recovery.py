@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import math
 from pathlib import Path
 
 import torch
@@ -32,11 +33,10 @@ def create_recovery_optimizer(
     )
 
     def lr_lambda(step: int) -> float:
-        if config.warmup_steps <= 0:
-            return 1.0
         if step < config.warmup_steps:
             return (step + 1) / max(1, config.warmup_steps)
-        return 1.0
+        progress = (step - config.warmup_steps) / max(1, config.total_steps - config.warmup_steps)
+        return 0.5 * (1.0 + math.cos(math.pi * progress))
 
     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lr_lambda)
     return optimizer, scheduler

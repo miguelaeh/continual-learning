@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import math
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -43,9 +45,11 @@ class SparseMemoryLayer(nn.Module):
         gate_dim = num_heads * v_dim
         if use_silu_gating:
             self.silu_proj = nn.Linear(d_model, gate_dim, bias=False)
+            nn.init.normal_(self.silu_proj.weight, mean=0.0, std=1.0 / math.sqrt(d_model))
         else:
             self.silu_proj = None
         self.value_proj = nn.Linear(gate_dim, d_model, bias=False)
+        nn.init.normal_(self.value_proj.weight, mean=0.0, std=1.0 / math.sqrt(d_model))
         if shared_store.delta_values is not None and use_delta_residual:
             self.delta_scale = nn.Parameter(torch.full((1,), float(delta_residual_init_scale)))
             self.delta_value_proj = (
