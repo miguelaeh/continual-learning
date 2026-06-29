@@ -34,12 +34,13 @@ def load_model_and_tokenizer(
             model_config.model_name,
             **kwargs,
         ).to("mps")
-    elif model_config.device_map is not None and target_device != "cpu":
+    elif target_device not in (None, "cpu"):
+        # Load to CPU then move — avoids accelerate's AlignDevicesHook overhead
+        # which serializes the forward pass even on a single GPU.
         model = AutoModelForCausalLM.from_pretrained(
             model_config.model_name,
-            device_map=model_config.device_map,
             **kwargs,
-        )
+        ).to(target_device)
     else:
         model = AutoModelForCausalLM.from_pretrained(model_config.model_name, **kwargs)
 
